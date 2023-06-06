@@ -21,8 +21,6 @@ const StartPage = () => {
         navigateToProfile(`/name/${query}`)
     };
 
-
-
     return(
 
         <div className="App">

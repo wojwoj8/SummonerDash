@@ -3,31 +3,43 @@ import { useParams } from "react-router-dom";
 
 const Profile = () =>{
     
-    const [data, setData] = useState([{}])
+    const [data, setData] = useState({});
 
-    const {name} = useParams()
-    // console.log(name)
+    const query = useParams();
+    // console.log(query)
 
     useEffect(() =>{
-        fetchData()
+        fetchData();
     }, [])
 
     const fetchData = async () =>{
-        fetch(`/name/${name}`).then(
+        fetch(`/name/${query.name}`).then(
             res => res.json()
           ).then(
             data =>{
-                setData(data)
-                // console.log(data)
+                
+                setData(data[0])
+                console.log(data[0])
+                console.log(data[1])
             }
           )
     }
+
+    const { id, accountId, puuid, name, profileIconId, revisionDate, summonerLevel } = data;
     return(
         <div>
             {(typeof data.name === 'undefined')?(
                 <p>loading...</p>
                 ):(
-                <p>{data.name}</p>
+                <div>
+                    <p>ID: {id}</p>
+                    <p>Account ID: {accountId}</p>
+                    <p>Puuid: {puuid}</p>
+                    <p>Name: {name}</p>
+                    <p>Profile Icon ID: {profileIconId}</p>
+                    <p>Revision Date: {revisionDate}</p>
+                    <p>Summoner Level: {summonerLevel}</p>
+                </div>
                 )
             }
         </div>
