@@ -1,22 +1,10 @@
 import {React, useState, useEffect } from 'react';  
-import { BrowserRouter, Routes, Route, Navigate, HashRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, redirect, HashRouter} from "react-router-dom";
 import Profile from './components/Profile';
 import StartPage from './components/StartPage';
 
 function App() {
-  const [data, setData] = useState([{}])
-
-  useEffect(() =>{
-    fetch("/name/data").then(
-      res => res.json()
-    ).then(
-      data =>{
-        setData(data)
-        console.log(data)
-      }
-    )
-  }, [])
-
+  
   return (
     
       {/* have to check if data loaded */},
@@ -29,8 +17,14 @@ function App() {
       } */},
     <BrowserRouter>
         <Routes>
-          <Route path="/" element={<StartPage></StartPage>}></Route>
-          <Route path="name/:name" element={<Profile></Profile>}></Route>
+          <Route path="/" element={<StartPage
+          // data={data}
+          // setData={setData}
+          ></StartPage>}></Route>
+          <Route path="name/:name" element={<Profile
+          // data={data}
+
+          ></Profile>}></Route>
         </Routes>
     </BrowserRouter>
       
