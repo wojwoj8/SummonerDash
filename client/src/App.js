@@ -2,6 +2,8 @@ import {React, useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate, redirect, HashRouter} from "react-router-dom";
 import Profile from './components/Profile';
 import StartPage from './components/StartPage';
+import Navbar from './components/Navbar';
+import './App.scss';
 
 function App() {
   
@@ -16,6 +18,7 @@ function App() {
         )
       } */},
     <BrowserRouter>
+        <Navbar></Navbar>
         <Routes>
           <Route path="/" element={<StartPage
           // data={data}
