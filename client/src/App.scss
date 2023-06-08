@@ -32,3 +32,14 @@ html, body{
 .profile-top{
     display: flex;
 }
+
+.profile-solo{
+    display: flex;
+    flex-direction: column;
+    background-color: antiquewhite;
+}
+.profile-flex{
+    display: flex;
+    flex-direction: column;
+    background-color: aqua;
+}
