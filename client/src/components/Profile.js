@@ -81,7 +81,8 @@ const Profile = () =>{
                                     <p>Wins: {wins}</p>
                                     <p>Losses: {losses}</p>
                                     <p>Winrate: {winrate}%</p>
-                                    <p>Rank: {queueType} {tier} {rank}</p>    
+                                    <p>Rank: {queueType} {tier} {rank}</p>   
+                                    <p>LP: {leaguePoints}</p> 
                                 </div>
                                 )}
                                 {(typeof flex === 'undefined' || typeof flex.tier === 'undefined')?(
@@ -93,7 +94,8 @@ const Profile = () =>{
                                     <p>Wins: {flex.wins}</p>
                                     <p>Losses: {flex.losses}</p>
                                     <p>Winrate: {flex.winrate}%</p>
-                                    <p>Rank: {flex.queueType} {flex.tier} {flex.rank}</p>    
+                                    <p>Rank: {flex.queueType} {flex.tier} {flex.rank}</p>
+                                    <p>LP: {flex.leaguePoints}</p>     
                                 </div>
                                 )}
                                
