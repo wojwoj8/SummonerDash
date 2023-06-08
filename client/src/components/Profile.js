@@ -17,7 +17,8 @@ const Profile = () =>{
     }, [])
 
     const fetchData = async () =>{
-        fetch(`/name/${query.name}`).then(
+        // console.log(query)
+        fetch(`/data/${query.name}`).then(
             res => res.json()
           ).then(
             data =>{
@@ -65,19 +66,25 @@ const Profile = () =>{
             
             {(typeof data.name === 'undefined')?(
                 <p>loading...</p>
+                
                 ):(
                 <div className="profile">
                     <div className="profile-top">
-                        <img src={iconImg} alt="summoner"></img>
+                    <img src={iconImg} alt="summoner"></img>
                             <div className="profile-top-data">
+                                
                                 <p>Name: {name}</p>
                                 <p>Summoner Level: {summonerLevel}</p>
+                            </div>
+                            </div>
                                 {(typeof tier === 'undefined')?(
                                     <div className="profile-solo">
+                                        <h2> Ranked Solo</h2>
                                         <p>unranked</p>
                                     </div>
                                 ):(
                                 <div className="profile-solo">
+                                    <h2> Ranked Solo</h2>
                                     <p>Wins: {wins}</p>
                                     <p>Losses: {losses}</p>
                                     <p>Winrate: {winrate}%</p>
@@ -87,10 +94,12 @@ const Profile = () =>{
                                 )}
                                 {(typeof flex === 'undefined' || typeof flex.tier === 'undefined')?(
                                     <div className="profile-flex">
+                                        <h2> Ranked Flex</h2>
                                         <p>unranked</p>
                                     </div>
                                 ):(
                                 <div className="profile-flex">
+                                    <h2> Ranked Flex</h2>
                                     <p>Wins: {flex.wins}</p>
                                     <p>Losses: {flex.losses}</p>
                                     <p>Winrate: {flex.winrate}%</p>
@@ -100,8 +109,8 @@ const Profile = () =>{
                                 )}
                                
                                 
-                            </div>
-                    </div>
+                            
+                    
                     
                     {/* <p>ID: {id}</p>
                     <p>Account ID: {accountId}</p>

@@ -1,20 +1,25 @@
-from flask import Flask
+from flask import Flask, render_template, send_from_directory
 from flask_cors import CORS, cross_origin
+import os
 import sqlite3
 import requests
 import json
 import math
 import pprint
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="../client/public", static_url_path="")
 CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
 api_key = "RGAPI-1c88a664-1f0d-4b9f-ab83-ab2e813f65a8"
 
-# @app.route("/", methods=["GET","POST"])
-# @cross_origin()
-# def index():
-#     return
+
+@app.route("/", defaults={"path": ""})
+@app.route("/<path:path>")
+def serve(path):
+    if path != "" and os.path.exists(app.static_folder + "/" + path):
+        return send_from_directory(app.static_folder, path)
+    else:
+        return send_from_directory(app.static_folder, "index.html")
 
 
 def mapAssetsPath(path):
@@ -88,7 +93,8 @@ def fetchIcon(arr):
     arr[0].update(iconImg)
 
 
-@app.route("/name/<name>", methods=["GET", "POST"])
+# REMEMBER TO MAKING DIFFERENT ENDPOINT URL FOR FETCH AND RENDER
+@app.route("/data/<name>", methods=["GET", "POST"])
 @cross_origin()
 def profile(name):
     data = []

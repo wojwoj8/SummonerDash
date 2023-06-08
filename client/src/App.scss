@@ -26,11 +26,20 @@ html, body{
 // PROFILE
 
 .profile{
-
+    display: flex;
+    flex-direction: column;
+    img{
+        width: 10rem;
+        height: 10rem;
+    }
 }
 
 .profile-top{
     display: flex;
+}
+.profile-top-data{
+    display: flex;
+    flex-direction: column;
 }
 
 .profile-solo{
