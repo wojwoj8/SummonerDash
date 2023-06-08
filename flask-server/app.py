@@ -111,9 +111,10 @@ def profile(name):
     # for i in range(len(data)):
     #     print(f"\nData[{i}]: {data[i]}\n")
     pp = pprint.PrettyPrinter(indent=4)
-    pp.pprint(data[0])
+    pp.pprint(data)
+    # pp.pprint(data[0])
     print("")
-    pp.pprint(data[1])
+    # pp.pprint(data[1])
     # print(f"\n{data}\n")
     # print(f"\n{combinedData}\n")
     return data

@@ -3,6 +3,17 @@
 exports[`Start page Start page renders 1`] = `
 <div>
   <div
+    class="navbar"
+  >
+    <a
+      href="/"
+    >
+      <p>
+        Home
+      </p>
+    </a>
+  </div>
+  <div
     class="App"
   >
     <h1>
