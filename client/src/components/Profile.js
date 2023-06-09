@@ -1,5 +1,6 @@
 import {React, useState, useEffect} from "react";
 import { useParams } from "react-router-dom";
+import ProfileData from "./ProfileData";
 
 const Profile = () =>{
 
@@ -54,75 +55,18 @@ const Profile = () =>{
             </div>
         )
     }
-    const { id, accountId, puuid, name, profileIconId, revisionDate, summonerLevel, iconImg} = data;
-    const {leagueId, queueType, tier, rank, summonerId, summonerName, leaguePoints, wins, 
-        losses, veteran, inactive, freshBlood, hotStreak, winrate } = solo
 
-    // const {leagueId, queueType, tier, rank, summonerId, summonerName, leaguePoints, wins, 
-    //     losses, veteran, inactive, freshBlood, hotStreak, winrate } = flex
-    // console.log(data[0])
     return(
         <div>
             
-            {(typeof data.name === 'undefined')?(
-                <p>loading...</p>
-                
-                ):(
-                <div className="profile">
-                    <div className="profile-top">
-                    <img src={iconImg} alt="summoner"></img>
-                            <div className="profile-top-data">
-                                
-                                <p>Name: {name}</p>
-                                <p>Summoner Level: {summonerLevel}</p>
-                            </div>
-                            </div>
-                                {(typeof tier === 'undefined')?(
-                                    <div className="profile-solo">
-                                        <h2> Ranked Solo</h2>
-                                        <p>unranked</p>
-                                    </div>
-                                ):(
-                                <div className="profile-solo">
-                                    <h2> Ranked Solo</h2>
-                                    <p>Wins: {wins}</p>
-                                    <p>Losses: {losses}</p>
-                                    <p>Winrate: {winrate}%</p>
-                                    <p>Rank: {queueType} {tier} {rank}</p>   
-                                    <p>LP: {leaguePoints}</p> 
-                                </div>
-                                )}
-                                {(typeof flex === 'undefined' || typeof flex.tier === 'undefined')?(
-                                    <div className="profile-flex">
-                                        <h2> Ranked Flex</h2>
-                                        <p>unranked</p>
-                                    </div>
-                                ):(
-                                <div className="profile-flex">
-                                    <h2> Ranked Flex</h2>
-                                    <p>Wins: {flex.wins}</p>
-                                    <p>Losses: {flex.losses}</p>
-                                    <p>Winrate: {flex.winrate}%</p>
-                                    <p>Rank: {flex.queueType} {flex.tier} {flex.rank}</p>
-                                    <p>LP: {flex.leaguePoints}</p>     
-                                </div>
-                                )}
-                               
-                                
-                            
-                    
-                    
-                    {/* <p>ID: {id}</p>
-                    <p>Account ID: {accountId}</p>
-                    <p>Puuid: {puuid}</p>
-                    
-                    <p>Profile Icon ID: {profileIconId}</p>
-                    <p>Revision Date: {revisionDate}</p> */}
-                    
-                    
-                </div>
-                )
-            }
+            <ProfileData
+                data={data}
+                solo={solo}
+                flex={flex}
+                err={err}
+            />
+
+            
         </div>
     )
 }

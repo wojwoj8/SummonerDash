@@ -10,7 +10,7 @@ import pprint
 app = Flask(__name__, static_folder="../client/public", static_url_path="")
 CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
-api_key = "RGAPI-1c88a664-1f0d-4b9f-ab83-ab2e813f65a8"
+api_key = "RGAPI-f82a2c53-eea9-40fc-a3bd-3f3b16932876"
 
 
 @app.route("/", defaults={"path": ""})
