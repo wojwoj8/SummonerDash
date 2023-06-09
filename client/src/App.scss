@@ -1,9 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Tilt+Warp&display=swap');
 
+$mainPadding: 2rem 6rem 0 6rem;
+$pageBackgroundCol: black;
+$profileBackgroundCol: grey;
+// background-color: #8BC6EC;
+// background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
 
+$profileContentBackCol: white;
+html{
+   
+}
 html, body{
     min-height: 100%;
     margin: 0;
+    // background-color: $pageBackgroundCol;
+    ;
     
 }
 :root{
@@ -25,36 +36,109 @@ html, body{
 
 // PROFILE
 
+.profile-wrapper{
+    padding: $mainPadding;
+    background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+    background-color: #8BC6EC;
+    background-clip: border-box;
+    
+    display: grid;
+    grid-template-columns: 1fr 5fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "prof-data prof-data prof-data"
+    // "side-rank . ."
+    ". games .";
+}
+
+
+
+.profile-data{
+    grid-area: prof-data;
+    background-color: $profileContentBackCol;
+}
+
 .profile{
+    display: grid;
+    grid-template-columns: 3fr 4fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "name name name"
+    "solo . ."
+    "flex . .";
+}
+.profile-top-imglv{
     display: flex;
+    justify-content: center;
     flex-direction: column;
+    align-items: center;
     img{
-        width: 10rem;
-        height: 10rem;
+        width: 8rem;
+        height: 8rem;
+        border-radius: 20px;
+    }
+    p{
+        background-color: black;
+        color: white;
+        margin-top: -10px;
+        padding: 1px 3px;
+        border-radius: 20px;
     }
 }
 
 .profile-top{
+    grid-area: name;
     display: flex;
 }
+
 .profile-top-data{
     display: flex;
     flex-direction: column;
 }
 
-.profile-solo{
+.profile-queue{
     display: flex;
     flex-direction: column;
+    h2{
+        margin: 0;
+    }
+    img{
+        width: 5rem;
+        height: 5rem
+    }
+}
+.profile-solo{
+    @extend .profile-queue;
+    grid-area: solo;
     background-color: antiquewhite;
+   
 }
 .profile-flex{
-    display: flex;
-    flex-direction: column;
+    @extend .profile-queue;
+    grid-area: flex;
     background-color: aqua;
+
 }
 
 .profile-queue-data{
-    width: 500px;
+    // width: 500px;
     display: flex;
     justify-content: space-between;
+
+    h2{
+        margin: 0;
+    }
+}
+
+.profile-games{
+    background-color: white;
+    grid-area: games;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+    p{
+        margin-top: 60px;
+    }
 }

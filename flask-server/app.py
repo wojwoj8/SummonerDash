@@ -86,7 +86,7 @@ def fetchIcon(arr):
 def fetchGamesIds(puuid, arr):
     matchId_url = "https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/"
     # can change count of fetched games
-    matchId_url = matchId_url + puuid + "/ids?start=0&count=2" "&api_key=" + api_key
+    matchId_url = matchId_url + puuid + "/ids?start=0&count=5" "&api_key=" + api_key
     resp = requests.get(matchId_url)
     gamesIds = resp.json()
     arr.append(gamesIds)
@@ -139,6 +139,8 @@ def Games(name):
     fetchGamesIds(data[0]["puuid"], gamesData)
 
     fetchGamesData(gamesData)
+    # remove games id because it is after fetch in json
+    gamesData.pop(0)
     print(gamesData)
     return gamesData
 

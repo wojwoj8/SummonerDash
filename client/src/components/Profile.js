@@ -13,7 +13,7 @@ const Profile = () =>{
 
     // gamesData
     const [games, setGames] = useState({});
-    
+
     const query = useParams();
     // console.log(query)
 
@@ -73,7 +73,7 @@ const Profile = () =>{
     }
 
     return(
-        <div>
+        <div className="profile-wrapper">
             
             <ProfileData
                 data={data}

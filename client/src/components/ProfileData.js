@@ -12,11 +12,15 @@ const ProfileData = (props) => {
                 ):(
                 <div className="profile">
                     <div className="profile-top">
-                    <img src={data.iconImg} alt="summoner"></img>
+                        <div className="profile-top-imglv">
+                            <img src={data.iconImg} alt="summoner"></img>
+                            <p>{data.summonerLevel}</p>
+                        </div>
+                    
                             <div className="profile-top-data">
                                 
-                                <p>Name: {data.name}</p>
-                                <p>Summoner Level: {data.summonerLevel}</p>
+                                <p>{data.name}</p>
+                                
                             </div>
                             </div>
                                 {(typeof solo.tier === 'undefined')?(
@@ -35,8 +39,7 @@ const ProfileData = (props) => {
                                         </div>
 
                                         <div>
-                                            <p>W: {solo.wins}</p>
-                                            <p>L: {solo.losses}</p>
+                                            <p>W: {solo.wins} L: {solo.losses}</p>
                                             <p>Winrate: {solo.winrate}%</p>
                                         </div>      
                                     </div> 
@@ -59,8 +62,7 @@ const ProfileData = (props) => {
                                         </div>
 
                                         <div>
-                                            <p>W: {flex.wins}</p>
-                                            <p>L: {flex.losses}</p>
+                                            <p>W: {flex.wins} L: {flex.losses}</p>
                                             <p>Winrate: {flex.winrate}%</p>
                                         </div>      
                                     </div>                          
