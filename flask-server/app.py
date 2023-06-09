@@ -7,19 +7,10 @@ import json
 import math
 import pprint
 
-app = Flask(__name__, static_folder="../client/public", static_url_path="")
+app = Flask(__name__)
 CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
 api_key = "RGAPI-f82a2c53-eea9-40fc-a3bd-3f3b16932876"
-
-
-@app.route("/", defaults={"path": ""})
-@app.route("/<path:path>")
-def serve(path):
-    if path != "" and os.path.exists(app.static_folder + "/" + path):
-        return send_from_directory(app.static_folder, path)
-    else:
-        return send_from_directory(app.static_folder, "index.html")
 
 
 def mapAssetsPath(path):
@@ -32,15 +23,6 @@ def mapAssetsPath(path):
     finalPath = default + lowPath
     finalPath = {"iconImg": finalPath}
     return finalPath
-
-
-def merge_dict(target, source):
-    for key, value in source.items():
-        if isinstance(value, dict):
-            nested_target = target.setdefault(key, {})
-            merge_dict(nested_target, value)
-        else:
-            target[key] = value
 
 
 # ID, Acc ID, Puuid, name, icon ID, revison date, summoner level
@@ -99,11 +81,33 @@ def fetchIcon(arr):
     arr[0].update(iconImg)
 
 
+# fetch last 20 played games id
+def fetchGamesIds(puuid, arr):
+    matchId_url = "https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/"
+    # can change count of fetched games
+    matchId_url = matchId_url + puuid + "/ids?start=0&count=2" "&api_key=" + api_key
+    resp = requests.get(matchId_url)
+    gamesIds = resp.json()
+    arr.append(gamesIds)
+
+
+def fetchGamesData(arr):
+    gameData_url = "https://europe.api.riotgames.com/lol/match/v5/matches/"
+    for i in range(len(arr[0])):
+        selectedGame_url = gameData_url + arr[0][i] + "?api_key=" + api_key
+        # print(selectedGame_url)
+        resp = requests.get(selectedGame_url)
+        gameData = resp.json()
+
+        arr.append(gameData)
+
+
 # REMEMBER TO MAKING DIFFERENT ENDPOINT URL FOR FETCH AND RENDER
 @app.route("/data/<name>", methods=["GET", "POST"])
 @cross_origin()
 def profile(name):
     data = []
+    gamesData = []
 
     fetch1(name, data)
     try:
@@ -112,23 +116,17 @@ def profile(name):
         return {"err": "summoner not found"}
     fetch2(data)
     fetchIcon(data)
+    fetchGamesIds(data[0]["puuid"], gamesData)
 
-    combinedData = {}
-    # print(data)
+    fetchGamesData(gamesData)
 
-    for item in data:
-        if isinstance(item, dict):
-            merge_dict(combinedData, item)
+    # print(gamesData[1])
 
-    # for i in range(len(data)):
-    #     print(f"\nData[{i}]: {data[i]}\n")
     pp = pprint.PrettyPrinter(indent=4)
-    pp.pprint(data)
-    # pp.pprint(data[0])
+    # pp.pprint(data)
+    # pp.pprint(gamesData)
     print("")
-    # pp.pprint(data[1])
-    # print(f"\n{data}\n")
-    # print(f"\n{combinedData}\n")
+
     return data
 
 
