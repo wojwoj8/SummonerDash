@@ -1,25 +1,30 @@
 import {React, useState, useEffect} from "react";
 import { useParams } from "react-router-dom";
 import ProfileData from "./ProfileData";
+import ProfileGames from "./ProfileGames";
 
 const Profile = () =>{
 
-
+    // userData
     const [err, setErr] = useState({})
     const [data, setData] = useState({});
     const [solo, setSolo] = useState({});
     const [flex, setFlex] = useState({});
 
+    // gamesData
+    const [games, setGames] = useState({});
+    
     const query = useParams();
     // console.log(query)
 
     useEffect(() =>{
-        fetchData();
+        fetchUserData();
+        fetchGamesData();
     }, [])
 
-    const fetchData = async () =>{
+    const fetchUserData = async () =>{
         // console.log(query)
-        fetch(`/data/${query.name}`).then(
+        fetch(`/userData/${query.name}`).then(
             res => res.json()
           ).then(
             data =>{
@@ -47,6 +52,17 @@ const Profile = () =>{
             }
           )
     }
+
+    const fetchGamesData = async () =>{
+        fetch(`/gamesData/${query.name}`).then(
+            res => res.json()
+        ).then(
+            data=>{
+                // console.log(data)
+                setGames(data);
+            }
+        )
+    }
     if (err.err){
         console.log('error')
         return(
@@ -66,6 +82,10 @@ const Profile = () =>{
                 err={err}
             />
 
+            <ProfileGames
+                games={games}
+
+            />
             
         </div>
     )

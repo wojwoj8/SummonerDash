@@ -11,6 +11,7 @@ app = Flask(__name__)
 CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
 api_key = "RGAPI-f82a2c53-eea9-40fc-a3bd-3f3b16932876"
+pp = pprint.PrettyPrinter(indent=4)
 
 
 def mapAssetsPath(path):
@@ -103,9 +104,30 @@ def fetchGamesData(arr):
 
 
 # REMEMBER TO MAKING DIFFERENT ENDPOINT URL FOR FETCH AND RENDER
-@app.route("/data/<name>", methods=["GET", "POST"])
+@app.route("/userData/<name>", methods=["GET"])
 @cross_origin()
 def profile(name):
+    data = []
+    fetch1(name, data)
+    try:
+        data[0]["id"]
+    except KeyError:
+        return {"err": "summoner not found"}
+
+    fetch2(data)
+    fetchIcon(data)
+
+    # print(gamesData[1])
+
+    # pp.pprint(data)
+    # pp.pprint(gamesData)
+    print("")
+
+    return data
+
+
+@app.route("/gamesData/<name>", methods=["GET"])
+def Games(name):
     data = []
     gamesData = []
 
@@ -114,20 +136,11 @@ def profile(name):
         data[0]["id"]
     except KeyError:
         return {"err": "summoner not found"}
-    fetch2(data)
-    fetchIcon(data)
     fetchGamesIds(data[0]["puuid"], gamesData)
 
     fetchGamesData(gamesData)
-
-    # print(gamesData[1])
-
-    pp = pprint.PrettyPrinter(indent=4)
-    # pp.pprint(data)
-    # pp.pprint(gamesData)
-    print("")
-
-    return data
+    print(gamesData)
+    return gamesData
 
 
 if __name__ == "__main__":
