@@ -54,8 +54,9 @@ def fetch1(name, arr):
 
 # this is array with both two indexes: soloQ and flex
 # leagueId, queueType, tier, rank, summonerId, summonerName, leaguePoints, wins,
-# losses, veteran, inactive, freshBlood, hotStreak
+# losses, veteran, inactive, freshBlood, hotStreak, rank icon
 def fetch2(arr):
+    rankIconBase = "https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-shared-components/global/default/"
     api_url2 = "https://eun1.api.riotgames.com/lol/league/v4/entries/by-summoner/"
 
     api_url2 = api_url2 + arr[0]["id"] + "?api_key=" + api_key
@@ -66,6 +67,10 @@ def fetch2(arr):
     arr.append(player_info2)
 
     for i in range(len(player_info2)):
+        rank = player_info2[i]["tier"].lower()
+        rankIcon = rankIconBase + rank + ".png"
+        rankIcon = {"rankIcon": rankIcon}
+
         winrate = math.ceil(
             (
                 player_info2[i]["wins"]
@@ -76,6 +81,7 @@ def fetch2(arr):
 
         winrate = {"winrate": winrate}
         # print(f"\narr[1][{i}]: {arr[1][i]}\n")
+        arr[1][i].update(rankIcon)
         arr[1][i].update(winrate)
 
 
