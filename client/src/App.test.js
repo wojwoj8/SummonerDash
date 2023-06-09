@@ -90,8 +90,8 @@ describe("Profile component", () => {
       await waitFor(() => {
         expect(screen.getByText("Name: szykos007")).toBeInTheDocument();
         expect(screen.getByText("Summoner Level: 295")).toBeInTheDocument();
-        expect(screen.getByText(/ RANKED_SOLO_5x5 /)).toBeInTheDocument();
-        expect(screen.getByText("unranked")).toBeInTheDocument();
+        expect(screen.queryByTestId("solo-unrank")).not.toBeInTheDocument();
+        expect(screen.queryByTestId("flex-unrank")).toBeInTheDocument();
       });
     });
 
@@ -146,9 +146,8 @@ describe("Profile component", () => {
       await waitFor(() => {
         expect(screen.getByText("Name: Piotron 2012")).toBeInTheDocument();
         expect(screen.getByText("Summoner Level: 413")).toBeInTheDocument();
-        expect(screen.getByText(/ RANKED_SOLO_5x5 /)).toBeInTheDocument();
-        expect(screen.getByText(/ RANKED_FLEX_SR /)).toBeInTheDocument();
-        expect(screen.queryByText("unranked")).not.toBeInTheDocument();
+        expect(screen.queryByTestId("solo-unrank")).not.toBeInTheDocument();
+        expect(screen.queryByTestId("flex-unrank")).not.toBeInTheDocument();
 
       });
     });
@@ -174,10 +173,8 @@ describe("Profile component", () => {
       await waitFor(() => {
         expect(screen.getByText("Name: wojwoj88")).toBeInTheDocument();
         expect(screen.getByText("Summoner Level: 24")).toBeInTheDocument();
-        expect(screen.queryByText(/ RANKED_SOLO_5x5 /)).not.toBeInTheDocument();
-        expect(screen.queryByText(/ RANKED_FLEX_SR /)).not.toBeInTheDocument();
-        const unranked = (screen.queryAllByText("unranked").length);
-        expect(unranked).toBe(2);
+        expect(screen.queryByTestId("solo-unrank")).toBeInTheDocument();
+        expect(screen.queryByTestId("flex-unrank")).toBeInTheDocument();
 
       });
     });

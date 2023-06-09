@@ -22,7 +22,7 @@ const ProfileData = (props) => {
                                 {(typeof solo.tier === 'undefined')?(
                                     <div className="profile-solo">
                                         <h2> Ranked Solo</h2>
-                                        <p>unranked</p>
+                                        <p data-testid="solo-unrank">unranked</p>
                                     </div>
                                 ):(
                                 <div className="profile-solo">
@@ -37,7 +37,7 @@ const ProfileData = (props) => {
                                 {(typeof flex === 'undefined' || typeof flex.tier === 'undefined')?(
                                     <div className="profile-flex">
                                         <h2> Ranked Flex</h2>
-                                        <p>unranked</p>
+                                        <p data-testid="flex-unrank">unranked</p>
                                     </div>
                                 ):(
                                 <div className="profile-flex">
