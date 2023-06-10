@@ -29,7 +29,7 @@ const Profile = () =>{
           ).then(
             data =>{
                 if (data.err){
-                    console.log('error')
+                    console.log(data)
                     setErr(data);
                     return
                 }

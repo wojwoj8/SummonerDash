@@ -7,15 +7,18 @@ const ProfileGames = (props) =>{
         return <p>Loading games...</p>;
       }
     return (
-        <div className="profile-games">
-            {games.map((game) =>(
-                <div key={game.info.gameId}>
-                    <p>{game.info.gameId}</p>
-                    
-                </div>
-            ))}
+        <div className="profile-games-wrapper">
+            <div className="profile-games">
+                {games.map((game) =>(
+                    <div className="profile-game" key={game.info.gameId}>
+                        <p>{game.info.gameId}</p>
+                        
+                    </div>
+                ))}
             
+            </div>
         </div>
+        
     )
 }
 

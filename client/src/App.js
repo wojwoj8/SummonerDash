@@ -4,6 +4,7 @@ import Profile from './components/Profile';
 import StartPage from './components/StartPage';
 import Navbar from './components/Navbar';
 import './App.scss';
+import Footer from './components/Footer';
 
 function App() {
   
@@ -29,6 +30,7 @@ function App() {
 
           ></Profile>}></Route>
         </Routes>
+        <Footer/>
     </BrowserRouter>
       
   )

@@ -10,7 +10,7 @@ import pprint
 app = Flask(__name__)
 CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
-api_key = "RGAPI-f82a2c53-eea9-40fc-a3bd-3f3b16932876"
+api_key = "RGAPI-81e42739-7951-4c88-99e2-05e28e27ed7f"
 pp = pprint.PrettyPrinter(indent=4)
 
 
@@ -112,6 +112,7 @@ def profile(name):
     try:
         data[0]["id"]
     except KeyError:
+        print(data)
         return {"err": "summoner not found"}
 
     fetch2(data)

@@ -2,6 +2,7 @@
 
 $mainPadding: 2rem 6rem 0 6rem;
 $pageBackgroundImg: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+$navColor: black;
 $profileBackgroundCol: grey;
 // background-color: #8BC6EC;
 // background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
@@ -13,6 +14,7 @@ html{
 }
 html, body{
     min-height: 100%;
+    min-width: 1100px;
     margin: 0;
     // background-color: $pageBackgroundCol;
     ;
@@ -24,20 +26,30 @@ html, body{
 }
 
 #root{
-    
+    display: grid;
+    grid-template-rows: 1fr 15fr 1fr;
+    grid-template-areas: 
+    "nav"
+    "main"
+    "footer"
+    ;
 }
 .navbar{
-    background-color: black;
-    height: 60px;
+    display: flex;
+    grid-area: nav;
+    background-color: $navColor;
+    // height: 60px;
     p{
         color: white;
-        margin-top: 0;
+        font-size: 1.5rem;
+        margin-top: 10px;
     }
 }
 
 // PROFILE
 
 .profile-wrapper{
+    grid-area: main;
     padding: $mainPadding;
     
     background-clip: border-box;
@@ -145,15 +157,47 @@ html, body{
     }
 }
 
-.profile-games{
-    background-color: white;
+
+//ProfileGames
+
+.profile-games-wrapper{
     grid-area: games;
+    margin: 10px 0;
+    
+    
+}
+.profile-games{
+    
+}
+
+.profile-game{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    margin: 10px 0;
+    background: white;
+    border-radius: 20px;
+    // border-bottom: 1px solid black;
     
     p{
-        margin-top: 60px;
+        margin: 60px 0;
+        
     }
+}
+
+
+
+
+
+
+//footer
+.footer{
+    grid-area: footer;
+    display: flex;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    background-color: $navColor;
 }
