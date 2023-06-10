@@ -19,7 +19,7 @@ const ProfileData = (props) => {
                     
                             <div className="profile-top-data">
                                 
-                                <p>{data.name}</p>
+                                <h2>{data.name}</h2>
                                 
                             </div>
                             </div>
