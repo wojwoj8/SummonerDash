@@ -47,7 +47,7 @@ const Profile = () =>{
                         setSolo(data[1][1]);
                     }
                 }
-                // console.log(data)
+                //  console.log(data[0])
                 
             }
           )
@@ -83,6 +83,7 @@ const Profile = () =>{
             />
 
             <ProfileGames
+                userData={data}
                 games={games}
 
             />

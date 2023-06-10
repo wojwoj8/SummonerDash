@@ -9,11 +9,12 @@ $profileBackgroundCol: grey;
 
 $profileContentBackCol: white;
 html{
-    background-image: $pageBackgroundImg;
+    
     // background-color: #8BC6EC;
 }
 html, body{
     min-height: 100%;
+    height: 100%;
     min-width: 1100px;
     margin: 0;
     // background-color: $pageBackgroundCol;
@@ -26,8 +27,11 @@ html, body{
 }
 
 #root{
+    background-image: $pageBackgroundImg;
+    min-height: 100%;
     display: grid;
-    grid-template-rows: 1fr 15fr 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 100%;
     grid-template-areas: 
     "nav"
     "main"

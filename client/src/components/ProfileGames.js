@@ -1,6 +1,8 @@
+import Game from "./Game";
+
 const ProfileGames = (props) =>{
 
-    const {games} = props;
+    const {games, userData} = props;
     console.log(games)
 
     if (!games[0]) {
@@ -11,8 +13,10 @@ const ProfileGames = (props) =>{
             <div className="profile-games">
                 {games.map((game) =>(
                     <div className="profile-game" key={game.info.gameId}>
-                        <p>{game.info.gameId}</p>
-                        
+                        <Game
+                            userData={userData}
+                            game={game}
+                        />
                     </div>
                 ))}
             

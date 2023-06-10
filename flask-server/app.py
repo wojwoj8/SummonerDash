@@ -142,8 +142,17 @@ def Games(name):
     fetchGamesData(gamesData)
     # remove games id because it is after fetch in json
     gamesData.pop(0)
-    print(gamesData)
+    # pp.pprint(gamesData)
     return gamesData
+
+
+@app.route("/gameData/<id>", methods=["GET"])
+def Game(id):
+    icon_url = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/"
+    icon = icon_url + id + ".png"
+    # print(id)
+    icon = {"icon": icon}
+    return icon
 
 
 if __name__ == "__main__":
