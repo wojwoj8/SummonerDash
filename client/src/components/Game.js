@@ -8,10 +8,11 @@ const Game = (props) => {
 
     const [playerData, setPlayerData] = useState({});
     const [icon, setIcon] = useState({});
+    const [gameDates, setGameDates] = useState({})
 
     useEffect(() =>{
         getGameOfCheckedPlayer();
-        
+        calcDate();
     },[])
     const getGameOfCheckedPlayer = () =>
     {
@@ -36,11 +37,49 @@ const Game = (props) => {
         )
     }
     // getGameOfCheckedPlayer();
+    // console.log(playerData)
+    // console.log(typeof(game.info.gameCreation))
+    // console.log(game)
+
+    const calcDate = () => {
+        
+        const currDate = Date.now();
+        const gameCreation = game.info.gameCreation;
+        const timeDifferenceInMs = currDate - gameCreation;
+
+        const minutes = Math.floor((timeDifferenceInMs / (1000 * 60)) % 60);
+        const hours = Math.floor((timeDifferenceInMs / (1000 * 60 * 60)) % 24);
+        const days = Math.floor(timeDifferenceInMs / (1000 * 60 * 60 * 24));
+        const months = Math.floor(timeDifferenceInMs / (1000 * 60 * 60 * 24 * 30));
+
+        let gameDate = "";
+        
+        if (months > 0) {
+            gameDate = `${months} ${months === 1 ? 'month' : 'months'}`;
+        } else if (days > 0) {
+            gameDate = `${days} ${days === 1 ? 'day' : 'days'}`;
+        } else if (hours > 0) {
+            gameDate = `${hours} ${hours === 1 ? 'hour' : 'hours'}`;
+        } else if (minutes > 0) {
+            gameDate = `${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`;
+        } else {
+            gameDate = "a few moments ago";
+        }
+
+        const whenPlayed = `${gameDate} ago`;
+        setGameDates({whenPlayed})
+        // console.log(message);
+}
+
+
+    
+    
     return(
 
         <div>
-            <p>{game.info.gameId}</p>
-            <p>{playerData.championName}</p>
+            {/* <p>{game.info.gameId}</p> */}
+            {/* <p>{playerData.championName}</p> */}
+            <p>{gameDates.whenPlayed}</p>
             <img src={icon.icon} alt="icon"></img>
         </div>
     )

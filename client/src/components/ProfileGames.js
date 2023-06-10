@@ -3,7 +3,7 @@ import Game from "./Game";
 const ProfileGames = (props) =>{
 
     const {games, userData} = props;
-    console.log(games)
+    // console.log(games)
 
     if (!games[0]) {
         return <p>Loading games...</p>;
