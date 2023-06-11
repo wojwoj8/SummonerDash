@@ -19,7 +19,7 @@ const StartPage = () => {
         // console.log(query)
         // setData(query);
         
-        navigateToProfile(`/name/${query}`)
+        navigateToProfile(`${region}/name/${query}`)
     };
 
     const handleRegion = (e) =>{

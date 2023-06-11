@@ -25,7 +25,7 @@ function App() {
           // data={data}
           // setData={setData}
           ></StartPage>}></Route>
-          <Route path="name/:name" element={<Profile
+          <Route path="/:region/name/:name" element={<Profile
           // data={data}
 
           ></Profile>}></Route>
