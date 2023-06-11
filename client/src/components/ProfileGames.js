@@ -3,9 +3,22 @@ import Game from "./Game";
 const ProfileGames = (props) =>{
 
     const {games, userData} = props;
-    // console.log(games)
+    console.log(games)
 
-    if (!games[0]) {
+    if (games.length === 0){
+        return(
+            <div className="profile-games-wrapper">
+                <div className="profile-games">
+                    <div className="profile-game">
+                        <p>No games found</p>
+                    </div>
+                </div>
+            </div>
+            
+        )
+        console.log('no games')
+    }
+    else if (!games[0]) {
         return <p>Loading games...</p>;
       }
     return (

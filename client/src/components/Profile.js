@@ -19,12 +19,12 @@ const Profile = () =>{
 
     useEffect(() =>{
         fetchUserData();
-        fetchGamesData();
+        
     }, [])
 
     const fetchUserData = async () =>{
         // console.log(query)
-        fetch(`/userData/${query.name}`).then(
+        fetch(`/userData/${query.region}/${query.name}`).then(
             res => res.json()
           ).then(
             data =>{
@@ -48,20 +48,27 @@ const Profile = () =>{
                     }
                 }
                 //  console.log(data[0])
+                fetchGamesData();
                 
             }
-          )
+          ).catch((error) => {
+            console.log('Error fetching user data:', error)
+        }
+        );
     }
 
     const fetchGamesData = async () =>{
-        fetch(`/gamesData/${query.name}`).then(
+        fetch(`/gamesData/${query.region}/${query.name}`).then(
             res => res.json()
         ).then(
             data=>{
                 // console.log(data)
                 setGames(data);
             }
-        )
+        ).catch((error) => {
+            console.log('Error fetching games data:', error)
+        }
+        );
     }
     if (err.err){
         console.log('error')

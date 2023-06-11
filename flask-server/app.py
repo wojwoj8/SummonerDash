@@ -27,8 +27,10 @@ def mapAssetsPath(path):
 
 
 # ID, Acc ID, Puuid, name, icon ID, revison date, summoner level
-def fetch1(name, arr):
-    api_url = "https://eun1.api.riotgames.com/lol/summoner/v4/summoners/by-name/"
+def fetch1(name, region, arr):
+    api_url = (
+        "https://" + region + ".api.riotgames.com/lol/summoner/v4/summoners/by-name/"
+    )
     api_url = api_url + name + "?api_key=" + api_key
     resp = requests.get(api_url)
     player_info = resp.json()
@@ -38,9 +40,11 @@ def fetch1(name, arr):
 # this is array with both two indexes: soloQ and flex
 # leagueId, queueType, tier, rank, summonerId, summonerName, leaguePoints, wins,
 # losses, veteran, inactive, freshBlood, hotStreak, rank icon
-def fetch2(arr):
+def fetch2(arr, region):
     rankIconBase = "https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-shared-components/global/default/"
-    api_url2 = "https://eun1.api.riotgames.com/lol/league/v4/entries/by-summoner/"
+    api_url2 = (
+        "https://" + region + ".api.riotgames.com/lol/league/v4/entries/by-summoner/"
+    )
 
     api_url2 = api_url2 + arr[0]["id"] + "?api_key=" + api_key
 
@@ -83,8 +87,11 @@ def fetchIcon(arr):
 
 
 # fetch last 20 played games id
-def fetchGamesIds(puuid, arr):
-    matchId_url = "https://europe.api.riotgames.com/lol/match/v5/matches/by-puuid/"
+def fetchGamesIds(puuid, arr, region):
+    region = regionToContinent(region)
+    matchId_url = (
+        "https://" + region + ".api.riotgames.com/lol/match/v5/matches/by-puuid/"
+    )
     # can change count of fetched games
     matchId_url = matchId_url + puuid + "/ids?start=0&count=5" "&api_key=" + api_key
     resp = requests.get(matchId_url)
@@ -92,8 +99,10 @@ def fetchGamesIds(puuid, arr):
     arr.append(gamesIds)
 
 
-def fetchGamesData(arr):
-    gameData_url = "https://europe.api.riotgames.com/lol/match/v5/matches/"
+def fetchGamesData(arr, region):
+    region = regionToContinent(region)
+    # print(region)
+    gameData_url = "https://" + region + ".api.riotgames.com/lol/match/v5/matches/"
     for i in range(len(arr[0])):
         selectedGame_url = gameData_url + arr[0][i] + "?api_key=" + api_key
         # print(selectedGame_url)
@@ -103,43 +112,83 @@ def fetchGamesData(arr):
         arr.append(gameData)
 
 
+def checkRegionExists(region):
+    if region not in [
+        "na1",
+        "br1",
+        "lan1",
+        "las1",
+        "kr",
+        "jp1",
+        "eun1",
+        "euw1",
+        "tr1",
+        "ru1",
+        "oc1",
+        "ph2",
+        "sg2",
+        "th2",
+        "tw2",
+        "vn2",
+    ]:
+        return "error"
+
+
+def regionToContinent(region):
+    if region in ["na1", "br1", "lan1", "las1"]:
+        region = "americas"
+
+    elif region in ["kr", "jp1"]:
+        region = "asia"
+
+    elif region in ["eun1", "euw1", "tr1", "ru1"]:
+        region = "europe"
+
+    elif region in ["oc1", "ph2", "sg2", "th2", "tw2", "vn2"]:
+        region = "sea"
+
+    return region
+
+
 # REMEMBER TO MAKING DIFFERENT ENDPOINT URL FOR FETCH AND RENDER
-@app.route("/userData/<name>", methods=["GET"])
+@app.route("/userData/<region>/<name>", methods=["GET"])
 @cross_origin()
-def profile(name):
+def profile(name, region):
+    if checkRegionExists(region) == "error":
+        return {"err": "This region does not exist"}
+    # print(region)
     data = []
-    fetch1(name, data)
+    fetch1(name, region, data)
     try:
         data[0]["id"]
     except KeyError:
-        print(data)
+        # print(data)
         return {"err": "summoner not found"}
 
-    fetch2(data)
+    fetch2(data, region)
     fetchIcon(data)
 
     # print(gamesData[1])
 
     # pp.pprint(data)
     # pp.pprint(gamesData)
-    print("")
+    # print("")
 
     return data
 
 
-@app.route("/gamesData/<name>", methods=["GET"])
-def Games(name):
+@app.route("/gamesData/<region>/<name>", methods=["GET"])
+def Games(name, region):
     data = []
     gamesData = []
-
-    fetch1(name, data)
+    fetch1(name, region, data)
     try:
         data[0]["id"]
     except KeyError:
         return {"err": "summoner not found"}
-    fetchGamesIds(data[0]["puuid"], gamesData)
+    fetchGamesIds(data[0]["puuid"], gamesData, region)
 
-    fetchGamesData(gamesData)
+    fetchGamesData(gamesData, region)
     # remove games id because it is after fetch in json
     gamesData.pop(0)
     # pp.pprint(gamesData)

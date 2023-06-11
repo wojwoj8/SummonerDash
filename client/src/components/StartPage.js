@@ -36,7 +36,7 @@ const StartPage = () => {
                     <select name='region' onChange={handleRegion}>
                         <option id='eun1'>Europe Nordic & East</option>
                         <option id='euw1'>Europe West</option>
-                        <option id='na'>North America</option>
+                        <option id='na1'>North America</option>
                         <option id='br1'>Brazil</option>
                         <option id='jp1'>Japan</option>
                         <option id='kr'>Korea</option>
@@ -44,7 +44,7 @@ const StartPage = () => {
                         <option id='la2'>LAS</option>
                         <option id='oc1'>Oceania</option>
                         <option id='tr1'>Turkey</option>
-                        <option id='ru'>Russia</option>
+                        <option id='ru1'>Russia</option>
                         <option id='ph2'>Philippines</option>
                         <option id='sg2'>Singapore</option>
                         <option id='th2'>Taiwan</option>
