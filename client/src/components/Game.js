@@ -80,7 +80,7 @@ const Game = (props) => {
             {/* <p>{game.info.gameId}</p> */}
             {/* <p>{playerData.championName}</p> */}
             <p>{gameDates.whenPlayed}</p>
-            <img src={icon.icon} alt="icon"></img>
+            <img src={icon.playerIcon} alt="icon"></img>
         </div>
     )
 }
