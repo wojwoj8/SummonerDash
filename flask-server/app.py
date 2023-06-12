@@ -10,7 +10,7 @@ import pprint
 app = Flask(__name__)
 CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
-api_key = "RGAPI-d9b119a9-3d91-450a-89b7-9dc71a566ae0"
+api_key = "RGAPI-ad252d21-7e43-4a2e-a19a-2eaaa25c1284"
 pp = pprint.PrettyPrinter(indent=4)
 
 
@@ -195,7 +195,7 @@ def Games(name, region):
     return gamesData
 
 
-@app.route("/gameData/<id>", methods=["GET"])
+@app.route("/gameData/icons/<id>", methods=["GET"])
 def Game(id):
     icon_url = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/"
     icon = icon_url + id + ".png"

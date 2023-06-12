@@ -13,7 +13,11 @@ const Game = (props) => {
     useEffect(() =>{
         getGameOfCheckedPlayer();
         calcDate();
-    },[])
+        gameDuration();
+        
+        
+    }, [])
+
     const getGameOfCheckedPlayer = () =>
     {
         for(let i = 0; i < 10; i++){
@@ -27,7 +31,7 @@ const Game = (props) => {
     }
     const fetchIcon = async (id) =>{
         // console.log(typeof(championId))
-        fetch(`/gameData/${id}`).then(
+        fetch(`/gameData/icons/${id}`).then(
             res => res.json()
         ).then(
             data =>{
@@ -67,19 +71,73 @@ const Game = (props) => {
         }
 
         const whenPlayed = `${gameDate} ago`;
-        setGameDates({whenPlayed})
+        setGameDates((prev) => ({
+            ...prev, whenPlayed
+        }))
         // console.log(message);
-}
+    }
+
+    const gameDuration = () =>{
+
+        const gameCreation = game.info.gameCreation;
+        const gameEnd = game.info.gameEndTimestamp;
+        const timeDifferenceInMs = gameEnd - gameCreation;
+
+        let seconds  = Math.floor((timeDifferenceInMs / (1000)) % 60);
+        let minutes = Math.floor((timeDifferenceInMs / (1000 * 60)) % 60);
+        const hours = Math.floor((timeDifferenceInMs / (1000 * 60 * 60)) % 24);
+
+        let gameDur = '';
+        if (seconds < 10){
+            seconds = `0` + seconds;
+        }
+        if (hours > 0){
+            if (minutes < 10){
+                minutes = `0` + minutes;
+            }
+            gameDur = `${hours}:${minutes}:${seconds}`;
+        }
+        else{
+            gameDur = `${minutes}:${seconds}`;
+        }
+        setGameDates((prev) => ({
+            ...prev, gameDur
+        }))
+    }
+
+    //for backgroud color of div dependent of game result
+    const divClassName = () =>{
+        let gameResult = '';
+        // parent div class name
+        // let div = document.querySelector('.profile-game-data').parentElement;
+        
+        // console.log(playerData)
+
+        if (playerData.win === false){
+            gameResult = 'lost';
 
 
-    
-    
+        } else if (playerData.win === true){
+            gameResult = 'won';
+
+
+        } else{
+            gameResult = 'remake';
+
+        }
+        // console.log(gameResult)
+        
+         return gameResult;
+    }
     return(
 
-        <div>
+        <div className={`profile-game-data ${divClassName()}`} >
+            {/* <p>{playerData.win}</p> */}
+            
             {/* <p>{game.info.gameId}</p> */}
             {/* <p>{playerData.championName}</p> */}
             <p>{gameDates.whenPlayed}</p>
+            <p>{gameDates.gameDur}</p>
             <img src={icon.playerIcon} alt="icon"></img>
         </div>
     )

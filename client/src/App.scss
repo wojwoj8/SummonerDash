@@ -181,22 +181,39 @@ html, body{
     justify-content: center;
     width: 100%;
     margin: 10px 0;
-    background: white;
-    border-radius: 20px;
-    // border-bottom: 1px solid black;
     
+    // background: white;
+    // border-radius: 20px;
+    // border-bottom: 1px solid black;
     p{
-        margin: 60px 0;
+        // margin: 60px 0;
         
     }
-}
+    .profile-game-data{
+        $paddingLeft: 15px;
+        
+        width: calc(100% - $paddingLeft);
+        border-radius: 20px;
+        padding-left: $paddingLeft;
+        
+            &.won {
+                /* Styles for the parent div when the child has "won" in its class */
+                background-color: green;
+            }
+        
+            &.lost {
+                /* Styles for the parent div when the child has "lose" in its class */
+                background-color: red;
+            }
+    }
 
-
-
-
-
+} 
+   
 
 //footer
+
+
+    
 .footer{
     grid-area: footer;
     display: flex;
