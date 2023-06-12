@@ -126,15 +126,15 @@ const Game = (props) => {
         // console.log(playerData)
 
         if (playerData.win === false){
-            gameResult = 'lost';
+            gameResult = 'Defeat';
 
 
         } else if (playerData.win === true){
-            gameResult = 'won';
+            gameResult = 'Victory';
 
 
         } else{
-            gameResult = 'remake';
+            gameResult = 'Remake';
 
         }
         // console.log(gameResult)
@@ -148,8 +148,11 @@ const Game = (props) => {
             
             {/* <p>{game.info.gameId}</p> */}
             {/* <p>{playerData.championName}</p> */}
+            
             <p>{queue.description}</p>
             <p>{gameDates.whenPlayed}</p>
+            {/* game result */}
+            <p>{divClassName()}</p>
             <p>{gameDates.gameDur}</p>
             <img src={icon.playerIcon} alt="icon"></img>
         </div>

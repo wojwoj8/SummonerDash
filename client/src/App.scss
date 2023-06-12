@@ -197,14 +197,18 @@ html, body{
         padding-left: $paddingLeft;
         // margin-left: 15px;
         
-            &.won {
+            &.Victory {
                 /* Styles for the parent div when the child has "won" in its class */
                 background-color: green;
             }
         
-            &.lost {
+            &.Defeat {
                 /* Styles for the parent div when the child has "lose" in its class */
                 background-color: red;
+            }
+            &.Remake {
+                /* Styles for the parent div when the child has "lose" in its class */
+                background-color: $profileBackgroundCol;
             }
     }
 
