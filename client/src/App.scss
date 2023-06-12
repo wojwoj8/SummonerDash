@@ -175,11 +175,8 @@ html, body{
 }
 
 .profile-game{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+    display: grid;
+   
     margin: 10px 0;
     
     // background: white;
@@ -198,27 +195,24 @@ html, body{
         // margin-left: 15px;
         
             &.Victory {
-                /* Styles for the parent div when the child has "won" in its class */
+                
                 background-color: green;
             }
         
             &.Defeat {
-                /* Styles for the parent div when the child has "lose" in its class */
+                
                 background-color: red;
             }
             &.Remake {
-                /* Styles for the parent div when the child has "lose" in its class */
+
                 background-color: $profileBackgroundCol;
             }
     }
 
 } 
    
-
 //footer
 
-
-    
 .footer{
     grid-area: footer;
     display: flex;

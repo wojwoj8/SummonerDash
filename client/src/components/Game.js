@@ -8,17 +8,26 @@ const Game = (props) => {
 
     const [playerData, setPlayerData] = useState({});
     const [icon, setIcon] = useState({});
-    const [gameDates, setGameDates] = useState({});
+    const [calculations, setCalculations] = useState({});
     const [queue, setQueue] = useState({});
 
+    //for fetching
     useEffect(() =>{
         getGameOfCheckedPlayer();
+        fetchQueueType();   
+    }, [])
+
+
+    //done after playerData fetched
+    useEffect(() =>{
         calcDate();
         gameDuration();
-        fetchQueueType();
         
-        
-    }, [])
+    },[playerData])
+
+    useEffect(()=>{
+        calcCsPerMin(calculations.minutes);
+    },[calculations.minutes])
 
     const getGameOfCheckedPlayer = () =>
     {
@@ -30,6 +39,7 @@ const Game = (props) => {
                 // console.log(game.info.participants[i].championName)
             }
         }
+        
     }
     const fetchIcon = async (id) =>{
         // console.log(typeof(championId))
@@ -83,21 +93,21 @@ const Game = (props) => {
         }
 
         const whenPlayed = `${gameDate} ago`;
-        setGameDates((prev) => ({
+        setCalculations((prev) => ({
             ...prev, whenPlayed
         }))
+        calcCsPerMin();
         // console.log(message);
     }
 
     const gameDuration = () =>{
 
-        const gameCreation = game.info.gameCreation;
-        const gameEnd = game.info.gameEndTimestamp;
-        const timeDifferenceInMs = gameEnd - gameCreation;
+        
+        const timeDifferenceInSeconds = playerData.timePlayed;
 
-        let seconds  = Math.floor((timeDifferenceInMs / (1000)) % 60);
-        let minutes = Math.floor((timeDifferenceInMs / (1000 * 60)) % 60);
-        const hours = Math.floor((timeDifferenceInMs / (1000 * 60 * 60)) % 24);
+        let seconds = timeDifferenceInSeconds % 60;
+        let minutes = Math.floor((timeDifferenceInSeconds / 60) % 60);
+        const hours = Math.floor((timeDifferenceInSeconds / (60 * 60)) % 24);
 
         let gameDur = '';
         if (seconds < 10){
@@ -107,40 +117,61 @@ const Game = (props) => {
             if (minutes < 10){
                 minutes = `0` + minutes;
             }
-            gameDur = `${hours}:${minutes}:${seconds}`;
+            gameDur = `${hours}h ${minutes}m ${seconds}s`;
         }
         else{
-            gameDur = `${minutes}:${seconds}`;
+            gameDur = `${minutes}m ${seconds}s`;
         }
-        setGameDates((prev) => ({
-            ...prev, gameDur
+        setCalculations((prev) => ({
+            ...prev, gameDur, minutes: minutes
         }))
+
+        
+    }
+
+    const calcKda = () =>{
+        
+        if (playerData.deaths === 0){
+            return 'Perfect'
+        }
+        const kda = ((playerData.assists + playerData.kills)/playerData.deaths).toFixed(2);
+        return `${kda}:1`
     }
 
     //for backgroud color of div dependent of game result
     const divClassName = () =>{
         let gameResult = '';
-        // parent div class name
-        // let div = document.querySelector('.profile-game-data').parentElement;
-        
-        // console.log(playerData)
 
         if (playerData.win === false){
             gameResult = 'Defeat';
 
-
         } else if (playerData.win === true){
             gameResult = 'Victory';
 
-
         } else{
             gameResult = 'Remake';
-
         }
         // console.log(gameResult)
-        
          return gameResult;
     }
+
+    const calcCsPerMin = (time) =>{
+        const allCs = playerData.totalMinionsKilled + playerData.neutralMinionsKilled;
+        // let time = calculations.minutes;
+
+        // i think it is still imposible
+        if (time < 1){
+            time = 1
+        }
+
+        const csPerMin = (allCs/time).toFixed(1);
+        // console.log(csPerMin)
+        setCalculations(prev => ({
+            ...prev, csPerMin
+        }))
+        
+    }
+    
     return(
 
         <div className={`profile-game-data ${divClassName()}`} >
@@ -150,10 +181,16 @@ const Game = (props) => {
             {/* <p>{playerData.championName}</p> */}
             
             <p>{queue.description}</p>
-            <p>{gameDates.whenPlayed}</p>
+            <p>{calculations.whenPlayed}</p>
+            <p>CS {playerData.totalMinionsKilled + playerData.neutralMinionsKilled}({calculations.csPerMin})</p>
+            
             {/* game result */}
             <p>{divClassName()}</p>
-            <p>{gameDates.gameDur}</p>
+            <p>{calculations.gameDur}</p>
+
+            <p>{playerData.kills}/{playerData.deaths}/{playerData.assists}</p>
+            <p>{calcKda()} KDA</p>
+            
             <img src={icon.playerIcon} alt="icon"></img>
         </div>
     )
