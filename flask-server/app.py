@@ -204,5 +204,25 @@ def Game(id):
     return icon
 
 
+@app.route("/gameData/queueType/<id>", methods=["GET"])
+def queueType(id):
+    queues = requests.get("https://static.developer.riotgames.com/docs/lol/queues.json")
+    queues = queues.json()
+    id = int(id)
+    queue = ""
+    for q in queues:
+        # print(type(q["queueId"]))
+        # print(type(id))
+
+        if q["queueId"] == id:
+            # print(q)
+            queue = q
+            queue["description"] = queue["description"].rsplit(" ", 1)[0]
+            return queue
+
+    print("no")
+    return {"err": "no queue found"}
+
+
 if __name__ == "__main__":
     app.run(debug=True)

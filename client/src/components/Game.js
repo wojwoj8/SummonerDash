@@ -8,12 +8,14 @@ const Game = (props) => {
 
     const [playerData, setPlayerData] = useState({});
     const [icon, setIcon] = useState({});
-    const [gameDates, setGameDates] = useState({})
+    const [gameDates, setGameDates] = useState({});
+    const [queue, setQueue] = useState({});
 
     useEffect(() =>{
         getGameOfCheckedPlayer();
         calcDate();
         gameDuration();
+        fetchQueueType();
         
         
     }, [])
@@ -38,6 +40,16 @@ const Game = (props) => {
                 setIcon(data)
             }
             
+        )
+    }
+
+    const fetchQueueType = async () =>{
+        fetch(`/gameData/queueType/${game.info.queueId}`).then(
+            res => res.json()
+        ).then(
+            data =>{
+                setQueue(data)
+            }
         )
     }
     // getGameOfCheckedPlayer();
@@ -136,6 +148,7 @@ const Game = (props) => {
             
             {/* <p>{game.info.gameId}</p> */}
             {/* <p>{playerData.championName}</p> */}
+            <p>{queue.description}</p>
             <p>{gameDates.whenPlayed}</p>
             <p>{gameDates.gameDur}</p>
             <img src={icon.playerIcon} alt="icon"></img>

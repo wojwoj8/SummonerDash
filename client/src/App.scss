@@ -195,6 +195,7 @@ html, body{
         width: calc(100% - $paddingLeft);
         border-radius: 20px;
         padding-left: $paddingLeft;
+        // margin-left: 15px;
         
             &.won {
                 /* Styles for the parent div when the child has "won" in its class */
