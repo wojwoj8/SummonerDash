@@ -179,19 +179,44 @@ const Game = (props) => {
             
             {/* <p>{game.info.gameId}</p> */}
             {/* <p>{playerData.championName}</p> */}
-            
-            <p>{queue.description}</p>
-            <p>{calculations.whenPlayed}</p>
+            <div className="game-data-queue-when">
+                <p>{queue.description}</p>
+                <p>{calculations.whenPlayed}</p>
+            </div>
+
+            <div className="game-data-time-status">
+                <p>{divClassName()}</p>
+                <p>{calculations.gameDur}</p>
+            </div>
+
+            <div className="game-data-icon-kda">
+                <p>{playerData.kills}/{playerData.deaths}/{playerData.assists}</p>
+                <p>{calcKda()} KDA</p>
+                <div id='inGame-level'>   
+                <div className="test">
+                    <div id="img-wrapper">
+                        <img src={icon.playerIcon} alt="icon"></img>
+                    </div>
+                
+                    <div id="inGamelevel-position">   
+                        <p>{playerData.champLevel}</p>
+                    </div>
+                </div>
+                    
+                    
+                </div>
+                
+            </div>
+                
+
+           
             <p>CS {playerData.totalMinionsKilled + playerData.neutralMinionsKilled}({calculations.csPerMin})</p>
             
             {/* game result */}
-            <p>{divClassName()}</p>
-            <p>{calculations.gameDur}</p>
-
-            <p>{playerData.kills}/{playerData.deaths}/{playerData.assists}</p>
-            <p>{calcKda()} KDA</p>
             
-            <img src={icon.playerIcon} alt="icon"></img>
+            
+
+            
         </div>
     )
 }

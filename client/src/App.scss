@@ -175,8 +175,7 @@ html, body{
 }
 
 .profile-game{
-    display: grid;
-   
+    
     margin: 10px 0;
     
     // background: white;
@@ -187,6 +186,15 @@ html, body{
         
     }
     .profile-game-data{
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+        grid-template-columns: repeat((3, 1fr));
+        grid-template-areas: 
+        "date kda stats"
+        "time icons stats"
+        ;
+
+
         $paddingLeft: 15px;
         
         width: calc(100% - $paddingLeft);
@@ -211,6 +219,67 @@ html, body{
 
 } 
    
+.game-data-queue-time{
+    grid-area: date;
+}
+
+.game-data-time-status{
+    grid-area: time;
+}
+
+.game-data-icon-kda{
+    grid-area: kda;
+    
+    #inGame-level{
+        display: flex;
+        flex-direction: column;
+        
+        .test{
+            
+            width: fit-content ;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            
+        }
+        #img-wrapper{
+            max-width: 4rem;
+            max-height: 4rem;
+            border-radius: 100%;
+            text-indent: -8%;
+            overflow: hidden;
+        }
+        img{
+            // box-sizing: ;
+            border-radius: 100%;
+            width: 4.5rem;
+            height: 4.5rem;
+        }
+        #inGamelevel-position{
+            margin-top: -1.25rem;
+            width: 1.25rem;
+            height: 1.25rem;
+            border-radius: 100%;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            p{
+                margin:0;
+                width: 1.5rem;
+                height: 1.35rem;
+                // padding-right: 1px;
+                // padding-bottom: calc(1rem - 0.7rem);
+                color: white;
+                text-align: center;
+                align-items: center;
+               
+            }
+        }
+        
+    }
+}
+
 //footer
 
 .footer{
