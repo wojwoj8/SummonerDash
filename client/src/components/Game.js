@@ -193,7 +193,7 @@ const Game = (props) => {
                 <p>{playerData.kills}/{playerData.deaths}/{playerData.assists}</p>
                 <p>{calcKda()} KDA</p>
                 <div id='inGame-level'>   
-                <div className="test">
+                <div className="some-wrapper">
                     <div id="img-wrapper">
                         <img src={icon.playerIcon} alt="icon"></img>
                     </div>

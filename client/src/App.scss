@@ -187,7 +187,7 @@ html, body{
     }
     .profile-game-data{
         display: grid;
-        grid-template-rows: 1fr 1fr;
+        grid-template-rows: auto;
         grid-template-columns: repeat((3, 1fr));
         grid-template-areas: 
         "date kda stats"
@@ -234,7 +234,7 @@ html, body{
         display: flex;
         flex-direction: column;
         
-        .test{
+        .some-wrapper{
             
             width: fit-content ;
             display: flex;
