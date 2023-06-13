@@ -10,7 +10,7 @@ import pprint
 app = Flask(__name__)
 CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
-api_key = "RGAPI-ad252d21-7e43-4a2e-a19a-2eaaa25c1284"
+api_key = "RGAPI-d4d3d5be-6d1d-45cd-b865-14c1daf324f3"
 pp = pprint.PrettyPrinter(indent=4)
 
 

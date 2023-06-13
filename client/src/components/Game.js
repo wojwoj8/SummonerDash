@@ -130,12 +130,26 @@ const Game = (props) => {
     }
 
     const calcKda = () =>{
-        
         if (playerData.deaths === 0){
-            return 'Perfect'
+
+            return (
+               <p id='game-perfect'>Perfect KDA</p> 
+               )
         }
         const kda = ((playerData.assists + playerData.kills)/playerData.deaths).toFixed(2);
-        return `${kda}:1`
+        if (kda >= 3){
+            // color = gold;
+            return (
+                <p id="game-good">{kda}:1 KDA</p>
+            )
+        }
+        else{
+            return (
+                <p id="game-notgood">{kda}:1 KDA</p>
+            )
+        }
+       
+        
     }
 
     //for backgroud color of div dependent of game result
@@ -175,10 +189,7 @@ const Game = (props) => {
     return(
 
         <div className={`profile-game-data ${divClassName()}`} >
-            {/* <p>{playerData.win}</p> */}
-            
-            {/* <p>{game.info.gameId}</p> */}
-            {/* <p>{playerData.championName}</p> */}
+
             <div className="game-data-queue-when">
                 <p>{queue.description}</p>
                 <p>{calculations.whenPlayed}</p>
@@ -190,26 +201,27 @@ const Game = (props) => {
             </div>
 
             <div className="game-data-icon-kda">
-                <p>{playerData.kills}/{playerData.deaths}/{playerData.assists}</p>
-                <p>{calcKda()} KDA</p>
+                
                 <div id='inGame-level'>   
-                <div className="some-wrapper">
-                    <div id="img-wrapper">
-                        <img src={icon.playerIcon} alt="icon"></img>
-                    </div>
-                
-                    <div id="inGamelevel-position">   
-                        <p>{playerData.champLevel}</p>
-                    </div>
-                </div>
+                    <div className="some-wrapper">
+                        <div id="img-wrapper">
+                            <img src={icon.playerIcon} alt="icon"></img>
+                        </div>
                     
-                    
+                        <div id="inGamelevel-position">   
+                            <p>{playerData.champLevel}</p>
+                        </div>
+                    </div> 
                 </div>
                 
+                <div className="stats-kda">
+                    <p id="stats-kill-death-assist"><span id="game-kills">{playerData.kills}</span>/<span id='game-deaths'>{playerData.deaths}</span>/<span id="game-assists">{playerData.assists}</span></p>
+                    {calcKda()}
+                </div>
+                
+                    
             </div>
-                
-
-           
+            
             <p>CS {playerData.totalMinionsKilled + playerData.neutralMinionsKilled}({calculations.csPerMin})</p>
             
             {/* game result */}

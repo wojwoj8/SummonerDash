@@ -8,6 +8,14 @@ $profileBackgroundCol: grey;
 // background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
 
 $profileContentBackCol: white;
+
+
+$gameBoxShadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+$victoryBackground: rgba(14, 186, 14, 0.388);
+$lostBackground: rgba(228, 15, 15, 0.519);
+$remakeBackground: grey;
+
+
 html{
     
     // background-color: #8BC6EC;
@@ -186,6 +194,9 @@ html, body{
         
     }
     .profile-game-data{
+
+        box-shadow: $gameBoxShadow;
+
         display: grid;
         grid-template-rows: auto;
         grid-template-columns: repeat((3, 1fr));
@@ -194,7 +205,10 @@ html, body{
         "time icons stats"
         ;
 
-
+        padding-top:15px;
+        p{
+            margin-top: 0;
+        }
         $paddingLeft: 15px;
         
         width: calc(100% - $paddingLeft);
@@ -204,16 +218,16 @@ html, body{
         
             &.Victory {
                 
-                background-color: green;
+                background-color: $victoryBackground;
             }
         
             &.Defeat {
                 
-                background-color: red;
+                background-color: $lostBackground;
             }
             &.Remake {
 
-                background-color: $profileBackgroundCol;
+                background-color: $remakeBackground;
             }
     }
 
@@ -229,7 +243,32 @@ html, body{
 
 .game-data-icon-kda{
     grid-area: kda;
+    display: flex;
+
+    // KDA
+    #game-perfect{
+        color: rgb(246, 184, 13);
+    }
+
+    #game-good{
+        color: rgb(12, 106, 230);
+    }
+
+    #game-notgood{
+        color: rgb(206, 215, 221);
+    }
+
+    #game-kills{
+        color: blue;
+    }
+    #game-deaths{
+        color: rgba(154, 23, 23, 0.992);
+    }
+    #game-assists{
+        color: rgba(255, 255, 0, 0.719);
+    }
     
+    // in game level proprer display
     #inGame-level{
         display: flex;
         flex-direction: column;
@@ -275,8 +314,16 @@ html, body{
                 align-items: center;
                
             }
-        }
+        }     
+    }
+
+    .stats-kda{
+        margin-left: 10px;
         
+        #stats-kill-death-assist{
+            margin-bottom: 5px;
+            margin-top:10px
+        }
     }
 }
 
