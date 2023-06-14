@@ -19,6 +19,26 @@ itemsData = requests.get(
     "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json"
 ).json()
 
+# for before_request bercause there is no before_first_request
+initialized = False
+
+
+# need to be done before everything
+@app.before_request
+def changeAllPathsForItems():
+    global initialized
+    if not initialized:
+        path = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/"
+        # '/lol-game-data/assets/ASSETS/Items/Icons2D/1001_Class_T1_BootsofSpeed.png'
+        for item in itemsData:
+            beforePath = item["iconPath"]
+            cutPath = beforePath.replace("/lol-game-data/assets/", "")
+            lowPath = cutPath.lower()
+            finalPath = path + lowPath
+            item["iconPath"] = finalPath
+
+            initialized = True
+
 
 def mapAssetsPath(path):
     default = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/"
