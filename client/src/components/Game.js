@@ -41,6 +41,8 @@ const Game = (props) => {
         }
         
     }
+
+
     const fetchIcon = async (id) =>{
         // console.log(typeof(championId))
         fetch(`/gameData/icons/${id}`).then(

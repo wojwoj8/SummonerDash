@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory
+from flask import Flask, render_template, send_from_directory, request
 from flask_cors import CORS, cross_origin
 import os
 import sqlite3
@@ -109,7 +109,51 @@ def fetchGamesData(arr, region):
         resp = requests.get(selectedGame_url)
         gameData = resp.json()
 
+        # fetch all images here
+        # return as participant_images or something like that
+        players = gameData["info"]["participants"]
+        # print(len(players))
+
+        # dict with all images as id (before fetch)
+        allPlayerImgIds = {}
+        test = []
+        # players data, want to get all img ids and change to images
+        for player in players:
+            playerData = []
+            # print(player["championId"])
+
+            dataToCopy = [
+                [
+                    "championId",
+                    "item0",
+                    "item1",
+                    "item2",
+                    "item3",
+                    "item4",
+                    "item5",
+                    "item6",
+                    "summoner1Id",
+                    "summoner2Id",
+                ],
+                [
+                    "summonerId",
+                    "summonerName",
+                ],
+            ]
+
+            for sublist in dataToCopy:
+                sublistData = {}
+                for key in sublist:
+                    if key in player:
+                        sublistData[key] = player[key]
+                playerData.append(sublistData)
+            test.append(playerData)
+
+        gameData.update({"allPlayerImgIds": test})
+        # print(test)
+
         arr.append(gameData)
+        # arr.append(test)
 
 
 def checkRegionExists(region):

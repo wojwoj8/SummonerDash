@@ -62,7 +62,7 @@ const Profile = () =>{
             res => res.json()
         ).then(
             data=>{
-                // console.log(data)
+                console.log(data)
                 setGames(data);
             }
         ).catch((error) => {
