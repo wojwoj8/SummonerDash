@@ -176,7 +176,8 @@ def fetchGamesData(arr, region):
                                 if item.get("id") == player[key]:
                                     sublistData[key] = item
                                     break
-
+                                else:
+                                    sublistData[key] = None
                         else:
                             sublistData[key] = player[key]
 
