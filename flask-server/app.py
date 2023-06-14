@@ -10,7 +10,7 @@ import pprint
 app = Flask(__name__)
 CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
-api_key = "RGAPI-d4d3d5be-6d1d-45cd-b865-14c1daf324f3"
+api_key = "RGAPI-19302a19-ab1d-4f47-9aff-702835468cd3"
 pp = pprint.PrettyPrinter(indent=4)
 
 
@@ -103,6 +103,27 @@ def fetchGamesData(arr, region):
     region = regionToContinent(region)
     # print(region)
     gameData_url = "https://" + region + ".api.riotgames.com/lol/match/v5/matches/"
+
+    dataToCopy = [
+        [
+            "championId",
+            "item0",
+            "item1",
+            "item2",
+            "item3",
+            "item4",
+            "item5",
+            "item6",
+            "summoner1Id",
+            "summoner2Id",
+        ],
+        [
+            "summonerId",
+            "summonerName",
+        ],
+    ]
+    sublist_names = ["imgIds", "playerIdName"]
+
     for i in range(len(arr[0])):
         selectedGame_url = gameData_url + arr[0][i] + "?api_key=" + api_key
         # print(selectedGame_url)
@@ -115,43 +136,22 @@ def fetchGamesData(arr, region):
         # print(len(players))
 
         # dict with all images as id (before fetch)
-        allPlayerImgIds = {}
         test = []
         # players data, want to get all img ids and change to images
         for player in players:
-            playerData = []
-            # print(player["championId"])
-
-            dataToCopy = [
-                [
-                    "championId",
-                    "item0",
-                    "item1",
-                    "item2",
-                    "item3",
-                    "item4",
-                    "item5",
-                    "item6",
-                    "summoner1Id",
-                    "summoner2Id",
-                ],
-                [
-                    "summonerId",
-                    "summonerName",
-                ],
-            ]
-
-            for sublist in dataToCopy:
+            playerData = {}
+            for sublist_idx, sublist in enumerate(dataToCopy):
                 sublistData = {}
                 for key in sublist:
                     if key in player:
                         sublistData[key] = player[key]
-                playerData.append(sublistData)
+                playerData[sublist_names[sublist_idx]] = sublistData
             test.append(playerData)
 
         gameData.update({"allPlayerImgIds": test})
         # print(test)
 
+        # NOW ATTACH IMAGES LINKS TO ALL THOSE IDS
         arr.append(gameData)
         # arr.append(test)
 
