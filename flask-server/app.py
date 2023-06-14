@@ -6,12 +6,18 @@ import requests
 import json
 import math
 import pprint
+import re  # regex
 
 app = Flask(__name__)
 CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
 api_key = "RGAPI-19302a19-ab1d-4f47-9aff-702835468cd3"
 pp = pprint.PrettyPrinter(indent=4)
+
+# has to be global as reference for items fetching
+itemsData = requests.get(
+    "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json"
+).json()
 
 
 def mapAssetsPath(path):
@@ -137,6 +143,7 @@ def fetchGamesData(arr, region):
 
         # dict with all images as id (before fetch)
         test = []
+        fetchedData = []
         # players data, want to get all img ids and change to images
         for player in players:
             playerData = {}
@@ -144,7 +151,16 @@ def fetchGamesData(arr, region):
                 sublistData = {}
                 for key in sublist:
                     if key in player:
-                        sublistData[key] = player[key]
+                        if re.search(r"item", key):
+                            for item in itemsData:
+                                if item.get("id") == player[key]:
+                                    sublistData[key] = item
+                                    break
+
+                        else:
+                            sublistData[key] = player[key]
+
+                        # print(sublistData)
                 playerData[sublist_names[sublist_idx]] = sublistData
             test.append(playerData)
 
@@ -154,6 +170,9 @@ def fetchGamesData(arr, region):
         # NOW ATTACH IMAGES LINKS TO ALL THOSE IDS
         arr.append(gameData)
         # arr.append(test)
+
+
+# def fetchItemData(itemId):
 
 
 def checkRegionExists(region):
