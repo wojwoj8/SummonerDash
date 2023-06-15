@@ -5,16 +5,15 @@ const Game = (props) => {
     const {game, userData} = props;
     // console.log(userData)
     // console.log(game)
-
+    const {allPlayerImgIds, info, metadata, queueData} = game;
     const [playerData, setPlayerData] = useState({});
     const [icon, setIcon] = useState({});
     const [calculations, setCalculations] = useState({});
-    const [queue, setQueue] = useState({});
 
     //for fetching
     useEffect(() =>{
         getGameOfCheckedPlayer();
-        fetchQueueType();   
+        // fetchQueueType();   
     }, [])
 
 
@@ -54,20 +53,6 @@ const Game = (props) => {
             
         )
     }
-
-    const fetchQueueType = async () =>{
-        fetch(`/gameData/queueType/${game.info.queueId}`).then(
-            res => res.json()
-        ).then(
-            data =>{
-                setQueue(data)
-            }
-        )
-    }
-    // getGameOfCheckedPlayer();
-    // console.log(playerData)
-    // console.log(typeof(game.info.gameCreation))
-    // console.log(game)
 
     const calcDate = () => {
         
@@ -193,7 +178,7 @@ const Game = (props) => {
         <div className={`profile-game-data ${divClassName()}`} >
 
             <div className="game-data-queue-when">
-                <p>{queue.description}</p>
+                <p>{queueData.description}</p>
                 <p>{calculations.whenPlayed}</p>
             </div>
 

@@ -28,6 +28,7 @@ def changeAllPathsForItems():
         global itemsData
         global summonerSpellsData
         global championsIcons
+        global queues
         itemsData = requests.get(
             "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json"
         ).json()
@@ -42,7 +43,17 @@ def changeAllPathsForItems():
             "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-summary.json"
         ).json()
 
+        queues = requests.get(
+            "https://static.developer.riotgames.com/docs/lol/queues.json"
+        ).json()
+
         dataList = [itemsData, summonerSpellsData, championsIcons]
+
+        # for cutting last word of queue desc
+        for queue in queues:
+            if queue["description"] != None:
+                queue["description"] = queue["description"].rsplit(" ", 1)[0]
+
         for data in dataList:
             for item in data:
                 beforePath = item.get("squarePortraitPath", item.get("iconPath"))
@@ -172,7 +183,8 @@ def fetchGamesData(arr, region):
         # print(selectedGame_url)
         resp = requests.get(selectedGame_url)
         gameData = resp.json()
-
+        # queueType(gameData["info"]["queueId"])
+        # queueType(gameData.info.queueId):
         # fetch all images here
         # return as participant_images or something like that
         players = gameData["info"]["participants"]
@@ -218,13 +230,16 @@ def fetchGamesData(arr, region):
 
                         # print(sublistData)
                 playerData[sublist_names[sublist_idx]] = sublistData
+
             test.append(playerData)
 
+        gameData.update(queueType(gameData["info"]["queueId"]))
         gameData.update({"allPlayerImgIds": test})
         # print(test)
 
         # NOW ATTACH IMAGES LINKS TO ALL THOSE IDS
         arr.append(gameData)
+
         # arr.append(test)
 
 
@@ -325,21 +340,14 @@ def Game(id):
 
 @app.route("/gameData/queueType/<id>", methods=["GET"])
 def queueType(id):
-    queues = requests.get("https://static.developer.riotgames.com/docs/lol/queues.json")
-    queues = queues.json()
     id = int(id)
     queue = ""
     for q in queues:
-        # print(type(q["queueId"]))
-        # print(type(id))
-
         if q["queueId"] == id:
-            # print(q)
             queue = q
-            queue["description"] = queue["description"].rsplit(" ", 1)[0]
-            return queue
 
-    print("no")
+            return {"queueData": queue}
+
     return {"err": "no queue found"}
 
 
