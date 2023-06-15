@@ -15,9 +15,6 @@ api_key = "RGAPI-19302a19-ab1d-4f47-9aff-702835468cd3"
 pp = pprint.PrettyPrinter(indent=4)
 
 # has to be global as reference for items fetching
-itemsData = requests.get(
-    "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json"
-).json()
 
 # for before_request bercause there is no before_first_request
 initialized = False
@@ -28,16 +25,28 @@ initialized = False
 def changeAllPathsForItems():
     global initialized
     if not initialized:
-        path = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/"
-        # '/lol-game-data/assets/ASSETS/Items/Icons2D/1001_Class_T1_BootsofSpeed.png'
-        for item in itemsData:
-            beforePath = item["iconPath"]
-            cutPath = beforePath.replace("/lol-game-data/assets/", "")
-            lowPath = cutPath.lower()
-            finalPath = path + lowPath
-            item["iconPath"] = finalPath
+        global itemsData
+        global summonerSpellsData
+        itemsData = requests.get(
+            "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json"
+        ).json()
 
-            initialized = True
+        # global reference for summ spells data
+        summonerSpellsData = requests.get(
+            "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-spells.json"
+        ).json()
+        path = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/"
+
+        dataList = [itemsData, summonerSpellsData]
+        for data in dataList:
+            for item in data:
+                beforePath = item["iconPath"]
+                cutPath = beforePath.replace("/lol-game-data/assets/", "")
+                lowPath = cutPath.lower()
+                finalPath = path + lowPath
+                item["iconPath"] = finalPath
+
+                initialized = True
 
 
 def mapAssetsPath(path):
@@ -174,6 +183,15 @@ def fetchGamesData(arr, region):
                         if re.search(r"item", key):
                             for item in itemsData:
                                 if item.get("id") == player[key]:
+                                    sublistData[key] = item
+                                    break
+                                else:
+                                    sublistData[key] = None
+
+                        elif re.search(r"1Id", key) or re.search(r"2Id", key):
+                            for item in summonerSpellsData:
+                                if item.get("id") == player[key]:
+                                    # print(item)
                                     sublistData[key] = item
                                     break
                                 else:
