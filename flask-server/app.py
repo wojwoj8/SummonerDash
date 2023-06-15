@@ -27,6 +27,7 @@ def changeAllPathsForItems():
     if not initialized:
         global itemsData
         global summonerSpellsData
+        global championsIcons
         itemsData = requests.get(
             "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json"
         ).json()
@@ -37,16 +38,23 @@ def changeAllPathsForItems():
         ).json()
         path = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/"
 
-        dataList = [itemsData, summonerSpellsData]
+        championsIcons = requests.get(
+            "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-summary.json"
+        ).json()
+
+        dataList = [itemsData, summonerSpellsData, championsIcons]
         for data in dataList:
             for item in data:
-                beforePath = item["iconPath"]
+                beforePath = item.get("squarePortraitPath", item.get("iconPath"))
                 cutPath = beforePath.replace("/lol-game-data/assets/", "")
                 lowPath = cutPath.lower()
                 finalPath = path + lowPath
+                item["squarePortraitPath"] = (
+                    finalPath if "squarePortraitPath" in item else None
+                )
                 item["iconPath"] = finalPath
 
-                initialized = True
+        initialized = True
 
 
 def mapAssetsPath(path):
@@ -190,6 +198,15 @@ def fetchGamesData(arr, region):
 
                         elif re.search(r"1Id", key) or re.search(r"2Id", key):
                             for item in summonerSpellsData:
+                                if item.get("id") == player[key]:
+                                    # print(item)
+                                    sublistData[key] = item
+                                    break
+                                else:
+                                    sublistData[key] = None
+
+                        elif "championId" in key:
+                            for item in championsIcons:
                                 if item.get("id") == player[key]:
                                     # print(item)
                                     sublistData[key] = item
