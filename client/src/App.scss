@@ -268,6 +268,7 @@ html, body{
 
     #game-notgood{
         color: rgb(206, 215, 221);
+        margin-bottom: 5px;
     }
 
     #game-kills{
@@ -331,14 +332,38 @@ html, body{
 
     .stats-kda{
         margin-left: 10px;
+        p{
+            font-size: 1.25rem;
+        }
         
         #stats-kill-death-assist{
             margin-bottom: 5px;
             margin-top:10px
         }
     }
-}
 
+    .summonerSpells-wrapper{
+        display: flex;
+        flex-direction: column;
+        padding-left: 5px;
+
+        img{
+            padding-top: 2px;
+            width: 2rem;
+            height: 2rem;
+        }
+    }
+}
+.player-boughtItems{
+    grid-area: icons;
+    display: flex;
+    align-items: center;
+    img{
+        padding-right: 2px;
+        width: 2rem;
+        height: 2rem;
+    }
+}
 //footer
 
 .footer{

@@ -11,7 +11,7 @@ import re  # regex
 app = Flask(__name__)
 CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
-api_key = "RGAPI-19302a19-ab1d-4f47-9aff-702835468cd3"
+api_key = "RGAPI-e1ed5174-68b7-4052-993b-bb390ea9ac4f"
 pp = pprint.PrettyPrinter(indent=4)
 
 # has to be global as reference for items fetching
@@ -198,6 +198,7 @@ def fetchGamesData(arr, region):
         gameData = resp.json()
 
         # 03.10.2022 00:00:00 ~ start of preseason 13
+        # limitation to this date
         if gameData["info"]["gameCreation"] < 1664748000000:
             # print(gameData["info"]["gameCreation"])
             break
@@ -225,7 +226,9 @@ def fetchGamesData(arr, region):
                                     sublistData[key] = item
                                     break
                                 else:
-                                    sublistData[key] = None
+                                    sublistData[key] = {
+                                        "iconPath": "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/items/icons2d/gp_ui_placeholder.png"
+                                    }
 
                         elif re.search(r"1Id", key) or re.search(r"2Id", key):
                             for item in summonerSpellsData:

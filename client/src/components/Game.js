@@ -210,17 +210,28 @@ const Game = (props) => {
                                 </div>
                             </div> 
                         </div>
-                        
+                        <div className="summonerSpells-wrapper">
+                            <img src={imgIds.summoner1Id.iconPath} alt="summonerSpell"></img>
+                            <img src={imgIds.summoner2Id.iconPath} alt="summonerSpell"></img>
+                        </div>
                         <div className="stats-kda">
                             <p id="stats-kill-death-assist"><span id="game-kills">{playerData.kills}</span>/<span id='game-deaths'>{playerData.deaths}</span>/<span id="game-assists">{playerData.assists}</span></p>
                             {calcKda()}
                         </div>
-                        
-                            
                     </div>
                     
                     <p>CS {playerData.totalMinionsKilled + playerData.neutralMinionsKilled}({calculations.csPerMin})</p>
-                    
+
+
+                    <div className="player-boughtItems">
+                        <img src={imgIds.item0.iconPath} alt="summonerSpell"></img>
+                        <img src={imgIds.item1.iconPath} alt="summonerSpell"></img>
+                        <img src={imgIds.item2.iconPath} alt="summonerSpell"></img>
+                        <img src={imgIds.item3.iconPath} alt="summonerSpell"></img>
+                        <img src={imgIds.item4.iconPath} alt="summonerSpell"></img>
+                        <img src={imgIds.item5.iconPath} alt="summonerSpell"></img>
+                        <img src={imgIds.item6.iconPath} alt="summonerSpell"></img>
+                    </div>
                     {/* game result */}
                     
             
