@@ -11,7 +11,10 @@ const ProfileGames = (props) =>{
         return(
             <div className="profile-games-wrapper">
                     <div className="profile-game">
-                        <p>No games found</p>
+                        <div className="profile-no-games-found">
+                            <p>No games found</p>
+                        </div>
+                        
                     </div>
             </div>
             

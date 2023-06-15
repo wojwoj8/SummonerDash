@@ -6,22 +6,28 @@ const Game = (props) => {
     // console.log(userData)
     // console.log(game)
     const {allPlayerImgIds, info, metadata, queueData} = game;
+    
     const [playerData, setPlayerData] = useState({});
-    const [icon, setIcon] = useState({});
+    const [playerImgs, setPlayerImgs] = useState({});
     const [calculations, setCalculations] = useState({});
 
+    const {imgIds, playerIdName} = playerImgs;
     //for fetching
     useEffect(() =>{
         getGameOfCheckedPlayer();
         // fetchQueueType();   
     }, [])
 
+    // useEffect(() => {
+    //     console.log(playerData);
+    //   }, [playerData]);
 
     //done after playerData fetched
     useEffect(() =>{
+        //somehow when I add more to playerData it loads much longer
         calcDate();
         gameDuration();
-        
+ 
     },[playerData])
 
     useEffect(()=>{
@@ -30,29 +36,30 @@ const Game = (props) => {
 
     const getGameOfCheckedPlayer = () =>
     {
-        for(let i = 0; i < 10; i++){
+        for(let i = 0; i < game.info.participants.length; i++){
             // console.log(game.info.participants[i].championName)
             if (game.info.participants[i].summonerId === userData.id){
+                // console.log(game.allPlayerImgIds[i])
+                
+                // setPlayerData({
+                //     ...playerData,
+                //     player: game.info.participants[i],
+                //     playerImgIds: allPlayerImgIds[i]
+                //   })
+                // console.log(playerData.player)   
                 setPlayerData(game.info.participants[i])
-                fetchIcon(game.info.participants[i].championId);
-                // console.log(game.info.participants[i].championName)
+                setPlayerImgs(allPlayerImgIds[i])
+                return
+                // calcDate();
+                // gameDuration();
+                // return
+                // fetchIcon(game.info.participants[i].championId);
+                
             }
         }
         
     }
 
-
-    const fetchIcon = async (id) =>{
-        // console.log(typeof(championId))
-        fetch(`/gameData/icons/${id}`).then(
-            res => res.json()
-        ).then(
-            data =>{
-                setIcon(data)
-            }
-            
-        )
-    }
 
     const calcDate = () => {
         
@@ -89,7 +96,7 @@ const Game = (props) => {
 
     const gameDuration = () =>{
 
-        
+        // console.log(player.timePlayed)
         const timeDifferenceInSeconds = playerData.timePlayed;
 
         let seconds = timeDifferenceInSeconds % 60;
@@ -175,47 +182,50 @@ const Game = (props) => {
     
     return(
 
-        <div className={`profile-game-data ${divClassName()}`} >
+        <div className={`profile-game-data ${divClassName()}`}>
+            {Object.keys(playerData).length === 0 ? (
+                <div>Loading...</div>
+                ) : (
+                <>
+                    <div className="game-data-queue-when">
+                        <p>{queueData.description}</p>
+                        <p>{calculations.whenPlayed}</p>
+                    </div>
 
-            <div className="game-data-queue-when">
-                <p>{queueData.description}</p>
-                <p>{calculations.whenPlayed}</p>
-            </div>
+                    <div className="game-data-time-status">
+                        <p>{divClassName()}</p>
+                        <p>{calculations.gameDur}</p>
+                    </div>
 
-            <div className="game-data-time-status">
-                <p>{divClassName()}</p>
-                <p>{calculations.gameDur}</p>
-            </div>
-
-            <div className="game-data-icon-kda">
-                
-                <div id='inGame-level'>   
-                    <div className="some-wrapper">
-                        <div id="img-wrapper">
-                            <img src={icon.playerIcon} alt="icon"></img>
+                    <div className="game-data-icon-kda">
+                        
+                        <div id='inGame-level'>   
+                            <div className="some-wrapper">
+                                <div id="img-wrapper">
+                                    <img src={imgIds.championId.iconPath} alt="icon"></img>
+                                </div>
+                            
+                                <div id="inGamelevel-position">   
+                                    <p>{playerData.champLevel}</p>
+                                </div>
+                            </div> 
                         </div>
-                    
-                        <div id="inGamelevel-position">   
-                            <p>{playerData.champLevel}</p>
+                        
+                        <div className="stats-kda">
+                            <p id="stats-kill-death-assist"><span id="game-kills">{playerData.kills}</span>/<span id='game-deaths'>{playerData.deaths}</span>/<span id="game-assists">{playerData.assists}</span></p>
+                            {calcKda()}
                         </div>
-                    </div> 
-                </div>
-                
-                <div className="stats-kda">
-                    <p id="stats-kill-death-assist"><span id="game-kills">{playerData.kills}</span>/<span id='game-deaths'>{playerData.deaths}</span>/<span id="game-assists">{playerData.assists}</span></p>
-                    {calcKda()}
-                </div>
-                
+                        
+                            
+                    </div>
                     
-            </div>
+                    <p>CS {playerData.totalMinionsKilled + playerData.neutralMinionsKilled}({calculations.csPerMin})</p>
+                    
+                    {/* game result */}
+                    
             
-            <p>CS {playerData.totalMinionsKilled + playerData.neutralMinionsKilled}({calculations.csPerMin})</p>
-            
-            {/* game result */}
-            
-            
-
-            
+                </>
+            )}
         </div>
     )
 }

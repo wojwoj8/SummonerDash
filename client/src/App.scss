@@ -182,6 +182,18 @@ html, body{
     
 }
 
+.profile-no-games-found{
+    @extend .profile-games-wrapper;
+    text-align: center;
+    box-shadow: $gameBoxShadow;
+    border-radius: 20px;
+    background-color: $remakeBackground;
+    p{
+        padding:15px 0;
+        font-size: 1.5rem;
+    }
+    
+}
 .profile-game{
     
     margin: 10px 0;

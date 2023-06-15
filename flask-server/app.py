@@ -60,8 +60,10 @@ def changeAllPathsForItems():
                 cutPath = beforePath.replace("/lol-game-data/assets/", "")
                 lowPath = cutPath.lower()
                 finalPath = path + lowPath
+                fail = finalPath.rsplit("/", 1)[0]
+                # print(fail)
                 item["squarePortraitPath"] = (
-                    finalPath if "squarePortraitPath" in item else None
+                    finalPath if "squarePortraitPath" in item else fail + "-1.png"
                 )
                 item["iconPath"] = finalPath
 
@@ -153,6 +155,16 @@ def fetchGamesIds(puuid, arr, region):
     arr.append(gamesIds)
 
 
+def queueType(id):
+    id = int(id)
+    queue = ""
+    for q in queues:
+        if q["queueId"] == id:
+            queue = q
+            return {"queueData": queue}
+    return {"err": "no queue found"}
+
+
 def fetchGamesData(arr, region):
     region = regionToContinent(region)
     # print(region)
@@ -180,9 +192,16 @@ def fetchGamesData(arr, region):
 
     for i in range(len(arr[0])):
         selectedGame_url = gameData_url + arr[0][i] + "?api_key=" + api_key
+
         # print(selectedGame_url)
         resp = requests.get(selectedGame_url)
         gameData = resp.json()
+
+        # 03.10.2022 00:00:00 ~ start of preseason 13
+        if gameData["info"]["gameCreation"] < 1664748000000:
+            # print(gameData["info"]["gameCreation"])
+            break
+
         # queueType(gameData["info"]["queueId"])
         # queueType(gameData.info.queueId):
         # fetch all images here
@@ -233,6 +252,7 @@ def fetchGamesData(arr, region):
 
             test.append(playerData)
 
+        # add queue type to gameData
         gameData.update(queueType(gameData["info"]["queueId"]))
         gameData.update({"allPlayerImgIds": test})
         # print(test)
@@ -336,19 +356,6 @@ def Game(id):
     # print(id)
     icon = {"playerIcon": icon}
     return icon
-
-
-@app.route("/gameData/queueType/<id>", methods=["GET"])
-def queueType(id):
-    id = int(id)
-    queue = ""
-    for q in queues:
-        if q["queueId"] == id:
-            queue = q
-
-            return {"queueData": queue}
-
-    return {"err": "no queue found"}
 
 
 if __name__ == "__main__":
