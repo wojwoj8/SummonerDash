@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const Game = (props) => {
+
+    const { data } = useParams();
 
     const {game, userData} = props;
     // console.log(userData)
@@ -12,6 +16,8 @@ const Game = (props) => {
     const [calculations, setCalculations] = useState({});
 
     const {imgIds, playerIdName} = playerImgs;
+
+
     //for fetching
     useEffect(() =>{
         getGameOfCheckedPlayer();
@@ -179,6 +185,30 @@ const Game = (props) => {
         }))
         
     }
+
+    const playersData = () => {
+        const region = game.info.platformId.toLowerCase();
+        console.log(region)
+        const playerElements = allPlayerImgIds.map((player, i) => (
+          <div className="icon-name-container" key={i}>
+            <img src={player.imgIds.championId.iconPath} alt="champIcon" />
+                <Link to={`/${region}/name/${player.playerIdName.summonerName}`}target="_blank">{player.playerIdName.summonerName}</Link>
+          </div>
+        ));
+      
+        return (
+          <div className="game-players-wrapper">
+            <div className="game-players">
+                <div className="left-col">
+                    {playerElements.filter((_, i) => i < allPlayerImgIds.length / 2)}
+                </div>
+                <div className="right-col">
+                    {playerElements.filter((_, i) => i >= allPlayerImgIds.length / 2)}
+                </div>
+            </div>
+          </div>
+        );
+      };
     
     return(
 
@@ -233,7 +263,9 @@ const Game = (props) => {
                         <img src={imgIds.item6.iconPath} alt="summonerSpell"></img>
                     </div>
                     {/* game result */}
-                    
+
+                            {playersData()}
+
             
                 </>
             )}

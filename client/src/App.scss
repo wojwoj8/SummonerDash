@@ -213,8 +213,8 @@ html, body{
         grid-template-rows: auto;
         grid-template-columns: repeat((3, 1fr));
         grid-template-areas: 
-        "date kda stats"
-        "time icons stats"
+        "date kda stats players"
+        "time icons stats players"
         ;
 
         padding-top:15px;
@@ -364,6 +364,40 @@ html, body{
         height: 2rem;
     }
 }
+
+.game-players-wrapper{
+    grid-area: players;
+    display:flex;
+    // flex-direction: column;
+
+    .game-players{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+        grid-template-areas: 
+        "left right";
+
+        img{
+            width: 1.5rem;
+            height: 1.5rem;
+        }
+        
+
+            .left-col{
+                grid-area: left;
+            }
+            .right-col{
+                grid-area: right;
+            }
+        
+        .icon-name-container{
+            display: flex;
+        }
+
+    }
+}
+
+
 //footer
 
 .footer{
