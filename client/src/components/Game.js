@@ -188,17 +188,19 @@ const Game = (props) => {
 
     const playersData = () => {
         const region = game.info.platformId.toLowerCase();
-        console.log(region)
+        
+        // target _blank make link open in other card
         const playerElements = allPlayerImgIds.map((player, i) => (
           <div className="icon-name-container" key={i}>
             <img src={player.imgIds.championId.iconPath} alt="champIcon" />
-                <Link to={`/${region}/name/${player.playerIdName.summonerName}`}target="_blank">{player.playerIdName.summonerName}</Link>
+                <Link to={`/${region}/name/${player.playerIdName.summonerName}`}target="_blank"><p>{player.playerIdName.summonerName}</p></Link>
           </div>
         ));
-      
+        // filter who is in left or right column
         return (
-          <div className="game-players-wrapper">
+          
             <div className="game-players">
+                
                 <div className="left-col">
                     {playerElements.filter((_, i) => i < allPlayerImgIds.length / 2)}
                 </div>
@@ -206,10 +208,36 @@ const Game = (props) => {
                     {playerElements.filter((_, i) => i >= allPlayerImgIds.length / 2)}
                 </div>
             </div>
-          </div>
+          
         );
       };
     
+    const largestMultiKill = () =>{
+        const multikill = playerData.largestMultiKill;
+        if (multikill >= 2){
+            if(playerData.pentaKills){
+                return(
+                    <p>Penta kill</p>
+                )
+            }
+            if(playerData.quadraKills){
+                return(
+                    <p>Quadra kill</p>
+                )
+            }
+            if(playerData.tripleKills){
+                return(
+                    <p>Triple kill</p>
+                )
+            }
+            if(playerData.doubleKills){
+                return(
+                    <p>Double kill</p>
+                )
+            }
+            
+        }
+    }
     return(
 
         <div className={`profile-game-data ${divClassName()}`}>
@@ -250,8 +278,16 @@ const Game = (props) => {
                         </div>
                     </div>
                     
-                    <p>CS {playerData.totalMinionsKilled + playerData.neutralMinionsKilled}({calculations.csPerMin})</p>
+                    <div className="game-cs-data">
+                        <p>CS {playerData.totalMinionsKilled + playerData.neutralMinionsKilled}({calculations.csPerMin})</p>
+                        <p>Ability uses: {playerData.challenges.abilityUses}</p>
+                    </div>
 
+                    <div className="game-special-data">
+                        <div className="multikill">
+                            {largestMultiKill()}
+                        </div>
+                    </div>
 
                     <div className="player-boughtItems">
                         <img src={imgIds.item0.iconPath} alt="summonerSpell"></img>
@@ -262,11 +298,12 @@ const Game = (props) => {
                         <img src={imgIds.item5.iconPath} alt="summonerSpell"></img>
                         <img src={imgIds.item6.iconPath} alt="summonerSpell"></img>
                     </div>
-                    {/* game result */}
+                    
 
-                            {playersData()}
-
-            
+                    {/* players icons and nicks as links */}
+                    <div className="game-players-wrapper">
+                        {playersData()}        
+                    </div>
                 </>
             )}
         </div>
