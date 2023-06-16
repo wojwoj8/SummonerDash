@@ -239,22 +239,30 @@ const Game = (props) => {
         }
     }
 
-    const displayItems = () =>{
-        // get only data with item in key from object
+    const displayItems = () => {
         const items = Object.fromEntries(
-            Object.entries(imgIds).filter(([key]) => key.includes('item'))
-          );
-        const boughtItemsElement = items.map((item, i) =>(
+          Object.entries(imgIds).filter(([key]) => key.includes('item'))
+        );
+      
+        const boughtItemsElement = Object.entries(items).map(([key, item], i) => (
+          item.name ?(
             <div className="tooltip-container" key={i}>
-                <img src={item.iconPath} alt="summonerItem"></img>
+                <img src={item.iconPath} alt={`Item${i}`} />
                 <div className="tooltip">
+                    <h2>{item.name}</h2>
+                    <p>{item.description}</p>
+                    {item.priceTotal === 0 ? null : <p>Price: {item.priceTotal}</p>}
                     
                 </div>
             </div>
-
-        ))
-        return (boughtItemsElement)
-    }
+          ):(
+            <img src={item.iconPath} alt={`Item${i}`} key={i} />
+          )
+          
+        ));
+      
+        return boughtItemsElement;
+      };
 
     return(
 
@@ -323,13 +331,14 @@ const Game = (props) => {
                     </div>
 
                     <div className="player-boughtItems">
-                        <img src={imgIds.item0.iconPath} alt="summonerItem"></img>
+                    {displayItems()}
+                        {/* <img src={imgIds.item0.iconPath} alt="summonerItem"></img>
                         <img src={imgIds.item1.iconPath} alt="summonerItem"></img>
                         <img src={imgIds.item2.iconPath} alt="summonerItem"></img>
                         <img src={imgIds.item3.iconPath} alt="summonerItem"></img>
                         <img src={imgIds.item4.iconPath} alt="summonerItem"></img>
                         <img src={imgIds.item5.iconPath} alt="summonerItem"></img>
-                        <img src={imgIds.item6.iconPath} alt="summonerItem"></img>
+                        <img src={imgIds.item6.iconPath} alt="summonerItem"></img> */}
                     </div>
                     
 
