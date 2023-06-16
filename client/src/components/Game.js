@@ -238,6 +238,24 @@ const Game = (props) => {
             
         }
     }
+
+    const displayItems = () =>{
+        // get only data with item in key from object
+        const items = Object.fromEntries(
+            Object.entries(imgIds).filter(([key]) => key.includes('item'))
+          );
+        const boughtItemsElement = items.map((item, i) =>(
+            <div className="tooltip-container" key={i}>
+                <img src={item.iconPath} alt="summonerItem"></img>
+                <div className="tooltip">
+                    
+                </div>
+            </div>
+
+        ))
+        return (boughtItemsElement)
+    }
+
     return(
 
         <div className={`profile-game-data ${divClassName()}`}>
@@ -269,8 +287,23 @@ const Game = (props) => {
                             </div> 
                         </div>
                         <div className="summonerSpells-wrapper">
-                            <img src={imgIds.summoner1Id.iconPath} alt="summonerSpell"></img>
-                            <img src={imgIds.summoner2Id.iconPath} alt="summonerSpell"></img>
+
+                            <div className="tooltip-container">
+                                <img src={imgIds.summoner1Id.iconPath} alt="summonerSpell"></img>
+                                <div className="tooltip">
+                                    <h2>{imgIds.summoner1Id.name}</h2>
+                                    {imgIds.summoner1Id.description}
+                                </div>
+                            </div>
+                            
+                            <div className="tooltip-container">
+                                <img src={imgIds.summoner2Id.iconPath} alt="summonerSpell"></img>
+                                <div className="tooltip">
+                                    <h2>{imgIds.summoner2Id.name}</h2>
+                                    <p>{imgIds.summoner2Id.description}</p>
+                                </div>
+                            </div>
+
                         </div>
                         <div className="stats-kda">
                             <p id="stats-kill-death-assist"><span id="game-kills">{playerData.kills}</span>/<span id='game-deaths'>{playerData.deaths}</span>/<span id="game-assists">{playerData.assists}</span></p>
@@ -290,13 +323,13 @@ const Game = (props) => {
                     </div>
 
                     <div className="player-boughtItems">
-                        <img src={imgIds.item0.iconPath} alt="summonerSpell"></img>
-                        <img src={imgIds.item1.iconPath} alt="summonerSpell"></img>
-                        <img src={imgIds.item2.iconPath} alt="summonerSpell"></img>
-                        <img src={imgIds.item3.iconPath} alt="summonerSpell"></img>
-                        <img src={imgIds.item4.iconPath} alt="summonerSpell"></img>
-                        <img src={imgIds.item5.iconPath} alt="summonerSpell"></img>
-                        <img src={imgIds.item6.iconPath} alt="summonerSpell"></img>
+                        <img src={imgIds.item0.iconPath} alt="summonerItem"></img>
+                        <img src={imgIds.item1.iconPath} alt="summonerItem"></img>
+                        <img src={imgIds.item2.iconPath} alt="summonerItem"></img>
+                        <img src={imgIds.item3.iconPath} alt="summonerItem"></img>
+                        <img src={imgIds.item4.iconPath} alt="summonerItem"></img>
+                        <img src={imgIds.item5.iconPath} alt="summonerItem"></img>
+                        <img src={imgIds.item6.iconPath} alt="summonerItem"></img>
                     </div>
                     
 

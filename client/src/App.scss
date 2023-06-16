@@ -212,14 +212,14 @@ html, body{
         box-shadow: $gameBoxShadow;
 
         display: grid;
-        grid-template-rows: auto;
+        grid-template-rows: 5rem 5rem;
         grid-template-columns: repeat(4, 1fr);
         grid-template-areas: 
         "date kda stats players"
         "time icons stats-special players"
         ;
 
-        padding: 15px 10px;
+        padding: 15px 15px;
         padding-bottom: 0 !important;
         p{
             margin-top: 0;
@@ -228,7 +228,7 @@ html, body{
         
         width: calc(100% - $paddingLeft);
         border-radius: 20px;
-        padding-left: $paddingLeft;
+        // padding-left: $paddingLeft;
         // margin-left: 15px;
         
             &.Victory {
@@ -424,7 +424,9 @@ html, body{
         
         .icon-name-container{
             display: flex;
+            margin-bottom: 5px;
             p{
+                margin-bottom: 0;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -435,6 +437,32 @@ html, body{
     }
 }
 
+.tooltip-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #f9f9f9;
+    padding: 10px;
+    border: 1px solid #ccc;
+    z-index: 1;
+   
+  }
+  
+  .tooltip-container:hover .tooltip {
+    display: flex;
+    width: 25rem;
+    flex-wrap: wrap;
+    h2{
+        margin-top: 5px;
+    }
+  }
 
 //footer
 
