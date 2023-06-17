@@ -67,10 +67,10 @@ const Profile = () =>{
             res => res.json()
         ).then(
             data=>{
-                console.log('first games data')
-                console.log(data)
+                // console.log('first games data')
+                // console.log(data)
                 setGames(data);
-                setFetchedGamesStart(prev => fetchedGamesStart + 10)
+                setFetchedGamesStart(prev => fetchedGamesStart + 5)
             }
         ).catch((error) => {
             console.log('Error fetching games data:', error)
@@ -82,17 +82,9 @@ const Profile = () =>{
         fetch(`/gamesData/${query.region}/${query.name}/${fetchedGamesStart}`).then(
             res => res.json()
         ).then(
-            data=>{
-                console.log("games: ")
-                console.log(games)
-                console.log("new games: ")
-                console.log(data)
-                setGames(prev => ({
-                    ...prev, data
-                }));
-                setFetchedGamesStart(prev => fetchedGamesStart + 10)
-                console.log('done')
-                console.log(games)
+            data=>{            
+                setGames([...games, ...data]);
+                setFetchedGamesStart(prev => fetchedGamesStart + 5)
             }
         ).catch((error) => {
             console.log('Error fetching games data:', error)
@@ -136,7 +128,7 @@ const Profile = () =>{
             <ProfileGames
                 userData={data}
                 games={games}
-                fetchMoreGamesData={fetchGamesData}
+                fetchMoreGamesData={fetchMoreGamesData}
 
             />
             

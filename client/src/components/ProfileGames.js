@@ -26,9 +26,10 @@ const ProfileGames = (props) =>{
       }
     return (
         <div className="profile-games-wrapper">
-           
+                
                 {games.map((game) =>(
                     <div className={`profile-game`} key={game.info.gameId}>
+                        {/* {console.log(game.info.gameId)} */}
                         <Game
                             userData={userData}
                             game={game}

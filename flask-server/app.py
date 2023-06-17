@@ -150,7 +150,7 @@ def fetchGamesIds(puuid, arr, region, start):
     )
     # can change count of fetched games
     matchId_url = (
-        matchId_url + puuid + "/ids?start=" + start + "&count=10" "&api_key=" + api_key
+        matchId_url + puuid + "/ids?start=" + start + "&count=5" "&api_key=" + api_key
     )
     resp = requests.get(matchId_url)
     gamesIds = resp.json()
