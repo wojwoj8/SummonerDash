@@ -455,24 +455,45 @@ html, body{
   .tooltip {
     display: none;
     position: absolute;
-    bottom: 100%;
+    bottom: calc(100% + 10px);
     left: 50%;
     transform: translateX(-50%);
     background-color: #f9f9f9;
     padding: 10px;
     border: 1px solid #ccc;
     z-index: 1;
-   
+    opacity: 0;
+    min-width: 5rem;
+    max-width: 25rem;
+    width: max-content;
+    transition: opacity 0.3s;
   }
   
   .tooltip-container:hover .tooltip {
     display: flex;
     flex-direction: column;
-    width: 25rem;
+    
     flex-wrap: wrap;
-    h2{
-        margin-top: 5px;
+    h2 {
+      margin-top: 5px;
     }
+    animation: tooltipFadeIn 0.15s 0.25s forwards;
+  }
+  
+  .tooltip::before {
+    content: "";
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: #f9f9f9 transparent transparent transparent; /* Reverse the border-color */
+  }
+  
+  @keyframes tooltipFadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
   }
 
 //footer
