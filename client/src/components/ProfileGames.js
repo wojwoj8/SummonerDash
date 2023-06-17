@@ -44,7 +44,7 @@ const ProfileGames = (props) =>{
     const handleLoad = (e) =>{
         props.fetchMoreGamesData();
         setDisplay('none')
-        console.log(display)
+        // console.log(display)
         return(
             <Icon path={mdiLoading} size={2} spin/>
         )

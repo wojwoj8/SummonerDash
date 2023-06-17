@@ -323,6 +323,7 @@ const Game = (props) => {
                                 <div className="tooltip">
                                     <h2>{imgIds.summoner1Id.name}</h2>
                                     {imgIds.summoner1Id.description}
+                                    <p>Uses: {playerData.summoner1Casts}</p>
                                 </div>
                             </div>
                             
@@ -331,6 +332,7 @@ const Game = (props) => {
                                 <div className="tooltip">
                                     <h2>{imgIds.summoner2Id.name}</h2>
                                     <p>{imgIds.summoner2Id.description}</p>
+                                    <p>Uses: {playerData.summoner2Casts}</p>
                                 </div>
                             </div>
 
@@ -343,7 +345,21 @@ const Game = (props) => {
                     
                     <div className="game-cs-data">
                         <p>CS {playerData.totalMinionsKilled + playerData.neutralMinionsKilled}({calculations.csPerMin})</p>
-                        {playerData.challenges?.abilityUses && <p>Ability uses: {playerData.challenges.abilityUses}</p>}
+                        {playerData.challenges?.abilityUses && 
+                        <div className="tooltip-container">
+                            <p>
+                                Ability uses: {playerData.challenges.abilityUses}
+                            </p>    
+                            <div className="tooltip">
+                                <p>Q uses: {playerData.spell1Casts}</p>
+                                <p>W uses: {playerData.spell2Casts}</p>
+                                <p>E uses: {playerData.spell3Casts}</p>
+                                <p>R uses: {playerData.spell4Casts}</p>
+                            </div>
+                            
+                        </div>
+                        
+                        }
                         
                     </div>
 
@@ -354,14 +370,7 @@ const Game = (props) => {
                     </div>
 
                     <div className="player-boughtItems">
-                    {displayItems()}
-                        {/* <img src={imgIds.item0.iconPath} alt="summonerItem"></img>
-                        <img src={imgIds.item1.iconPath} alt="summonerItem"></img>
-                        <img src={imgIds.item2.iconPath} alt="summonerItem"></img>
-                        <img src={imgIds.item3.iconPath} alt="summonerItem"></img>
-                        <img src={imgIds.item4.iconPath} alt="summonerItem"></img>
-                        <img src={imgIds.item5.iconPath} alt="summonerItem"></img>
-                        <img src={imgIds.item6.iconPath} alt="summonerItem"></img> */}
+                        {displayItems()}
                     </div>
                     
 
