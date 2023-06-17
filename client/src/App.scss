@@ -184,10 +184,14 @@ html, body{
     
     
 }
+
 .profile-games{
     
 }
-
+.profile-games-loading{
+    text-align: center;
+    
+}
 .profile-no-games-found{
     @extend .profile-games-wrapper;
     text-align: center;
