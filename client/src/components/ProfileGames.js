@@ -36,6 +36,9 @@ const ProfileGames = (props) =>{
                     </div>
                 ))}
             
+            <div className="fetchMore">
+                <button onClick={e => props.fetchMoreGamesData()}>Fetch more</button>
+            </div>
            
         </div>
         

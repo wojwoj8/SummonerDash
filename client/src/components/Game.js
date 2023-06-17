@@ -274,7 +274,9 @@ const Game = (props) => {
                 </div>
             </div>
           ):(
-            <img src={item.iconPath} alt={`Item${i}`} key={i} />
+            <div className="tooltip-container" key={i}>
+                <img src={item.iconPath} alt={`Item${i}`} />
+            </div>
           )
           
         ));

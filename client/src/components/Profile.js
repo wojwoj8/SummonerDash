@@ -12,6 +12,8 @@ const Profile = () =>{
     const [flex, setFlex] = useState({});
     const [fetchedGamesStart, setFetchedGamesStart] = useState(0);
 
+    const [isLoading, setIsLoading] = useState(true);
+    const [reachedBottom, setReachedBottom] = useState(false);
     // const [isLoading, setIsLoading] = useState(true);
     // gamesData
     const [games, setGames] = useState({});
@@ -24,21 +26,6 @@ const Profile = () =>{
         
     }, [])
 
-    useEffect(() =>{
-        const handleScroll = () =>{
-            if (isScrollAtBottom()){
-                console.log('scroll at bottom');
-                // fetchMoreGamesData();
-            }
-        }
-        // Attach the event listener to the window or the specific element
-        window.addEventListener('scroll', handleScroll);
-
-        // Clean up the event listener on component unmount
-        return () => {
-        window.removeEventListener('scroll', handleScroll);
-    };
-    }, [])
 
     const fetchUserData = async () =>{
         // console.log(query)
@@ -80,6 +67,7 @@ const Profile = () =>{
             res => res.json()
         ).then(
             data=>{
+                console.log('first games data')
                 console.log(data)
                 setGames(data);
                 setFetchedGamesStart(prev => fetchedGamesStart + 10)
@@ -95,11 +83,16 @@ const Profile = () =>{
             res => res.json()
         ).then(
             data=>{
+                console.log("games: ")
+                console.log(games)
+                console.log("new games: ")
                 console.log(data)
                 setGames(prev => ({
                     ...prev, data
                 }));
                 setFetchedGamesStart(prev => fetchedGamesStart + 10)
+                console.log('done')
+                console.log(games)
             }
         ).catch((error) => {
             console.log('Error fetching games data:', error)
@@ -107,11 +100,20 @@ const Profile = () =>{
         );
     }
 
-    const isScrollAtBottom = () => {
-        const scrollThreshold = 100; // Adjust the threshold as needed
-        return window.innerHeight + document.documentElement.scrollTop >= document.documentElement.scrollHeight - scrollThreshold;
-      };
+    
 
+
+
+
+
+
+
+
+
+
+
+
+    
     if (err.err){
         console.log('error')
         return(
@@ -134,10 +136,11 @@ const Profile = () =>{
             <ProfileGames
                 userData={data}
                 games={games}
+                fetchMoreGamesData={fetchGamesData}
 
             />
-
-        {/* {isLoading && <p>Loading...</p>} */}
+            
+            
         </div>
     )
 }

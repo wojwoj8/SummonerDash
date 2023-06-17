@@ -192,6 +192,7 @@ def fetchGamesData(arr, region):
     ]
     sublist_names = ["imgIds", "playerIdName"]
 
+    print(arr)
     for i in range(len(arr[0])):
         selectedGame_url = gameData_url + arr[0][i] + "?api_key=" + api_key
 

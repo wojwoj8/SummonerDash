@@ -173,7 +173,11 @@ html, body{
 
 
 //ProfileGames
-
+.fetchMore{
+    display: flex;
+    justify-content: center;
+    bottom: 100%;
+}
 .profile-games-wrapper{
     grid-area: games;
     margin: 10px 0;
