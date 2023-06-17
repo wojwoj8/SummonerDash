@@ -6,6 +6,7 @@ const ProfileData = (props) => {
     return(
 
         <div className="profile-data">
+            {/* {console.log(flex)} */}
             {(typeof data.name === 'undefined')?(
                 <p>loading...</p>
                 
@@ -23,7 +24,7 @@ const ProfileData = (props) => {
                                 
                             </div>
                             </div>
-                                {(typeof solo.tier === 'undefined')?(
+                                {(typeof solo === 'undefined' || typeof solo.tier === 'undefined')?(
                                     <div className="profile-solo">
                                         <h2> Ranked Solo</h2>
                                         <p data-testid="solo-unrank">unranked</p>

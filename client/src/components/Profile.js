@@ -12,9 +12,7 @@ const Profile = () =>{
     const [flex, setFlex] = useState({});
     const [fetchedGamesStart, setFetchedGamesStart] = useState(0);
 
-    const [isLoading, setIsLoading] = useState(true);
-    const [reachedBottom, setReachedBottom] = useState(false);
-    // const [isLoading, setIsLoading] = useState(true);
+
     // gamesData
     const [games, setGames] = useState({});
 
@@ -34,7 +32,7 @@ const Profile = () =>{
           ).then(
             data =>{
                 if (data.err){
-                    console.log(data)
+                    // console.log(data)
                     setErr(data);
                     return
                 }
@@ -85,24 +83,14 @@ const Profile = () =>{
             data=>{            
                 setGames([...games, ...data]);
                 setFetchedGamesStart(prev => fetchedGamesStart + 5)
+                console.log(games)
             }
+        
         ).catch((error) => {
             console.log('Error fetching games data:', error)
         }
         );
     }
-
-    
-
-
-
-
-
-
-
-
-
-
 
 
     
@@ -129,6 +117,7 @@ const Profile = () =>{
                 userData={data}
                 games={games}
                 fetchMoreGamesData={fetchMoreGamesData}
+                fetchedGamesStart={fetchedGamesStart}
 
             />
             

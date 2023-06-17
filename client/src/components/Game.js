@@ -162,7 +162,9 @@ const Game = (props) => {
         } else if (playerData.win === true){
             gameResult = 'Victory';
 
-        } else{
+        } 
+        if (playerData.timePlayed < 240){
+            // console.log(playerData.timePlayed)
             gameResult = 'Remake';
         }
         // console.log(gameResult)
@@ -341,7 +343,8 @@ const Game = (props) => {
                     
                     <div className="game-cs-data">
                         <p>CS {playerData.totalMinionsKilled + playerData.neutralMinionsKilled}({calculations.csPerMin})</p>
-                        <p>Ability uses: {playerData.challenges.abilityUses}</p>
+                        {playerData.challenges?.abilityUses && <p>Ability uses: {playerData.challenges.abilityUses}</p>}
+                        
                     </div>
 
                     <div className="game-special-data">

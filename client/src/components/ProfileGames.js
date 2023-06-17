@@ -3,7 +3,7 @@ import { useState } from "react";
 
 const ProfileGames = (props) =>{
 
-    const {games, userData} = props;
+    const {games, userData, fetchedGamesStart} = props;
     // console.log(games)
 
 
@@ -36,10 +36,23 @@ const ProfileGames = (props) =>{
                         />
                     </div>
                 ))}
+
             
+            {games[fetchedGamesStart - 1] ?(
             <div className="fetchMore">
                 <button onClick={e => props.fetchMoreGamesData()}>Fetch more</button>
             </div>
+            ):(
+                <div className="profile-games-wrapper">
+                    <div className="profile-game">
+                        <div className="profile-no-games-found">
+                            <p>No more games found</p>
+                        </div>
+                        
+                    </div>
+            </div>
+            )}
+            
            
         </div>
         
