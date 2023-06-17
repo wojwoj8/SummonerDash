@@ -243,14 +243,32 @@ const Game = (props) => {
         const items = Object.fromEntries(
           Object.entries(imgIds).filter(([key]) => key.includes('item'))
         );
-      
+        
+        // description from my api has <> chars and it cuts it
+        const itemDescCut = (string) => {
+            // Remove HTML tags except for <br>
+            const strippedString = string.replace(/<(?!br\s*\/?)[^>]+>/gi, '');
+        
+            // Split the string at "<br>" and wrap each part with a <span> element
+            const formattedString = strippedString.split("<br>").map((part, index) => (
+              <span key={index}>
+                {part}
+                {index !== strippedString.length - 1 && <br />} {/* Add <br> element after each part except the last one */}
+              </span>
+            ));
+        
+            return formattedString;
+          };
         const boughtItemsElement = Object.entries(items).map(([key, item], i) => (
           item.name ?(
             <div className="tooltip-container" key={i}>
                 <img src={item.iconPath} alt={`Item${i}`} />
                 <div className="tooltip">
                     <h2>{item.name}</h2>
-                    <p>{item.description}</p>
+                    <div className="tooltip-itemDesc">
+                        {itemDescCut(item.description)}
+                    </div>
+                    
                     {item.priceTotal === 0 ? null : <p>Price: {item.priceTotal}</p>}
                     
                 </div>

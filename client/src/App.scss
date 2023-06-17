@@ -457,6 +457,7 @@ html, body{
   
   .tooltip-container:hover .tooltip {
     display: flex;
+    flex-direction: column;
     width: 25rem;
     flex-wrap: wrap;
     h2{

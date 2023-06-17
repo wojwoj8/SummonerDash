@@ -11,7 +11,7 @@ import re  # regex
 app = Flask(__name__)
 CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
-api_key = "RGAPI-e1ed5174-68b7-4052-993b-bb390ea9ac4f"
+api_key = "RGAPI-4a39f4b4-2f19-4595-8d3c-e87d278af04d"
 pp = pprint.PrettyPrinter(indent=4)
 
 # has to be global as reference for items fetching
