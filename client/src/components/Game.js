@@ -272,7 +272,17 @@ const Game = (props) => {
                     </div>
                     
                     {item.priceTotal === 0 ? null : <p>Price: {item.priceTotal}</p>}
-                    
+                    {key === 'item6' && item.categories && item.categories[item.categories.length - 1] === 'Vision' ? 
+                    <div>
+                        <p>Vision Score: {playerData.visionScore}</p> 
+                        <p>Placed wards: {playerData.wardsPlaced}</p>
+                        <p>Destroyed wards: {playerData.wardsKilled}</p>
+                        <p>Control wards: {playerData.visionWardsBoughtInGame}</p>
+                        
+                        
+                    </div>
+
+                    : null}
                 </div>
             </div>
           ):(
