@@ -143,13 +143,15 @@ def fetchIcon(arr):
 
 
 # fetch last 20 played games id
-def fetchGamesIds(puuid, arr, region):
+def fetchGamesIds(puuid, arr, region, start):
     region = regionToContinent(region)
     matchId_url = (
         "https://" + region + ".api.riotgames.com/lol/match/v5/matches/by-puuid/"
     )
     # can change count of fetched games
-    matchId_url = matchId_url + puuid + "/ids?start=0&count=5" "&api_key=" + api_key
+    matchId_url = (
+        matchId_url + puuid + "/ids?start=" + start + "&count=10" "&api_key=" + api_key
+    )
     resp = requests.get(matchId_url)
     gamesIds = resp.json()
     arr.append(gamesIds)
@@ -334,8 +336,8 @@ def profile(name, region):
     return data
 
 
-@app.route("/gamesData/<region>/<name>", methods=["GET"])
-def Games(name, region):
+@app.route("/gamesData/<region>/<name>/<start>", methods=["GET"])
+def Games(name, region, start):
     data = []
     gamesData = []
     fetch1(name, region, data)
@@ -343,7 +345,7 @@ def Games(name, region):
         data[0]["id"]
     except KeyError:
         return {"err": "summoner not found"}
-    fetchGamesIds(data[0]["puuid"], gamesData, region)
+    fetchGamesIds(data[0]["puuid"], gamesData, region, start)
 
     fetchGamesData(gamesData, region)
     # remove games id because it is after fetch in json
