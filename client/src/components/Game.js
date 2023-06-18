@@ -15,7 +15,9 @@ const Game = (props) => {
     const [playerImgs, setPlayerImgs] = useState({});
     const [calculations, setCalculations] = useState({});
 
-    const {imgIds, playerIdName} = playerImgs;
+    const {imgIds, playerIdName, runes} = playerImgs;
+
+
 
 
     //for fetching
@@ -347,6 +349,31 @@ const Game = (props) => {
                             </div>
 
                         </div>
+
+
+                        <div className="summonerSpells-wrapper">
+
+                            <div className="tooltip-container">
+                                <img src={runes.perks.styles[0].selections[0].perk.iconPath} alt="runesPrimary"></img>
+                                
+                                <div className="tooltip">
+                                    <h2>{imgIds.summoner1Id.name}</h2>
+                                    {imgIds.summoner1Id.description}
+                                    <p>Uses: {playerData.summoner1Casts}</p>
+                                </div>
+                            </div>
+                            
+                            <div className="tooltip-container">
+                            <img src={runes.perks.styles[0].style.iconPath} alt="runesSecondary"></img>
+                                <div className="tooltip">
+                                    <h2>{imgIds.summoner2Id.name}</h2>
+                                    <p>{imgIds.summoner2Id.description}</p>
+                                    <p>Uses: {playerData.summoner2Casts}</p>
+                                </div>
+                            </div>
+
+                        </div>
+
                         <div className="stats-kda">
                             <p id="stats-kill-death-assist"><span id="game-kills">{playerData.kills}</span>/<span id='game-deaths'>{playerData.deaths}</span>/<span id="game-assists">{playerData.assists}</span></p>
                             {calcKda()}

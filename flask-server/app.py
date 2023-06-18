@@ -31,6 +31,7 @@ def changeAllPathsForItems():
         global championsIcons
         global queues
         global runesData
+        global runesStyles
 
         itemsData = requests.get(
             "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json"
@@ -54,7 +55,17 @@ def changeAllPathsForItems():
             "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perks.json"
         ).json()
 
-        dataList = [itemsData, summonerSpellsData, championsIcons, runesData]
+        runesStyles = requests.get(
+            "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perkstyles.json"
+        ).json()["styles"]
+
+        dataList = [
+            itemsData,
+            summonerSpellsData,
+            championsIcons,
+            runesData,
+            runesStyles,
+        ]
 
         # for cutting last word of queue desc
         for queue in queues:
@@ -74,6 +85,9 @@ def changeAllPathsForItems():
                 )
                 item["iconPath"] = finalPath
 
+        # pp.pprint(runesStyles.values())
+        # for item in runesStyles["styles"]:
+        #     print(item)
         initialized = True
 
 
@@ -286,6 +300,14 @@ def fetchGamesData(arr, region):
                                         secondaryRunes[i]["perk"] = item
                             # sublistData[key] = player[key]
 
+                            for i in range(len(sublistData["perks"]["styles"])):
+                                for item in runesStyles:
+                                    if sublistData["perks"]["styles"][i][
+                                        "style"
+                                    ] == item.get("id"):
+                                        sublistData["perks"]["styles"][i][
+                                            "style"
+                                        ] = item
                         else:
                             sublistData[key] = player[key]
 
