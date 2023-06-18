@@ -5,10 +5,10 @@ import { mdiLoading } from '@mdi/js';
 
 const ProfileGames = (props) =>{
 
-    const {games, userData, fetchedGamesStart} = props;
+    const {games, userData, fetchedGamesStart, display, setDisplay, button, setButton} = props;
     // console.log(games)
 
-    const [display, setDisplay] = useState('block');
+    
 
     useEffect(() =>{
         setDisplay('block')
@@ -45,9 +45,7 @@ const ProfileGames = (props) =>{
         props.fetchMoreGamesData();
         setDisplay('none')
         // console.log(display)
-        return(
-            <Icon path={mdiLoading} size={2} spin/>
-        )
+        
     }
     
     return (
@@ -62,8 +60,10 @@ const ProfileGames = (props) =>{
                         />
                     </div>
                 ))}
-
-            {games[fetchedGamesStart - 1] ?(
+            
+            {button === false ? (<div>
+                
+                {games[fetchedGamesStart - 1] ?(
             <div className="fetchMore">
                 
                 <button style={{display: display}} onClick={handleLoad}>Fetch more</button>
@@ -79,6 +79,17 @@ const ProfileGames = (props) =>{
                     </div>
                 </div>
             )}
+            </div>) : (
+                <div className="profile-games-wrapper">
+                    
+                <div className="profile-games-loading">
+                    <Icon id="load" path={mdiLoading} size={2} spin/>
+                </div>
+                
+           
+        </div>
+            )}
+            
         </div>
         
     )

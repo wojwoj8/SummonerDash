@@ -1,7 +1,11 @@
+import { useState } from "react";
+import Icon from '@mdi/react';
+import { mdiLoading } from '@mdi/js';
 const ProfileData = (props) => {
 
-    const {data, solo, flex, err} = props;
+    const {data, solo, flex, err, setButton, loading} = props;
 
+    
 
     return(
 
@@ -68,7 +72,18 @@ const ProfileData = (props) => {
                                         </div>      
                                     </div>                          
                                 </div>
+                                
+                                
                                 )}
+
+                    <div id="reload-data">
+                        <button  onClick={e => setButton(true)}>
+                            {loading ? 
+                            (<Icon id="load" path={mdiLoading} size={2} spin/>) : 
+                            'Reload'}
+                        </button>
+                        
+                    </div>
                             
                 </div>
                 )

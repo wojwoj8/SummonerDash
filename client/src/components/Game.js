@@ -243,26 +243,28 @@ const Game = (props) => {
         }
     }
 
+    // description from my api has <> chars and it cuts it
+    const itemDescCut = (string) => {
+        // Remove HTML tags except for <br>
+        const strippedString = string.replace(/<(?!br\s*\/?)[^>]+>/gi, '');
+    
+        // Split the string at "<br>" and wrap each part with a <span> element
+        const formattedString = strippedString.split("<br>").map((part, index) => (
+          <span key={index}>
+            {part}
+            {index !== strippedString.length - 1 && <br />} {/* Add <br> element after each part except the last one */}
+          </span>
+        ));
+    
+        return formattedString;
+      };
+
     const displayItems = () => {
         const items = Object.fromEntries(
           Object.entries(imgIds).filter(([key]) => key.includes('item'))
         );
         
-        // description from my api has <> chars and it cuts it
-        const itemDescCut = (string) => {
-            // Remove HTML tags except for <br>
-            const strippedString = string.replace(/<(?!br\s*\/?)[^>]+>/gi, '');
         
-            // Split the string at "<br>" and wrap each part with a <span> element
-            const formattedString = strippedString.split("<br>").map((part, index) => (
-              <span key={index}>
-                {part}
-                {index !== strippedString.length - 1 && <br />} {/* Add <br> element after each part except the last one */}
-              </span>
-            ));
-        
-            return formattedString;
-          };
         const boughtItemsElement = Object.entries(items).map(([key, item], i) => (
           item.name ?(
             <div className="tooltip-container" key={i}>
@@ -298,6 +300,9 @@ const Game = (props) => {
         return boughtItemsElement;
       };
 
+      const runesDescription= () =>{
+
+      }
     return(
 
         <div className={`profile-game-data ${divClassName()}`}>
@@ -351,25 +356,21 @@ const Game = (props) => {
                         </div>
 
 
-                        <div className="summonerSpells-wrapper">
+                        <div className="runes-wrapper">
 
                             <div className="tooltip-container">
                                 <img src={runes.perks.styles[0].selections[0].perk.iconPath} alt="runesPrimary"></img>
                                 
                                 <div className="tooltip">
-                                    <h2>{imgIds.summoner1Id.name}</h2>
-                                    {imgIds.summoner1Id.description}
-                                    <p>Uses: {playerData.summoner1Casts}</p>
+                                    <h2>{runes.perks.styles[0].selections[0].perk.name}</h2>
+                                    {itemDescCut(runes.perks.styles[0].selections[0].perk.longDesc)}
+                                   
                                 </div>
                             </div>
                             
                             <div className="tooltip-container">
-                            <img src={runes.perks.styles[0].style.iconPath} alt="runesSecondary"></img>
-                                <div className="tooltip">
-                                    <h2>{imgIds.summoner2Id.name}</h2>
-                                    <p>{imgIds.summoner2Id.description}</p>
-                                    <p>Uses: {playerData.summoner2Casts}</p>
-                                </div>
+                                <img src={runes.perks.styles[1].style.iconPath} alt="runesSecondary"></img>
+                           
                             </div>
 
                         </div>

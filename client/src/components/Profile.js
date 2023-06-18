@@ -11,10 +11,15 @@ const Profile = () =>{
     const [solo, setSolo] = useState({});
     const [flex, setFlex] = useState({});
     const [fetchedGamesStart, setFetchedGamesStart] = useState(0);
-
-
+    const [button, setButton] = useState(false)
     // gamesData
     const [games, setGames] = useState({});
+
+    // loading for fetch games button
+    const [display, setDisplay] = useState('block');
+
+    //loading for reload games button
+    const [loading, setLoading] = useState(false);
 
     const query = useParams();
     // console.log(query)
@@ -24,6 +29,7 @@ const Profile = () =>{
         
     }, [])
 
+    
 
     const fetchUserData = async () =>{
         // console.log(query)
@@ -51,6 +57,7 @@ const Profile = () =>{
                     }
                 }
                 //  console.log(data[0])
+                console.log('users fetched')
                 fetchGamesData();
                 
             }
@@ -61,14 +68,19 @@ const Profile = () =>{
     }
 
     const fetchGamesData = async () =>{
-        fetch(`/gamesData/${query.region}/${query.name}/${fetchedGamesStart}`).then(
+        fetch(`/gamesData/${query.region}/${query.name}/0`).then(
             res => res.json()
         ).then(
             data=>{
                 // console.log('first games data')
                 // console.log(data)
                 setGames(data);
-                setFetchedGamesStart(prev => fetchedGamesStart + 5)
+                setFetchedGamesStart(5)
+                console.log(fetchedGamesStart)
+                console.log('fetched games')
+                setButton(false)
+                setLoading(false)
+                
             }
         ).catch((error) => {
             console.log('Error fetching games data:', error)
@@ -84,6 +96,7 @@ const Profile = () =>{
                 setGames([...games, ...data]);
                 setFetchedGamesStart(prev => fetchedGamesStart + 5)
                 console.log(games)
+                console.log('fetching more data')
             }
         
         ).catch((error) => {
@@ -92,7 +105,23 @@ const Profile = () =>{
         );
     }
 
-
+    const reloadData = async () => {
+        setFetchedGamesStart(0);
+        await new Promise(resolve => {
+          fetchUserData();
+          resolve();
+        });
+        
+      };
+    useEffect(() =>{
+        if (button){
+            setLoading(true)
+            setDisplay('none')
+            reloadData();
+            
+            
+        }
+    }, [button])
     
     if (err.err){
         console.log(err.err)
@@ -111,11 +140,20 @@ const Profile = () =>{
                 solo={solo}
                 flex={flex}
                 err={err}
+                setButton={setButton}
+                loading={loading}
+                
+
             />
+            
 
             <ProfileGames
                 userData={data}
                 games={games}
+                display={display}
+                setDisplay={setDisplay}
+                button={button}
+                setButton={setButton}
                 fetchMoreGamesData={fetchMoreGamesData}
                 fetchedGamesStart={fetchedGamesStart}
 

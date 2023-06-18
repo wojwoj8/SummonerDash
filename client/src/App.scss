@@ -98,7 +98,8 @@ html, body{
     grid-template-areas: 
     "name name name"
     "solo . ."
-    "flex . .";
+    "flex . ."
+    "reload . .";
 }
 .profile-top-imglv{
     display: flex;
@@ -172,6 +173,9 @@ html, body{
     }
 }
 
+#reload-data{
+    grid-area: reload;
+}
 
 //ProfileGames
 .fetchMore{
@@ -223,7 +227,8 @@ html, body{
 
         display: grid;
         grid-template-rows: 5rem 5rem;
-        grid-template-columns: repeat(4, minmax(250px, 1fr));
+        // grid-template-columns: repeat(4, minmax(250px, 1fr));
+        grid-template-columns: repeat(4 1fr);
         grid-template-areas: 
         "date kda stats players"
         "time icons stats-special players"
@@ -236,7 +241,7 @@ html, body{
         }
         $paddingLeft: 15px;
         
-        width: calc(100% - $paddingLeft);
+        width: calc(100% - 2*$paddingLeft);
         border-radius: 20px;
         // padding-left: $paddingLeft;
         // margin-left: 15px;
@@ -364,6 +369,23 @@ html, body{
             padding-top: 2px;
             width: 2rem;
             height: 2rem;
+        }
+    }
+
+    .runes-wrapper{
+        @extend .summonerSpells-wrapper;
+        width: 2rem;
+        // height: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+        .tooltip-container:first-of-type img{
+            
+            border-radius: 50%;
+            background-color: black;
+            // height: 1.75rem;
+            // width: 1.75rem;
         }
     }
 }
