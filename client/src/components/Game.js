@@ -273,7 +273,7 @@ const Game = (props) => {
                     
                     {item.priceTotal === 0 ? null : <p>Price: {item.priceTotal}</p>}
                     {key === 'item6' && item.categories && item.categories[item.categories.length - 1] === 'Vision' ? 
-                    <div>
+                    <div className="item6-visionData">
                         <p>Vision Score: {playerData.visionScore}</p> 
                         <p>Placed wards: {playerData.wardsPlaced}</p>
                         <p>Destroyed wards: {playerData.wardsKilled}</p>

@@ -95,7 +95,7 @@ const Profile = () =>{
 
     
     if (err.err){
-        console.log('error')
+        console.log(err.err)
         return(
             <div className="error">
                 <p>{err.err}</p>

@@ -7,11 +7,12 @@ import json
 import math
 import pprint
 import re  # regex
+import copy
 
 app = Flask(__name__)
 CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
-api_key = "RGAPI-4a39f4b4-2f19-4595-8d3c-e87d278af04d"
+api_key = "RGAPI-a758e7f1-2598-4926-a681-1a5ba1f2bff4"
 pp = pprint.PrettyPrinter(indent=4)
 
 # has to be global as reference for items fetching
@@ -29,6 +30,8 @@ def changeAllPathsForItems():
         global summonerSpellsData
         global championsIcons
         global queues
+        global runesData
+
         itemsData = requests.get(
             "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json"
         ).json()
@@ -47,7 +50,11 @@ def changeAllPathsForItems():
             "https://static.developer.riotgames.com/docs/lol/queues.json"
         ).json()
 
-        dataList = [itemsData, summonerSpellsData, championsIcons]
+        runesData = requests.get(
+            "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perks.json"
+        ).json()
+
+        dataList = [itemsData, summonerSpellsData, championsIcons, runesData]
 
         # for cutting last word of queue desc
         for queue in queues:
@@ -189,10 +196,13 @@ def fetchGamesData(arr, region):
             "summonerId",
             "summonerName",
         ],
+        [
+            "perks",
+        ],
     ]
-    sublist_names = ["imgIds", "playerIdName"]
+    sublist_names = ["imgIds", "playerIdName", "runes"]
 
-    print(arr)
+    # print(arr)
     for i in range(len(arr[0])):
         selectedGame_url = gameData_url + arr[0][i] + "?api_key=" + api_key
 
@@ -212,10 +222,8 @@ def fetchGamesData(arr, region):
         # return as participant_images or something like that
         players = gameData["info"]["participants"]
         # print(len(players))
-
         # dict with all images as id (before fetch)
         test = []
-        fetchedData = []
         # players data, want to get all img ids and change to images
         for player in players:
             playerData = {}
@@ -250,6 +258,34 @@ def fetchGamesData(arr, region):
                                     break
                                 else:
                                     sublistData[key] = None
+
+                        elif "perks" in key:
+                            # i dont want to edit game data
+                            sublistData[key] = copy.deepcopy(player[key])
+                            statPerks = sublistData[key]["statPerks"]
+                            # mainSecRunes = sublistData[key]["styles"]
+                            mainRunes = sublistData[key]["styles"][0]["selections"]
+                            secondaryRunes = sublistData[key]["styles"][1]["selections"]
+
+                            # once for each player
+                            # print(mainRunes)
+                            # main runes - 4
+                            for key, value in statPerks.items():
+                                for item in runesData:
+                                    if item.get("id") == value:
+                                        statPerks[key] = item
+
+                            for i in range(len(mainRunes)):
+                                for item in runesData:
+                                    if item.get("id") == mainRunes[i]["perk"]:
+                                        mainRunes[i]["perk"] = item
+
+                            for i in range(len(secondaryRunes)):
+                                for item in runesData:
+                                    if item.get("id") == secondaryRunes[i]["perk"]:
+                                        secondaryRunes[i]["perk"] = item
+                            # sublistData[key] = player[key]
+
                         else:
                             sublistData[key] = player[key]
 
