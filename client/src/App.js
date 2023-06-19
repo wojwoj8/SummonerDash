@@ -5,6 +5,7 @@ import StartPage from './components/StartPage';
 import Navbar from './components/Navbar';
 import './App.scss';
 import Footer from './components/Footer';
+import ErrorPage from './components/ErrorPage';
 
 function App() {
   
@@ -29,6 +30,8 @@ function App() {
           // data={data}
 
           ></Profile>}></Route>
+
+          <Route path="*" element={<ErrorPage/>} />
         </Routes>
         <Footer/>
     </BrowserRouter>

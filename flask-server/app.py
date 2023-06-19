@@ -395,7 +395,7 @@ def profile(name, region):
     # print(region)
     data = []
     fetch1(name, region, data)
-    print(data)
+    # print(data)
     try:
         data[0]["id"]
     except KeyError:

@@ -127,7 +127,11 @@ const Profile = () =>{
         console.log(err.status.message)
         return(
             <div className="error">
-                <p>{err.status.message}</p>
+                {err.status.status_code === 403 ?
+                    (<p>{err.status.status_code} - {err.status.message} (99% api expired)</p>):
+                    (<p>{err.status.status_code} - {err.status.message}</p>)
+                }
+                
             </div>
         )
     }
