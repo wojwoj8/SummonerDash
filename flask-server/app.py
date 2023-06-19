@@ -12,7 +12,7 @@ import copy
 app = Flask(__name__)
 CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
-api_key = "RGAPI-a758e7f1-2598-4926-a681-1a5ba1f2bff4"
+api_key = "RGAPI-32ad7fd5-d8dc-4e9b-9ce5-af573e180989"
 pp = pprint.PrettyPrinter(indent=4)
 
 # has to be global as reference for items fetching
@@ -180,12 +180,22 @@ def fetchGamesIds(puuid, arr, region, start):
 
 def queueType(id):
     id = int(id)
+    err = [
+        {
+            "status": {
+                "message": "Data not found - no queue found",
+                "status_code": 404,
+            }
+        }
+    ]
+
     queue = ""
     for q in queues:
         if q["queueId"] == id:
             queue = q
             return {"queueData": queue}
-    return {"err": "no queue found"}
+
+    return err
 
 
 def fetchGamesData(arr, region):
@@ -373,15 +383,24 @@ def regionToContinent(region):
 @cross_origin()
 def profile(name, region):
     if checkRegionExists(region) == "error":
-        return {"err": "This region does not exist"}
+        err = [
+            {
+                "status": {
+                    "message": "Data not found - no region found",
+                    "status_code": 404,
+                }
+            }
+        ]
+        return err
     # print(region)
     data = []
     fetch1(name, region, data)
+    print(data)
     try:
         data[0]["id"]
     except KeyError:
         # print(data)
-        return {"err": "summoner not found"}
+        return data
 
     fetch2(data, region)
     fetchIcon(data)
@@ -403,7 +422,7 @@ def Games(name, region, start):
     try:
         data[0]["id"]
     except KeyError:
-        return {"err": "summoner not found"}
+        return data
     fetchGamesIds(data[0]["puuid"], gamesData, region, start)
 
     fetchGamesData(gamesData, region)
@@ -411,6 +430,22 @@ def Games(name, region, start):
     gamesData.pop(0)
     # pp.pprint(gamesData)
     return gamesData
+
+
+def errorCodes(respCode):
+    error_codes = [
+        {"400": "Bad request"},
+        {"401": "Unauthorized"},
+        {"403": "Forbidden"},
+        {"404": "Data not found"},
+        {"405": "Method not allowed"},
+        {"415": "Unsupported media type"},
+        {"429": "Rate limit exceeded"},
+        {"500": "Internal server error"},
+        {"502": "Bad gateway"},
+        {"503": "Service unavailable"},
+        {"504": "Gateway timeout"},
+    ]
 
 
 @app.route("/gameData/icons/<id>", methods=["GET"])

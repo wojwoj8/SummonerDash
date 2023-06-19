@@ -37,9 +37,9 @@ const Profile = () =>{
             res => res.json()
           ).then(
             data =>{
-                if (data.err){
-                    // console.log(data)
-                    setErr(data);
+                if (data[0].status){
+                    console.log(data[0])
+                    setErr(data[0]);
                     return
                 }
                 setData(data[0])
@@ -123,11 +123,11 @@ const Profile = () =>{
         }
     }, [button])
     
-    if (err.err){
-        console.log(err.err)
+    if (err.status){
+        console.log(err.status.message)
         return(
             <div className="error">
-                <p>{err.err}</p>
+                <p>{err.status.message}</p>
             </div>
         )
     }
