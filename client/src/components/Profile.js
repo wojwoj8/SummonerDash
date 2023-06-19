@@ -72,6 +72,11 @@ const Profile = () =>{
             res => res.json()
         ).then(
             data=>{
+                if (data[0].status){
+                    console.log(data[0])
+                    setErr(data[0]);
+                    return
+                }
                 // console.log('first games data')
                 // console.log(data)
                 setGames(data);
@@ -92,7 +97,12 @@ const Profile = () =>{
         fetch(`/gamesData/${query.region}/${query.name}/${fetchedGamesStart}`).then(
             res => res.json()
         ).then(
-            data=>{            
+            data=>{
+                if (data[0].status){
+                    console.log(data[0])
+                    setErr(data[0]);
+                    return
+                }            
                 setGames([...games, ...data]);
                 setFetchedGamesStart(prev => fetchedGamesStart + 5)
                 console.log(games)

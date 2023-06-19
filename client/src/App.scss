@@ -173,6 +173,34 @@ html, body{
     }
 }
 
+.profile-miniseries{
+    display: flex;
+    justify-content: space-evenly;
+    .profile-miniseries-game{
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        height: 1.5rem;
+        width: 1.5rem;
+        background-color: grey;
+        border-radius: 100%;
+
+        &.l{
+            background-color: $lostBackground;
+        }
+        &.w{
+            background-color: $victoryBackground;
+        }
+        &.b{
+            background-color: $remakeBackground;
+        }
+        p{
+            margin: 0;
+        }
+    }
+}
+
+
 #reload-data{
     grid-area: reload;
 }

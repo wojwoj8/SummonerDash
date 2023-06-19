@@ -232,6 +232,7 @@ def fetchGamesData(arr, region):
 
         # print(selectedGame_url)
         resp = requests.get(selectedGame_url)
+        print(resp)
         gameData = resp.json()
 
         # 03.10.2022 00:00:00 ~ start of preseason 13

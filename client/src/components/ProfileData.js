@@ -6,6 +6,17 @@ const ProfileData = (props) => {
     const {data, solo, flex, err, setButton, loading} = props;
 
     
+    // for miniseries under profile rank icon display
+    const miniSeriesMap = (serieGames) => {
+        const data = serieGames.split('');
+        const elem = data.map((state, i) => (
+          <div className={`profile-miniseries-game ${state.toLowerCase()}`} key={i}>
+            <p>{state}</p>
+          </div>
+        ));
+      
+        return elem;
+      };
 
     return(
 
@@ -37,7 +48,19 @@ const ProfileData = (props) => {
                                 <div className="profile-solo">
                                     <h2> Ranked Solo</h2>
                                     <div className="profile-queue-data">
-                                        <img src={solo.rankIcon} alt="rankIcon"></img>
+                                        <div>
+                                            <img src={solo.rankIcon} alt="rankIcon"></img>
+                                            {solo.miniSeries ? (
+                                                <div className="profile-miniseries">
+                                                    {/* <p>{solo.miniSeries.progress[0]}</p> */}
+                                                   {miniSeriesMap(solo.miniSeries.progress)}
+
+                                                </div>
+                                            ) : (
+                                                null
+                                            )}
+                                            
+                                        </div>
                                         <div>
                                             <p>{solo.tier} {solo.rank}</p>
                                             <p>LP: {solo.leaguePoints}</p>  
@@ -60,7 +83,18 @@ const ProfileData = (props) => {
                                 <div className="profile-flex">
                                     <h2> Ranked Flex</h2>
                                     <div className="profile-queue-data">
-                                        <img src={flex.rankIcon} alt="rankIcon"></img>
+                                        <div>
+                                            <img src={flex.rankIcon} alt="rankIcon"></img>
+                                            {flex.miniSeries ? (
+                                                <div className="profile-miniseries">
+                                                    {/* <p>{solo.miniSeries.progress[0]}</p> */}
+                                                   {miniSeriesMap(flex.miniSeries.progress)}
+
+                                                </div>
+                                            ) : (
+                                                null
+                                            )}
+                                        </div>
                                         <div>
                                             <p>{flex.tier} {flex.rank}</p>
                                             <p>LP: {flex.leaguePoints}</p>  
