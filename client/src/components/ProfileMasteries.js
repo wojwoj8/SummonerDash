@@ -2,8 +2,8 @@ const ProfileMasteries = (props) =>{
 
     const {masteries} = props
     console.log(masteries)
-    console.log(typeof(masteries))
-    console.log(masteries.length)
+    // console.log(typeof(masteries))
+    // console.log(masteries.length)
 
     const calculateLastGame = (dataMs) =>{
 
@@ -38,7 +38,12 @@ const ProfileMasteries = (props) =>{
         
         <div className="profile-masteries-wrapper">
             {(typeof masteries[0] === 'undefined') ? (
-                console.log(masteries)
+                <div>
+                   
+                    {Array.isArray(masteries) ? <p>No data</p> : <p>loading...</p> }
+                </div>
+                
+                
                 // somehow make if array is empty display none
                 // <p>loading....</p>
             ): (
