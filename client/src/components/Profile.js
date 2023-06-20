@@ -159,6 +159,7 @@ const Profile = () =>{
                 err={err}
                 setButton={setButton}
                 loading={loading}
+                masteries={masteries}
                 
 
             />

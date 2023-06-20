@@ -91,7 +91,7 @@ const Game = (props) => {
         } else if (minutes > 0) {
             gameDate = `${minutes} ${minutes === 1 ? 'minute' : 'minutes'}`;
         } else {
-            gameDate = "a few moments ago";
+            gameDate = "a few moments";
         }
 
         const whenPlayed = `${gameDate} ago`;

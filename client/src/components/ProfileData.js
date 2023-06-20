@@ -5,7 +5,7 @@ import ProfileRanks from "./ProfileRanks";
 import ProfileMasteries from "./ProfileMasteries";
 const ProfileData = (props) => {
 
-    const {data, solo, flex, err, setButton, loading} = props;
+    const {data, solo, flex, err, setButton, loading, masteries} = props;
 
     return(
         <div className="profile-data">
@@ -20,7 +20,9 @@ const ProfileData = (props) => {
                 loading={loading}
         />
 
-        <ProfileMasteries/>
+        <ProfileMasteries
+            masteries={masteries}
+            />
         </div>
     )
 

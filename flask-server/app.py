@@ -29,7 +29,7 @@ def changeAllPathsForItems():
         try:
             global itemsData
             global summonerSpellsData
-            global championsIcons
+            global championsSummary
             global queues
             global runesData
             global runesStyles
@@ -42,7 +42,7 @@ def changeAllPathsForItems():
             ).json()
             path = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/"
 
-            championsIcons = requests.get(
+            championsSummary = requests.get(
                 "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-summary.json"
             ).json()
 
@@ -97,7 +97,7 @@ def changeAllPathsForItems():
         dataList = [
             itemsData,
             summonerSpellsData,
-            championsIcons,
+            championsSummary,
             runesData,
             runesStyles,
         ]
@@ -324,7 +324,7 @@ def fetchGamesData(arr, region):
                                     sublistData[key] = None
 
                         elif "championId" in key:
-                            for item in championsIcons:
+                            for item in championsSummary:
                                 if item.get("id") == player[key]:
                                     # print(item)
                                     sublistData[key] = item
@@ -517,6 +517,13 @@ def fetchTop3Masteries(region, arr):
     puuid = arr[0]["puuid"]
     masteries = base_url + puuid + "/top?count=3" + "&api_key=" + api_key
     resp = requests.get(masteries).json()
+
+    for i, champ in enumerate(resp):
+        for data in championsSummary:
+            if data.get("id") == champ["championId"]:
+                copyData = data.copy()
+                resp[i].update(copyData)
+
     arr.append(resp)
 
     if "status" in resp:

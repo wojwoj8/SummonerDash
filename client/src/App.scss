@@ -210,10 +210,21 @@ html, body{
 #reload-data{
     grid-area: reload;
 }
-
-.profile-masteries{
+// Masteries Data
+.profile-masteries-wrapper{
     grid-area: prof-masteries;
 }
+.masterie-img-container{
+    display:flex;
+}
+.masterie-img-data{
+    display:flex;
+    flex-direction: column;
+    p{
+        margin: 0;
+    }
+}
+
 //ProfileGames
 .fetchMore{
     padding:10px 0;
