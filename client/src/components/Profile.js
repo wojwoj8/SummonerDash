@@ -10,6 +10,7 @@ const Profile = () =>{
     const [data, setData] = useState({});
     const [solo, setSolo] = useState({});
     const [flex, setFlex] = useState({});
+    const [masteries, setMasteries] = useState({});
     const [fetchedGamesStart, setFetchedGamesStart] = useState(0);
     const [button, setButton] = useState(false)
     // gamesData
@@ -37,8 +38,9 @@ const Profile = () =>{
             res => res.json()
           ).then(
             data =>{
-                if (data[0].status){
-                    console.log(data[0])
+                // console.log(data)
+                if (data[0]?.status){
+                    // console.log(data[0])
                     setErr(data[0]);
                     return
                 }
@@ -56,6 +58,7 @@ const Profile = () =>{
                         setSolo(data[1][1]);
                     }
                 }
+                setMasteries(data[2])
                 //  console.log(data[0])
                 console.log('users fetched')
                 fetchGamesData();
@@ -72,7 +75,7 @@ const Profile = () =>{
             res => res.json()
         ).then(
             data=>{
-                if (data[0].status){
+                if (data[0]?.status){
                     console.log(data[0])
                     setErr(data[0]);
                     return
@@ -80,7 +83,7 @@ const Profile = () =>{
                 // console.log('first games data')
                 // console.log(data)
                 setGames(data);
-                setFetchedGamesStart(5)
+                setFetchedGamesStart(10)
                 console.log(fetchedGamesStart)
                 console.log('fetched games')
                 setButton(false)
@@ -98,13 +101,13 @@ const Profile = () =>{
             res => res.json()
         ).then(
             data=>{
-                if (data[0].status){
+                if (data[0]?.status){
                     console.log(data[0])
                     setErr(data[0]);
                     return
                 }            
                 setGames([...games, ...data]);
-                setFetchedGamesStart(prev => fetchedGamesStart + 5)
+                setFetchedGamesStart(prev => fetchedGamesStart + 10)
                 console.log(games)
                 console.log('fetching more data')
             }

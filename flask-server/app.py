@@ -12,7 +12,7 @@ import copy
 app = Flask(__name__)
 CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
-api_key = "RGAPI-32ad7fd5-d8dc-4e9b-9ce5-af573e180989"
+api_key = "RGAPI-56218dcb-68ba-4eab-899e-419a7075d302"
 pp = pprint.PrettyPrinter(indent=4)
 
 # has to be global as reference for items fetching
@@ -26,38 +26,73 @@ initialized = False
 def changeAllPathsForItems():
     global initialized
     if not initialized:
-        global itemsData
-        global summonerSpellsData
-        global championsIcons
-        global queues
-        global runesData
-        global runesStyles
+        try:
+            global itemsData
+            global summonerSpellsData
+            global championsIcons
+            global queues
+            global runesData
+            global runesStyles
 
-        itemsData = requests.get(
-            "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json"
-        ).json()
+            itemsData = requests.get(
+                "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json"
+            ).json()
+            summonerSpellsData = requests.get(
+                "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-spells.json"
+            ).json()
+            path = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/"
 
-        # global reference for summ spells data
-        summonerSpellsData = requests.get(
-            "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-spells.json"
-        ).json()
-        path = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/"
+            championsIcons = requests.get(
+                "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-summary.json"
+            ).json()
 
-        championsIcons = requests.get(
-            "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-summary.json"
-        ).json()
+            queues = requests.get(
+                "https://static.developer.riotgames.com/docs/lol/queues.json"
+            ).json()
 
-        queues = requests.get(
-            "https://static.developer.riotgames.com/docs/lol/queues.json"
-        ).json()
+            runesData = requests.get(
+                "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perks.json"
+            ).json()
 
-        runesData = requests.get(
-            "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perks.json"
-        ).json()
+            runesStyles = requests.get(
+                "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perkstyles.json"
+            ).json()["styles"]
 
-        runesStyles = requests.get(
-            "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perkstyles.json"
-        ).json()["styles"]
+            # Code to process the fetched data
+
+        except requests.exceptions.RequestException as e:
+            error_response = [
+                {
+                    "status": {
+                        "message": "Error occurred during HTTP request",
+                        "status_code": 500,
+                    }
+                }
+            ]
+            return error_response
+
+        except ValueError as e:
+            error_response = [
+                {
+                    "status": {
+                        "message": "Error occurred while parsing JSON response",
+                        "status_code": 500,
+                    }
+                }
+            ]
+            return error_response
+
+        except Exception as e:
+            error_response = [
+                {
+                    "status": {
+                        "message": "An unexpected error occurred",
+                        "status_code": 500,
+                    }
+                }
+            ]
+            return error_response
+        # Code to handle the error condition
 
         dataList = [
             itemsData,
@@ -130,6 +165,11 @@ def fetch2(arr, region):
 
     arr.append(player_info2)
 
+    # check if error
+    if "status" in player_info2:
+        # print("test")
+        return
+
     for i in range(len(player_info2)):
         rank = player_info2[i]["tier"].lower()
         rankIcon = rankIconBase + rank + ".png"
@@ -171,11 +211,15 @@ def fetchGamesIds(puuid, arr, region, start):
     )
     # can change count of fetched games
     matchId_url = (
-        matchId_url + puuid + "/ids?start=" + start + "&count=5" "&api_key=" + api_key
+        matchId_url + puuid + "/ids?start=" + start + "&count=10" "&api_key=" + api_key
     )
     resp = requests.get(matchId_url)
     gamesIds = resp.json()
+
     arr.append(gamesIds)
+
+    if "status" in gamesIds:
+        return
 
 
 def queueType(id):
@@ -232,8 +276,12 @@ def fetchGamesData(arr, region):
 
         # print(selectedGame_url)
         resp = requests.get(selectedGame_url)
-        print(resp)
+
         gameData = resp.json()
+
+        if "status" in gameData:
+            arr.append(gameData)
+            return
 
         # 03.10.2022 00:00:00 ~ start of preseason 13
         # limitation to this date
@@ -404,7 +452,20 @@ def profile(name, region):
         return data
 
     fetch2(data, region)
+
+    # if error
+    if "status" in data[1]:
+        data[0].update(data[1])
+        # print("test")
+        return data
+
     fetchIcon(data)
+    fetchTop3Masteries(region, data)
+
+    if "status" in data[2]:
+        data[0].update(data[2])
+        # print("test")
+        return data
 
     # print(gamesData[1])
 
@@ -426,27 +487,16 @@ def Games(name, region, start):
         return data
     fetchGamesIds(data[0]["puuid"], gamesData, region, start)
 
+    if "status" in gamesData[0]:
+        # data[0].update(data[1])
+        # print("gamesData")
+        return gamesData
+
     fetchGamesData(gamesData, region)
     # remove games id because it is after fetch in json
     gamesData.pop(0)
     # pp.pprint(gamesData)
     return gamesData
-
-
-def errorCodes(respCode):
-    error_codes = [
-        {"400": "Bad request"},
-        {"401": "Unauthorized"},
-        {"403": "Forbidden"},
-        {"404": "Data not found"},
-        {"405": "Method not allowed"},
-        {"415": "Unsupported media type"},
-        {"429": "Rate limit exceeded"},
-        {"500": "Internal server error"},
-        {"502": "Bad gateway"},
-        {"503": "Service unavailable"},
-        {"504": "Gateway timeout"},
-    ]
 
 
 @app.route("/gameData/icons/<id>", methods=["GET"])
@@ -456,6 +506,23 @@ def Game(id):
     # print(id)
     icon = {"playerIcon": icon}
     return icon
+
+
+def fetchTop3Masteries(region, arr):
+    base_url = (
+        "https://"
+        + region
+        + ".api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/"
+    )
+    puuid = arr[0]["puuid"]
+    masteries = base_url + puuid + "/top?count=3" + "&api_key=" + api_key
+    resp = requests.get(masteries).json()
+    arr.append(resp)
+
+    if "status" in resp:
+        return
+
+    return arr
 
 
 if __name__ == "__main__":
