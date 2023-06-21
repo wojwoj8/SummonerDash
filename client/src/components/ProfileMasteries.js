@@ -49,20 +49,20 @@ const ProfileMasteries = (props) =>{
             ): (
                 
                 <div className="profile-masteries">
-                    {console.log(masteries.length)}
-                    <div>
+                    {/* {console.log(masteries.length)} */}
+                    <div className="profile-masteries-title">
                         <h2> Most Played </h2>
                     </div>
-                {masteries.map((masterie, i) => (
-                    <div key={i}>
-                        <p>
-                            {masterie.name}
-                        </p>
-                        <div className="masterie-img-container">
+                    <div className="masterie-img-wrapper">
+                    {masteries.map((masterie, i) => (
+                    <div className="masterie-img-container" key={i}>
+                        <div className="masterie-img">
                             <img src={masterie.squarePortraitPath} alt="masterieImg"></img>
                             <div className="masterie-img-data">
+                                <p>{masterie.name}</p>
                                 <p>Masterie Level: {masterie.championLevel}</p>
-                                <p>Total Points: {masterie.championPoints}</p>
+                                                {/* display , every 3 digits */}
+                                <p>Total Points: {masterie.championPoints.toLocaleString('en-US', { maximumFractionDigits: 0 })}</p>
                                 <p>Last Played: {calculateLastGame(masterie.lastPlayTime)}</p>
                            </div>
                             
@@ -70,6 +70,8 @@ const ProfileMasteries = (props) =>{
                     </div>
                     
                 ))}
+                    </div>
+                
                 </div>
             )}
             

@@ -12,7 +12,7 @@ import copy
 app = Flask(__name__)
 CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
-api_key = "RGAPI-56218dcb-68ba-4eab-899e-419a7075d302"
+api_key = "RGAPI-9b7967a8-92d5-4c40-b987-c34647a96f28"
 pp = pprint.PrettyPrinter(indent=4)
 
 # has to be global as reference for items fetching
@@ -103,9 +103,16 @@ def changeAllPathsForItems():
         ]
 
         # for cutting last word of queue desc
+        # More compact gamemode display
+        stringList = ["5v5", "games", "3v3", "6v6", "Bot games", "Summoner's Rift"]
+
         for queue in queues:
-            if queue["description"] != None:
-                queue["description"] = queue["description"].rsplit(" ", 1)[0]
+            for string in stringList:
+                if queue["description"] != None:
+                    if string in queue["description"]:
+                        queue["description"] = queue["description"].replace(string, "")
+                else:
+                    queue["description"] = "Custom"
 
         for data in dataList:
             for item in data:

@@ -195,10 +195,17 @@ const Game = (props) => {
         
         // target _blank make link open in other card
         const playerElements = allPlayerImgIds.map((player, i) => (
-          <div className="icon-name-container" key={i}>
-            <img src={player.imgIds.championId.iconPath} alt="champIcon" />
-                <Link to={`/${region}/name/${player.playerIdName.summonerName}`}target="_blank"><p>{player.playerIdName.summonerName}</p></Link>
-          </div>
+            <div key={i}>
+            <Link to={`/${region}/name/${player.playerIdName.summonerName}`}target="_blank">
+                <div className="icon-name-container">
+                    <img src={player.imgIds.championId.iconPath} alt="champIcon" />
+                    {playerData.summonerName === player.playerIdName.summonerName ?
+                    (<p id="checked-player">{player.playerIdName.summonerName}</p>)
+                    :(<p>{player.playerIdName.summonerName}</p>)}
+                </div>
+            </Link>
+            </div>
+            
         ));
         // filter who is in left or right column
         return (

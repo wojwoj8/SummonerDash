@@ -1,21 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Tilt+Warp&display=swap');
 
 $mainPadding: 2rem 6rem 0 6rem;
-$pageBackgroundImg: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+$pageBackgroundImg: linear-gradient(to right, #000428 0%, #004e92  51%, #000428  100%);
 $navColor: black;
-$profileBackgroundCol: grey;
+$profileBackgroundCol: none;
 // background-color: #8BC6EC;
 // background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
 
 $profileContentBackCol: white;
 
 
-$gameBoxShadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+$gameBoxShadow: 8px 8px 24px 0px rgb(8, 9, 28);
 $victoryBackground: rgba(14, 186, 14, 0.388);
 $lostBackground: rgba(228, 15, 15, 0.519);
 $remakeBackground: grey;
 
 $multikillBackground: red;
+
+$fontColor: white;
 
 
 html{
@@ -73,7 +75,7 @@ html, body{
     grid-template-columns: 1fr 6fr 1fr;
     grid-template-rows: auto;
     grid-template-areas: 
-    "prof-data prof-data prof-data"
+    ". prof-data ."
     // "side-rank . ."
     ". games .";
 }
@@ -112,9 +114,10 @@ html, body{
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    margin: 5px 5px;
     img{
-        width: 8rem;
-        height: 8rem;
+        width: 6rem;
+        height: 6rem;
         border-radius: 20px;
     }
     p{
@@ -123,20 +126,26 @@ html, body{
         margin-top: -10px;
         padding: 1px 3px;
         border-radius: 20px;
+        margin-bottom: 0;
     }
 }
 
 .profile-top{
     grid-area: name;
     display: flex;
+    border: 1px solid red;
+    background-color: rgb(40, 39, 39);
+    border-radius: 20px;
 }
+
 
 .profile-top-data{
     display: flex;
     flex-direction: column;
     h2{
-        margin-left: 2rem;
-        font-size: 4rem;
+        color: $fontColor;
+        margin-left: 1rem;
+        font-size: 2rem;
         margin-top: 0;
     }
 }
@@ -144,9 +153,9 @@ html, body{
 .profile-queue{
     display: flex;
     flex-direction: column;
-    border-radius: 20px;
+    border-radius: 10px;
     margin-top: 10px;
-    padding: 10px;
+    padding: 0 10px;
     
     h2{
         margin: 0;
@@ -208,29 +217,54 @@ html, body{
 
 
 #reload-data{
+    width: 100%;
     grid-area: reload;
+    margin-top: 1rem;
+    display: flex;
+    
 }
 // Masteries Data
 .profile-masteries-wrapper{
     grid-area: prof-masteries;
 }
-.masterie-img-container{
+.masterie-img-wrapper{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1rem;
+}
+.masterie-img{
     display:flex;
+    row-gap: 10px;
+    img{
+        width: 6rem;
+        height: 6rem;
+    }
 }
 .masterie-img-data{
     display:flex;
     flex-direction: column;
+    margin-left: 1rem;
+    justify-content: center;
     p{
         margin: 0;
     }
 }
 
 //ProfileGames
+.fetchMore-wrapper{
+    width: 100%;
+}
 .fetchMore{
-    padding:10px 0;
-    display: flex;
-    justify-content: center;
+
+    width: 100%;
+    // padding:10px 0;
+    // display: flex;
+    // justify-content: center;
+    text-align: center;
     bottom: 100%;
+    button{
+        width: 100%;
+    }
 }
 .profile-games-wrapper{
     grid-area: games;
@@ -493,6 +527,25 @@ html, body{
             width: 1.5rem;
             height: 1.5rem;
         }
+        a{
+            text-decoration: none;
+            color: rgb(178, 178, 178);
+            p{
+                font-family: "Roboto", sans-serif;
+               
+            }
+            #checked-player{
+                font-weight:600;
+                color: rgb(255, 255, 255);
+
+                &:hover{
+                    color: black;
+                }
+            }
+            &:hover{
+                color: black;
+            }
+        }
         
 
             .left-col{
@@ -507,6 +560,7 @@ html, body{
             margin-bottom: 5px;
             p{
                 margin-bottom: 0;
+                margin-left: 0.2rem;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -581,4 +635,23 @@ html, body{
     font-size: 1.5rem;
     color: white;
     background-color: $navColor;
+}
+
+//Buttons
+.button{
+    background-color: rgb(25, 38, 48);
+    border: none;
+    color: red;
+    height: 3rem;
+    width : 8rem;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: 2px solid black;
+
+    &:hover {
+        cursor: pointer;
+        /* Other hover styles if needed */
+        background-color: rgb(19, 28, 35);
+      }
 }

@@ -61,12 +61,13 @@ const ProfileGames = (props) =>{
                     </div>
                 ))}
             
-            {button === false ? (<div>
+            {button === false ? (
+            <div className="fetchMore-wrapper">
                 
                 {games[fetchedGamesStart - 1] ?(
             <div className="fetchMore">
                 
-                <button style={{display: display}} onClick={handleLoad}>Fetch more</button>
+                <button className="button" style={{display: display}} onClick={handleLoad}>Fetch more</button>
                 {display === 'none' && <Icon path={mdiLoading} size={2} spin />}
             </div>
             ):(

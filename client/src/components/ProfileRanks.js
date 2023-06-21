@@ -111,9 +111,9 @@ const ProfileRanks = (props) => {
                                 )}
 
                     <div id="reload-data">
-                        <button  onClick={e => setButton(true)}>
+                        <button className="button"  onClick={e => setButton(true)}>
                             {loading ? 
-                            (<Icon id="load" path={mdiLoading} size={2} spin/>) : 
+                            (<Icon id="load" path={mdiLoading} size={1} spin/>) : 
                             'Reload'}
                         </button>
                         
