@@ -9,7 +9,9 @@ const ProfileData = (props) => {
 
     return(
         <div className="profile-data">
+            {/* <div className="profile"> */}
 
+            
         
         <ProfileRanks
                 data={data}
@@ -23,6 +25,7 @@ const ProfileData = (props) => {
         <ProfileMasteries
             masteries={masteries}
             />
+            {/* </div> */}
         </div>
     )
 

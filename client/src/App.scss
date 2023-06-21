@@ -15,9 +15,13 @@ $victoryBackground: rgba(14, 186, 14, 0.388);
 $lostBackground: rgba(228, 15, 15, 0.519);
 $remakeBackground: grey;
 
-$multikillBackground: red;
+$multikillBackground: rgb(250, 65, 65);
 
 $fontColor: white;
+$fontColorDarker: darken($fontColor, 12%);
+
+$tempBack: rgb(48, 48, 48);
+$tempBackDarker:rgb(32, 32, 32);
 
 
 html{
@@ -40,7 +44,8 @@ html, body{
 }
 
 #root{
-    background-image: $pageBackgroundImg;
+    // background-image: $pageBackgroundImg;
+    background-color: $tempBack;
     min-height: 100%;
     display: grid;
     grid-template-rows: auto 1fr auto;
@@ -93,10 +98,15 @@ html, body{
     grid-template-rows: auto;
     grid-template-areas: 
     "prof-data prof-masteries";
+
+    p{
+        color: $fontColorDarker;
+    }
 }
 
 .profile{
     display: grid;
+    row-gap: 10px;
     padding: 10px;
     // background-color: $profileBackgroundCol;
     
@@ -133,20 +143,21 @@ html, body{
 .profile-top{
     grid-area: name;
     display: flex;
-    border: 1px solid red;
-    background-color: rgb(40, 39, 39);
-    border-radius: 20px;
+    
+    background-color: $tempBackDarker;
+    border-radius: 10px;
 }
 
 
 .profile-top-data{
     display: flex;
     flex-direction: column;
+    margin-left: 1rem;
     h2{
         color: $fontColor;
-        margin-left: 1rem;
+        margin:0;
         font-size: 2rem;
-        margin-top: 0;
+       
     }
 }
 
@@ -156,11 +167,13 @@ html, body{
     border-radius: 10px;
     margin-top: 10px;
     padding: 0 10px;
+    padding-bottom: 10px;
     
     h2{
         margin: 0;
     }
     img{
+        margin-top: 0.5rem;
         width: 5rem;
         height: 5rem
     }
@@ -168,13 +181,13 @@ html, body{
 .profile-solo{
     @extend .profile-queue;
     grid-area: solo;
-    background-color: antiquewhite;
+    background-color: $tempBackDarker
    
 }
 .profile-flex{
     @extend .profile-queue;
     grid-area: flex;
-    background-color: aqua;
+    background-color: $tempBackDarker
 
 }
 
@@ -187,7 +200,21 @@ html, body{
         margin: 0;
     }
 }
+.profile-rank-img{
+    background-color: rgb(21, 21, 21);
+    border-radius: 100%;
+    width: 5.5rem;
+    height: 5.5rem;
+    margin-bottom: 0.2rem;
+    text-align: center;
+    // display: flex;
+    // justify-content: center;
+    // align-items: flex-end;
 
+    p{
+        margin: 0;
+    }
+}
 .profile-miniseries{
     display: flex;
     justify-content: space-evenly;
@@ -226,12 +253,31 @@ html, body{
 // Masteries Data
 .profile-masteries-wrapper{
     grid-area: prof-masteries;
+    display: flex;
+    flex-direction: column;
+
 }
+.profile-masteries-title{
+    text-align: center;
+    h2{
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+    
+}
+
 .masterie-img-wrapper{
     display: flex;
     flex-direction: column;
     row-gap: 1rem;
 }
+
+.masterie-img{
+    margin: 0 10px;
+    border-radius: 10px;
+    background-color: $tempBackDarker;
+}
+
 .masterie-img{
     display:flex;
     row-gap: 10px;
@@ -375,7 +421,7 @@ html, body{
         color: blue;
     }
     #game-deaths{
-        color: rgba(154, 23, 23, 0.992);
+        color: $multikillBackground;
     }
     #game-assists{
         color: rgba(255, 255, 0, 0.719);
@@ -504,6 +550,7 @@ html, body{
         display:flex;
         justify-content: center;
         p{
+            color: $fontColorDarker;
             margin:0.25rem 0;
         }
 
@@ -597,6 +644,10 @@ html, body{
     max-width: 25rem;
     width: max-content;
     transition: opacity 0.3s;
+    p{
+        color: black !important;
+    }
+    
   }
   
   .tooltip-container:hover .tooltip {
