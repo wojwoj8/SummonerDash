@@ -86,7 +86,10 @@ html, body{
 }
 
 
-
+.profilee{
+    grid-area: prof-data;
+    
+}
 .profile-data{
     grid-area: prof-data;
     // background-color: $profileBackgroundCol;
@@ -244,19 +247,19 @@ html, body{
 
 
 #reload-data{
-    width: 100%;
-    grid-area: reload;
-    margin-top: 1rem;
-    display: flex;
-    
+    margin-top: 1rem; 
 }
 // Masteries Data
 .profile-masteries-wrapper{
     grid-area: prof-masteries;
-    display: flex;
-    flex-direction: column;
-
 }
+
+.profile-masteries{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+}
+
 .profile-masteries-title{
     text-align: center;
     h2{

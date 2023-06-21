@@ -8,8 +8,9 @@ const ProfileData = (props) => {
     const {data, solo, flex, err, setButton, loading, masteries} = props;
 
     return(
-        <div className="profile-data">
-            {/* <div className="profile"> */}
+        <div className="profilee">
+            <div className="profile-data">
+            
 
             
         
@@ -25,7 +26,7 @@ const ProfileData = (props) => {
         <ProfileMasteries
             masteries={masteries}
             />
-            {/* </div> */}
+            </div>
         </div>
     )
 
