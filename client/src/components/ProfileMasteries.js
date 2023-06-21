@@ -52,11 +52,9 @@ const ProfileMasteries = (props) =>{
                     {/* {console.log(masteries.length)} */}
                     
                     <div className="masterie-img-wrapper">
-                    <div className="profile-masteries-title 0">
-                        <h2> Most Played </h2>
-                    </div>
+                    
                     {masteries.map((masterie, i) => (
-                    <div className={`masterie-img-container ${i}`} key={i}>
+                    <div className={`masterie-img-container right${i + 1}`} key={i}>
                         <div className="masterie-img">
                             <img src={masterie.squarePortraitPath} alt="masterieImg"></img>
                             <div className="masterie-img-data">
@@ -81,3 +79,4 @@ const ProfileMasteries = (props) =>{
     )
 }
 export default ProfileMasteries;
+

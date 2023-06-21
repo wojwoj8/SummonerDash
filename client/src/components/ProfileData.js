@@ -8,7 +8,7 @@ const ProfileData = (props) => {
     const {data, solo, flex, err, setButton, loading, masteries} = props;
 
     return(
-        <div className="profilee">
+        
             <div className="profile-data">
             
 
@@ -27,7 +27,7 @@ const ProfileData = (props) => {
             masteries={masteries}
             />
             </div>
-        </div>
+     
     )
 
 }

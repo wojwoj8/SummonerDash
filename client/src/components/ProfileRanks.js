@@ -20,7 +20,7 @@ const ProfileRanks = (props) => {
 
     return(
 
-        <div>
+        <div className="profile-playerData-wrapper">
             {/* {console.log(flex)} */}
             {(typeof data.name === 'undefined')?(
                 <p>loading...</p>

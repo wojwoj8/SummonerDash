@@ -86,19 +86,17 @@ html, body{
 }
 
 
-.profilee{
-    grid-area: prof-data;
-    
-}
 .profile-data{
     grid-area: prof-data;
+    padding: 10px;
     // background-color: $profileBackgroundCol;
     background: $profileBackgroundCol;
     border-radius: 20px;
-    border: 1px solid black;
+    // border: 1px solid black;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: auto;
+    grid-auto-rows: auto;
+    
     grid-template-areas: 
     "prof-data prof-masteries";
 
@@ -106,20 +104,22 @@ html, body{
         color: $fontColorDarker;
     }
 }
-
+.profile-playerData-wrapper{
+    display: grid;
+    
+}
 .profile{
     display: grid;
     row-gap: 10px;
-    padding: 10px;
+    
     // background-color: $profileBackgroundCol;
     
     grid-template-columns: 1fr;
-    grid-template-rows: auto;
+    grid-template-rows: 8rem, auto, auto;
     grid-template-areas: 
     "name "
     "solo "
-    "flex "
-    "reload ";
+    "flex ";
 }
 
 .profile-top-imglv{
@@ -255,9 +255,7 @@ html, body{
 }
 
 .profile-masteries{
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
+    // grid-template-rows: repeat(3, 7rem);
 }
 
 .profile-masteries-title{
@@ -270,23 +268,24 @@ html, body{
 }
 
 .masterie-img-wrapper{
-    display: flex;
-    flex-direction: column;
-    row-gap: 1rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    // grid-template-rows:5fr 5fr 5fr;
+    grid-template-rows: auto;
+    row-gap: 10px;
+
 }
 
 .masterie-img{
-    margin: 0 10px;
+    margin-left: 10px;
     border-radius: 10px;
     background-color: $tempBackDarker;
-}
-
-.masterie-img{
     display:flex;
     row-gap: 10px;
     img{
-        width: 6rem;
-        height: 6rem;
+        border-radius: 10px;
+        width: 5.5rem;
+        height: 5.5rem;
     }
 }
 .masterie-img-data{
