@@ -578,8 +578,8 @@ html, body{
     align-items: center;
     img{
         padding-right: 2px;
-        width: 2rem;
-        height: 2rem;
+        width: 2.25rem;
+        height: 2.25rem;
     }
 }
 
@@ -588,6 +588,10 @@ html, body{
     display:flex;
     flex-direction: column;
     align-items: center;
+
+    p{
+        color: $fontColorPlayerLinks;
+    }
     
 }
 
@@ -701,6 +705,7 @@ html, body{
     transition: opacity 0.3s;
     p{
         color: black !important;
+        font-size: 1rem !important;
     }
     
   }

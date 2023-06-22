@@ -383,17 +383,45 @@ const Game = (props) => {
                         </div>
 
                         <div className="stats-kda">
-                            <p id="stats-kill-death-assist"><span id="game-kills">{playerData.kills}</span>/<span id='game-deaths'>{playerData.deaths}</span>/<span id="game-assists">{playerData.assists}</span></p>
-                            <div className="kda-container">
-                                {calcKda()}
+
+                            <div className="tooltip-container">
+                                <p id="stats-kill-death-assist"><span id="game-kills">{playerData.kills}</span>/<span id='game-deaths'>{playerData.deaths}</span>/<span id="game-assists">{playerData.assists}</span></p>
+                                <div className="tooltip">
+                                    <p>Kills/Deaths/Assists</p>
+                                </div>
+                            </div> 
+
+                            <div className="tooltip-container">
+                                <div className="kda-container">
+                                    {calcKda()}
+                                    <div className="tooltip">
+                                        <p>Kills/Deaths/Assists</p>
+                                    </div>
+                                </div>
+                                <div className="tooltip">
+                                    <p>(Kills + Assists) / Deaths</p>
+                                </div>
+                            </div>
+                                
+                            <div className="tooltip-container">
+                                <p id="game-killpart">P/Kill {Math.ceil(playerData.challenges.killParticipation *100)}%</p>
+                                <div className="tooltip">
+                                    <p>Kill participation</p>
+                                </div>
                             </div>
                              
-                            <p id="game-killpart">P/Kill {Math.ceil(playerData.challenges.killParticipation *100)}%</p>
+                            
                         </div>
                     </div>
                     
                     <div className="game-cs-data">
+                        <div className="tooltip-container">
                         <p>CS {playerData.totalMinionsKilled + playerData.neutralMinionsKilled}({calculations.csPerMin})</p>
+                            <div className="tooltip">
+                                <p>Minions: {playerData.totalMinionsKilled} + Monsters: {playerData.neutralMinionsKilled}</p>
+                                <p>(Minions/min)</p>
+                            </div>
+                        </div>
                         {playerData.challenges?.abilityUses && 
                         <div className="tooltip-container">
                             <p>
