@@ -12,7 +12,7 @@ import copy
 app = Flask(__name__)
 CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
-api_key = "RGAPI-9b7967a8-92d5-4c40-b987-c34647a96f28"
+api_key = "RGAPI-0fcec0c0-9fcd-4281-a993-c9d66dcc08f1"
 pp = pprint.PrettyPrinter(indent=4)
 
 # has to be global as reference for items fetching

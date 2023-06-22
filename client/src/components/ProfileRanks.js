@@ -50,11 +50,13 @@ const ProfileRanks = (props) => {
                                 {(typeof solo === 'undefined' || typeof solo.tier === 'undefined')?(
                                     <div className="profile-solo">
                                         <h2> Ranked Solo</h2>
+                                        <hr></hr>
                                         <p data-testid="solo-unrank">Unranked</p>
                                     </div>
                                 ):(
                                 <div className="profile-solo">
                                     <h2> Ranked Solo</h2>
+                                    <hr></hr>
                                     <div className="profile-queue-data">
                                         <div className="img-miniseries-wrapper">
                                             <div className="profile-rank-img">
@@ -77,12 +79,12 @@ const ProfileRanks = (props) => {
                                             )}
                                             
                                         </div>
-                                        <div>
-                                            <p>{solo.tier} {solo.rank}</p>
+                                        <div className="profile-rank-lp">
+                                            <h2>{solo.tier} {solo.rank}</h2>
                                             <p>LP: {solo.leaguePoints}</p>  
                                         </div>
 
-                                        <div>
+                                        <div className="profile-winratio">
                                             <p>W: {solo.wins} L: {solo.losses}</p>
                                             <p>Winrate: {solo.winrate}%</p>
                                         </div>      
@@ -93,11 +95,13 @@ const ProfileRanks = (props) => {
                                 {(typeof flex === 'undefined' || typeof flex.tier === 'undefined')?(
                                     <div className="profile-flex">
                                         <h2> Ranked Flex</h2>
+                                        <hr></hr>
                                         <p data-testid="flex-unrank">Unranked</p>
                                     </div>
                                 ):(
                                 <div className="profile-flex">
                                     <h2> Ranked Flex</h2>
+                                    <hr></hr>
                                     <div className="profile-queue-data">
                                         <div className="img-miniseries-wrapper">
                                             <div className="profile-rank-img">
@@ -120,12 +124,12 @@ const ProfileRanks = (props) => {
                                                 null
                                             )}
                                         </div>
-                                        <div>
-                                            <p>{flex.tier} {flex.rank}</p>
+                                        <div className="profile-rank-lp">
+                                            <h2>{flex.tier} {flex.rank}</h2>
                                             <p>LP: {flex.leaguePoints}</p>  
                                         </div>
 
-                                        <div>
+                                        <div className="profile-winratio">
                                             <p>W: {flex.wins} L: {flex.losses}</p>
                                             <p>Winrate: {flex.winrate}%</p>
                                         </div>      

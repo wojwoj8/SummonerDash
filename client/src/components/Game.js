@@ -318,7 +318,7 @@ const Game = (props) => {
                 ) : (
                 <>
                     <div className="game-data-queue-when">
-                        <p>{queueData.description}</p>
+                        <p id="gamemode">{queueData.description}</p>
                         <p>{calculations.whenPlayed}</p>
                     </div>
 
@@ -384,7 +384,11 @@ const Game = (props) => {
 
                         <div className="stats-kda">
                             <p id="stats-kill-death-assist"><span id="game-kills">{playerData.kills}</span>/<span id='game-deaths'>{playerData.deaths}</span>/<span id="game-assists">{playerData.assists}</span></p>
-                            {calcKda()}
+                            <div className="kda-container">
+                                {calcKda()}
+                            </div>
+                             
+                            <p id="game-killpart">P/Kill {Math.ceil(playerData.challenges.killParticipation *100)}%</p>
                         </div>
                     </div>
                     

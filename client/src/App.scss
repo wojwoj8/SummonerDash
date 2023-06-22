@@ -12,13 +12,14 @@ $profileContentBackCol: white;
 
 $gameBoxShadow: 8px 8px 24px 0px rgb(8, 9, 28);
 $victoryBackground: rgba(14, 186, 14, 0.388);
-$lostBackground: rgba(228, 15, 15, 0.519);
+$lostBackground: rgba(255, 14, 14, 0.519);
 $remakeBackground: grey;
 
 $multikillBackground: rgb(250, 65, 65);
 
 $fontColor: white;
 $fontColorDarker: darken($fontColor, 12%);
+$fontColorPlayerLinks: rgb(178, 178, 178);
 
 $tempBack: rgb(48, 48, 48);
 $tempBackDarker:rgb(32, 32, 32);
@@ -32,7 +33,7 @@ html, body{
     min-height: 100%;
     height: 100%;
     width: 100%;
-    min-width: 1100px;
+    min-width: 800px;
     margin: 0;
     // background-color: $pageBackgroundCol;
     ;
@@ -72,13 +73,13 @@ html, body{
 
 .profile-wrapper{
     grid-area: main;
-    padding: $mainPadding;
+    padding-top: 1rem;
+    // padding: $mainPadding;
     
     background-clip: border-box;
     
     display: grid;
-    grid-template-columns: 1fr 6fr 1fr;
-    grid-template-rows: auto;
+    grid-template-columns: 1fr 65rem 1fr;
     grid-template-areas: 
     ". prof-data ."
     // "side-rank . ."
@@ -88,14 +89,14 @@ html, body{
 
 .profile-data{
     grid-area: prof-data;
-    padding: 10px;
+    padding-bottom: 10px;
     // background-color: $profileBackgroundCol;
     background: $profileBackgroundCol;
     border-radius: 20px;
     // border: 1px solid black;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-auto-rows: auto;
+    grid-auto-rows: 30rem;
     
     grid-template-areas: 
     "prof-data prof-masteries";
@@ -115,11 +116,16 @@ html, body{
     // background-color: $profileBackgroundCol;
     
     grid-template-columns: 1fr;
-    grid-template-rows: 8rem, auto, auto;
+    grid-template-rows: 8rem auto auto;
     grid-template-areas: 
     "name "
     "solo "
     "flex ";
+
+    hr{
+        margin: 0 0 5px 0;
+        border: 1px solid $tempBack;
+    }
 }
 
 .profile-top-imglv{
@@ -179,6 +185,14 @@ html, body{
         margin-top: 0.5rem;
         width: 5rem;
         height: 5rem
+    }
+    .profile-winratio{
+        
+    }
+    .profile-rank-lp{
+        h2{
+            color: $fontColor
+        }
     }
 }
 .profile-solo{
@@ -252,10 +266,14 @@ html, body{
 // Masteries Data
 .profile-masteries-wrapper{
     grid-area: prof-masteries;
+    display: grid;
 }
 
 .profile-masteries{
     // grid-template-rows: repeat(3, 7rem);
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
 }
 
 .profile-masteries-title{
@@ -348,7 +366,7 @@ html, body{
     // border-radius: 20px;
     // border-bottom: 1px solid black;
     p{
-        // margin: 60px 0;
+         margin-bottom: 0.5rem;
         
     }
     .profile-game-data{
@@ -357,17 +375,20 @@ html, body{
 
         display: grid;
         grid-template-rows: 5rem 5rem;
-        // grid-template-columns: repeat(4, minmax(250px, 1fr));
-        grid-template-columns: repeat(4 1fr);
+        grid-template-columns: 10rem repeat(3, minmax(12rem, 1fr));
+        // grid-template-columns: repeat(4, minmax(12rem, 1fr));
+        // grid-template-columns: repeat(4 1fr);
         grid-template-areas: 
         "date kda stats players"
         "time icons stats-special players"
         ;
 
-        padding: 15px 15px;
+        padding: 10px 15px;
         padding-bottom: 0 !important;
+        // align-items: center;
         p{
             margin-top: 0;
+            
         }
         $paddingLeft: 15px;
         
@@ -379,11 +400,16 @@ html, body{
             &.Victory {
                 
                 background-color: $victoryBackground;
+                #gamemode{
+                    color: rgba(lighten($victoryBackground, 20%), 1);
+                }
             }
         
             &.Defeat {
-                
                 background-color: $lostBackground;
+                #gamemode{
+                    color: rgba(lighten($multikillBackground, 15%), 1);
+                }
             }
             &.Remake {
 
@@ -393,30 +419,50 @@ html, body{
 
 } 
    
-.game-data-queue-time{
+.game-data-queue-when{
     grid-area: date;
+
+    p{
+        color: $fontColorPlayerLinks;
+        
+        
+    }
+
+
 }
 
 .game-data-time-status{
     grid-area: time;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    p{
+        color: $fontColorPlayerLinks;
+    }
 }
 
 .game-data-icon-kda{
     grid-area: kda;
     display: flex;
-
+    align-items: flex-start;
+    .kda-container{
+        p{
+            margin-bottom: 0;
+        }
+        
+    }
     // KDA
     #game-perfect{
         color: rgb(246, 184, 13);
     }
 
     #game-good{
-        color: rgb(12, 106, 230);
+        color: rgb(14, 222, 215);
     }
 
     #game-notgood{
         color: rgb(206, 215, 221);
-        margin-bottom: 5px;
     }
 
     #game-kills{
@@ -479,14 +525,21 @@ html, body{
     }
 
     .stats-kda{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         margin-left: 10px;
         p{
-            font-size: 1.25rem;
+            font-size: 1.2rem;
+            margin-bottom: 0;
         }
         
         #stats-kill-death-assist{
-            margin-bottom: 5px;
-            margin-top:10px
+            margin-top:0;
+        }
+        #game-killpart{
+            margin: 0;
+            color: rgba(lighten($multikillBackground, 15%), 1);
         }
     }
 
@@ -578,7 +631,7 @@ html, body{
         }
         a{
             text-decoration: none;
-            color: rgb(178, 178, 178);
+            color: $fontColorPlayerLinks;
             p{
                 font-family: "Roboto", sans-serif;
                
