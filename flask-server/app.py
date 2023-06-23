@@ -470,7 +470,16 @@ def profile(name, region):
     fetchTop3Masteries(region, data)
 
     if "status" in data[2]:
-        data[0].update(data[2])
+        # riot endpoint bug if no entries, only on wojwoj8 euw for some reason
+        if (
+            data[2]["status"]["message"]
+            == "Data not found - Server cannot locate endpoint - possibly a configuration issue"
+        ):
+            data[2] = []
+
+            return data
+        else:
+            data[0].update(data[2])
         # print("test")
         return data
 
@@ -524,6 +533,10 @@ def fetchTop3Masteries(region, arr):
     puuid = arr[0]["puuid"]
     masteries = base_url + puuid + "/top?count=3" + "&api_key=" + api_key
     resp = requests.get(masteries).json()
+
+    if "status" in resp:
+        arr.append(resp)
+        return
 
     for i, champ in enumerate(resp):
         for data in championsSummary:

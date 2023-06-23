@@ -1,9 +1,13 @@
 import {React, useState} from "react";
 import { redirect, useNavigate } from "react-router-dom";
+import Icon from '@mdi/react';
+import { mdiMagnify } from '@mdi/js';
 
 const StartPage = () => {
     // const search = handleSearch();
-    const [region, setRegion] = useState('eun1');
+    const [region, setRegion] = useState({id: 'eun1', name: 'Europe Nordic & East'});
+    const [button, setButton] = useState('false');
+    const [query, setQuery] = useState("")
     document.title = "SummonerDash";
 
     const navigate = useNavigate();
@@ -32,20 +36,22 @@ const StartPage = () => {
     }
     
     const handleSearch = (e) =>{
-        e.preventDefault();
-        const form = e.target.parentElement;
-        const query = form.querySelector('#search-input').value;
-        // const region = form.querySelector
-        // console.log(query)
-        // setData(query);
-        
-        navigateToProfile(`${region}/name/${query}`)
+        navigateToProfile(`${region.id}/name/${query}`)
     };
-
-    const handleRegion = (e) =>{
-        const selectedId = e.target.options[e.target.selectedIndex].id;
-        setRegion(selectedId);
+    const hadleQuery = (value) =>{
+        setQuery(value)
     }
+
+    const handleButton = () =>{
+        button === true ? setButton(false) : setButton(true)
+    }
+    const handleRegion = (id, name) =>{
+        
+        setRegion({id: id, name: name});
+        handleButton();
+    }
+
+
     return(
 
         <div className="startPage">
@@ -55,32 +61,44 @@ const StartPage = () => {
             
             <div className="searchForm-container">
                 <form id="search-form" method='GET'>
-                    <div className="selectRegion">
+                    <div className="selectRegionWrapper">
                         <label htmlFor='region'>Region</label>
-                        <select name='region' onChange={handleRegion}>
-                            <option id='eun1'>Europe Nordic & East</option>
-                            <option id='euw1'>Europe West</option>
-                            <option id='na1'>North America</option>
-                            <option id='br1'>Brazil</option>
-                            <option id='jp1'>Japan</option>
-                            <option id='kr'>Korea</option>
-                            <option id='la1'>LAN</option>
-                            <option id='la2'>LAS</option>
-                            <option id='oc1'>Oceania</option>
-                            <option id='tr1'>Turkey</option>
-                            <option id='ru1'>Russia</option>
-                            <option id='ph2'>Philippines</option>
-                            <option id='sg2'>Singapore</option>
-                            <option id='th2'>Taiwan</option>
-                            <option id='tw2'>Vietnam</option>
-                            <option id='vn2'>Thailand</option>
-                        </select>
+                            <div className="selected-region">
+                                <button 
+                                    id={region.id} 
+                                    name={region.name}
+                                    type="button"
+                                    onClick={handleButton}
+                                >
+                                    {region.name}
+                            
+                                </button>
+                            </div>
+                        
+                        {button === true &&
+                            <div className="regions-list">
+                            {regions.map((region) => (
+                                <button
+                                    key={region.id}
+                                    id={region.id}
+                                    onClick={() => handleRegion(region.id, region.name)}
+                                    type="button"
+                                >
+                                    {region.name}
+                                    
+                                </button>
+                            ))}
+                        </div>}
                     </div>
-                    <div className="search">
-                        <label htmlFor='search'>Search</label>
-                        <input name="search" id="search-input" placeholder='Name'></input>
-                        <button type="submit" id="search-butt" onClick={e => handleSearch(e)}>Search!</button>
+                    <div className="right-side-search">
+                        <div className="search">
+                            <label htmlFor='search'>Search</label>
+                            <input name="search" id="search-input" placeholder='Name' required value={query} onChange={e => setQuery(e.target.value)}></input>
+                        
+                        </div>
+                        <button type="submit" id="search-butt" onClick={e => handleSearch(e)}><Icon path={mdiMagnify} size={1} /></button>
                     </div>
+                    
                 </form>
             </div>
         </div>

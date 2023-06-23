@@ -83,45 +83,102 @@ html, body{
     justify-content: center;
     
 }
+
 #search-form{
     display: flex;
+    // align-items: center;
     background-color: $fontColorDarker;
     border-radius: 4rem;
-    padding: 0.5rem 2rem;
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
     width: 50rem;
+    height: 3rem;
 
     label{
         display: flex;
     }
+}
 
-    select{
-        border:none;
-        background-color: inherit;
+// for selected button style
+.selected-region{
+    button{
+        background-color: inherit !important;
+        border:none !important;
+        padding: 0;
+        text-align: left;
         
-        &:focus-visible{
-            outline: none;
-        }
-        &:hover{
-            cursor: pointer;
-        }
-        option{
-            border-bottom: 1px solid black;
-        }
+    }
+}
+.searchButtons{
+ 
+}
+.selectRegionWrapper{
+    width: 15rem;
+    margin-right: 1rem;
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    // all buttons in region
+    button{
+        width: 100%;
+        height: 2rem;
+        background-color: $fontColorDarker;
+        border:none;
+        border-top: 1px solid black;
+        cursor: pointer;
 
+        &:hover{
+            background-color: $tempBack;
+        }
+        
     }
 
+    // @extend .searchButtons;
+    
 }
 .selectRegion{
     margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+
+    
 }
+
+
+.right-side-search{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    width: 100%;
+}
+
 
 .search{
     border-left: 1px solid black;
     padding-left: 10px;
+    width: 80%;
+    input{
+        border:none;
+        background-color: inherit;
+        width: 80%;
+        height: 2rem;
+
+        &:focus-visible{
+            border: none;
+            outline: none;
+        }
+    }
+}
+.regions-list{
+    display: flex;
+    flex-direction: column;
+    @extend .searchButtons;
 }
 
-
-
+#search-butt{
+    background: none;
+    border: none;
+    cursor: pointer;
+}
 
 
 // PROFILE
