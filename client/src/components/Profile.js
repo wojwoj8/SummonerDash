@@ -31,6 +31,7 @@ const Profile = () =>{
     }, [])
 
     
+ 
 
     const fetchUserData = async () =>{
         // console.log(query)
@@ -44,6 +45,7 @@ const Profile = () =>{
                     setErr(data[0]);
                     return
                 }
+                document.title = `${query.name} - SummonerDash`;
                 setData(data[0])
                 // console.log(data[1][0]["queueType"])
                 if (data[1][0]){
@@ -137,6 +139,7 @@ const Profile = () =>{
     }, [button])
     
     if (err.status){
+        document.title = "SummonerDash";
         console.log(err.status.message)
         return(
             <div className="error">

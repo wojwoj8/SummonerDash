@@ -54,8 +54,8 @@ const ProfileMasteries = (props) =>{
                     <div className="masterie-img-wrapper">
                     
                     {masteries.map((masterie, i) => (
-                    <div className={`masterie-img-container right${i + 1}`} key={i}>
-                        <div className="masterie-img">
+
+                        <div className="masterie-img" key={i}>
                             <img src={masterie.squarePortraitPath} alt="masterieImg"></img>
                             <div className="masterie-img-data">
                                 <p>{masterie.name}</p>
@@ -66,7 +66,7 @@ const ProfileMasteries = (props) =>{
                            </div>
                             
                         </div>
-                    </div>
+                
                     
                 ))}
                     </div>

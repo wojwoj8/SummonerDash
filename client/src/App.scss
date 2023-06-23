@@ -69,6 +69,61 @@ html, body{
     }
 }
 
+
+
+.startPage{
+   
+}
+.startPage-title{
+    display: flex;
+    justify-content: center;
+}
+.searchForm-container{
+    display: flex;
+    justify-content: center;
+    
+}
+#search-form{
+    display: flex;
+    background-color: $fontColorDarker;
+    border-radius: 4rem;
+    padding: 0.5rem 2rem;
+    width: 50rem;
+
+    label{
+        display: flex;
+    }
+
+    select{
+        border:none;
+        background-color: inherit;
+        
+        &:focus-visible{
+            outline: none;
+        }
+        &:hover{
+            cursor: pointer;
+        }
+        option{
+            border-bottom: 1px solid black;
+        }
+
+    }
+
+}
+.selectRegion{
+    margin-right: 10px;
+}
+
+.search{
+    border-left: 1px solid black;
+    padding-left: 10px;
+}
+
+
+
+
+
 // PROFILE
 
 .profile-wrapper{
@@ -272,6 +327,7 @@ html, body{
 .profile-masteries{
     // grid-template-rows: repeat(3, 7rem);
     display: grid;
+    align-content: space-between;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
 }
@@ -288,6 +344,7 @@ html, body{
 .masterie-img-wrapper{
     display: grid;
     grid-template-columns: 1fr;
+    align-items: start;
     // grid-template-rows:5fr 5fr 5fr;
     grid-template-rows: auto;
     row-gap: 10px;

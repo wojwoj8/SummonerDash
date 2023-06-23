@@ -8,17 +8,9 @@ import Footer from './components/Footer';
 import ErrorPage from './components/ErrorPage';
 
 function App() {
-  
-  return (
-    
-      {/* have to check if data loaded */},
 
-      {/* {(typeof data.name === 'undefined')?(
-        <p>loading...</p>
-        ):(
-          <p>{data.name}</p>
-        )
-      } */},
+  return (
+
     <BrowserRouter>
         <Navbar></Navbar>
         <Routes>
