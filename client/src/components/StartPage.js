@@ -1,16 +1,21 @@
-import {React, useState} from "react";
+import {React, useState, useRef, useEffect} from "react";
 import { redirect, useNavigate } from "react-router-dom";
 import Icon from '@mdi/react';
-import { mdiMagnify } from '@mdi/js';
+import { mdiMagnify, mdiRotate360 } from '@mdi/js';
+import { mdiTriangleSmallDown } from '@mdi/js';
+import Arrow from "../images/expandArrow.svg"
 
 const StartPage = () => {
     // const search = handleSearch();
     const [region, setRegion] = useState({id: 'eun1', name: 'Europe Nordic & East'});
-    const [button, setButton] = useState('false');
+    
     const [query, setQuery] = useState("")
     document.title = "SummonerDash";
 
     const navigate = useNavigate();
+    const [isExpanded, setIsExpanded] = useState(false);
+    const containerRef = useRef(null);
+    const inputRef = useRef(null);
 
     const regions = [
         { id: 'eun1', name: 'Europe Nordic & East' },
@@ -31,6 +36,33 @@ const StartPage = () => {
         { id: 'vn2', name: 'Thailand' },
     ];
 
+    useEffect(() => {
+        const handleClick = (event) => {
+          if (containerRef.current && !containerRef.current.contains(event.target)) {
+            setIsExpanded(false);
+          }
+        };
+    
+        if (isExpanded) {
+          document.addEventListener('click', handleClick);
+        } else {
+          document.removeEventListener('click', handleClick);
+        }
+    
+        return () => {
+          document.removeEventListener('click', handleClick);
+        };
+      }, [isExpanded]);
+    
+
+    const handleDivClick = () => {
+        inputRef.current.focus();
+    };
+
+    const handleToggle = () => {
+        setIsExpanded(!isExpanded);
+    };
+
     const navigateToProfile = (e) =>{
         navigate(e);
     }
@@ -38,17 +70,12 @@ const StartPage = () => {
     const handleSearch = (e) =>{
         navigateToProfile(`${region.id}/name/${query}`)
     };
-    const hadleQuery = (value) =>{
-        setQuery(value)
-    }
 
-    const handleButton = () =>{
-        button === true ? setButton(false) : setButton(true)
-    }
+
+
     const handleRegion = (id, name) =>{
         
         setRegion({id: id, name: name});
-        handleButton();
     }
 
 
@@ -63,20 +90,24 @@ const StartPage = () => {
                 <form id="search-form" method='GET'>
                     <div className="selectRegionWrapper">
                         <label htmlFor='region'>Region</label>
-                            <div className="selected-region">
+                            <div className={`selected-region ${isExpanded ? 'expanded' : ''}`}>
                                 <button 
                                     id={region.id} 
                                     name={region.name}
                                     type="button"
-                                    onClick={handleButton}
+                                    onClick={handleToggle}
+                                    ref={containerRef}
                                 >
                                     {region.name}
+
+                                    <img src={Arrow} alt="expand"/>
                             
                                 </button>
+                                
                             </div>
                         
-                        {button === true &&
-                            <div className="regions-list">
+                        {isExpanded &&
+                            <div className="regions-list" >
                             {regions.map((region) => (
                                 <button
                                     key={region.id}
@@ -91,9 +122,9 @@ const StartPage = () => {
                         </div>}
                     </div>
                     <div className="right-side-search">
-                        <div className="search">
+                        <div className="search" onClick={handleDivClick}>
                             <label htmlFor='search'>Search</label>
-                            <input name="search" id="search-input" placeholder='Name' required value={query} onChange={e => setQuery(e.target.value)}></input>
+                            <input ref={inputRef} name="search" id="search-input" placeholder='Name' required value={query} onChange={e => setQuery(e.target.value)}></input>
                         
                         </div>
                         <button type="submit" id="search-butt" onClick={e => handleSearch(e)}><Icon path={mdiMagnify} size={1} /></button>

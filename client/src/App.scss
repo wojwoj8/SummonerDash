@@ -24,6 +24,10 @@ $fontColorPlayerLinks: rgb(178, 178, 178);
 $tempBack: rgb(48, 48, 48);
 $tempBackDarker:rgb(32, 32, 32);
 
+// for autocomplete background color
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px $fontColorDarker inset;
+}
 
 html{
     
@@ -105,8 +109,21 @@ html, body{
         border:none !important;
         padding: 0;
         text-align: left;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        
+        img{
+            margin-bottom: 2px;
+            width: 1rem;
+            height: 1rem;
+        }
         
     }
+}
+
+.expanded img{
+    transform: scaleY(-1);
 }
 .searchButtons{
  
