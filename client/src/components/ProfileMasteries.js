@@ -1,3 +1,6 @@
+import Icon from '@mdi/react';
+import { mdiLoading } from '@mdi/js';
+
 const ProfileMasteries = (props) =>{
 
     const {masteries} = props
@@ -40,7 +43,7 @@ const ProfileMasteries = (props) =>{
             {(typeof masteries[0] === 'undefined') ? (
                 <div>
                    
-                    {Array.isArray(masteries) ? <p>No data</p> : <p>loading...</p> }
+                    {Array.isArray(masteries) ? <p>No data</p> : <Icon path={mdiLoading} size={2} spin /> }
                 </div>
                 
                 

@@ -2,6 +2,7 @@ import {React, useState, useEffect} from "react";
 import { useParams } from "react-router-dom";
 import ProfileData from "./ProfileData";
 import ProfileGames from "./ProfileGames";
+import ErrorPage from "./ErrorPage";
 
 const Profile = () =>{
 
@@ -143,11 +144,10 @@ const Profile = () =>{
         console.log(err.status.message)
         return(
             <div className="error">
-                {err.status.status_code === 403 ?
-                    (<p>{err.status.status_code} - {err.status.message} (99% api expired)</p>):
-                    (<p>{err.status.status_code} - {err.status.message}</p>)
-                }
-                
+                <ErrorPage
+                    err={err}
+                />
+
             </div>
         )
     }

@@ -404,10 +404,23 @@ const Game = (props) => {
                             </div>
                                 
                             <div className="tooltip-container">
-                                <p id="game-killpart">P/Kill {Math.ceil(playerData.challenges.killParticipation *100)}%</p>
-                                <div className="tooltip">
-                                    <p>Kill participation</p>
-                                </div>
+                                {playerData.challenges.killParticipation ? (
+                                    <div>
+                                        <p id="game-killpart">P/Kill  {Math.ceil(playerData.challenges.killParticipation *100)}%</p>
+                                        <div className="tooltip">
+                                            <p>Kill participation</p>
+                                        </div>
+                                    </div>
+                                    
+                                ) : (
+                                    <div>
+                                        <p id="game-killpart">P/Kill 0%</p>
+                                        <div className="tooltip">
+                                            <p>Kill participation</p>
+                                        </div>
+                                    </div>
+                                )}
+                                
                             </div>
                              
                             
