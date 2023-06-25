@@ -15,6 +15,10 @@ const Profile = () =>{
     const [fetchedGamesStart, setFetchedGamesStart] = useState(0);
     const [button, setButton] = useState(false)
     const [rateMess, setRateMess] = useState("");
+
+    // for update and load more data (profile games and profile data)
+    const [seconds, setSeconds] = useState(0);
+    const [cooldown, setCoolDown] = useState(false);
     // gamesData
     const [games, setGames] = useState({});
 
@@ -80,6 +84,7 @@ const Profile = () =>{
         ).then(
             
             data=>{
+                console.log(data.length)
                 console.log(data)
                 if (data[0]?.status){
                     console.log(data[0])
@@ -87,20 +92,23 @@ const Profile = () =>{
                     return
                 }
                 if (data.status){
-                    setFetchedGamesStart(10)
+                    setFetchedGamesStart(data.length)
                     setRateMess(data.status.message);
+                    setButton(false)
+                    setLoading(false)
                     return
+                    
                 }
                 if(data[data.length -1]?.status){
                     setRateMess(data[data.length -1].status.message);
-                    setFetchedGamesStart(prev => fetchedGamesStart + 10)
+                    setFetchedGamesStart(prev => fetchedGamesStart + data.length)
                     data.pop()
-                    return
+                    
                 }
                 // console.log('first games data')
                 // console.log(data)
                 setGames(data);
-                setFetchedGamesStart(10)
+                setFetchedGamesStart(data.length)
                 console.log(fetchedGamesStart)
                 console.log('fetched games')
                 setButton(false)
@@ -118,36 +126,53 @@ const Profile = () =>{
             res => res.json()
         ).then(
             data=>{
+                console.log(data.length)
                 console.log(data)
                 if (data[0]?.status){
                     console.log(data[0])
-                    setErr(data[0]);
-                    return
+                    setRateMess(data[0].status.message)
+                    
+
+                    // data.pop()
+                    setFetchedGamesStart(prev => fetchedGamesStart + data.length)
+                    // setErr(data[0]);
+                    
+                }
+                if (data.status){
+                    setFetchedGamesStart(data.length)
+                    setRateMess(data.status.message);
+                    
                 }
                 // rate error in for example 15 of 20 games
                 if(data[data.length -1]?.status){
                     setRateMess(data[data.length -1].status.message);
-                    setFetchedGamesStart(prev => fetchedGamesStart + 10)
+                    setFetchedGamesStart(prev => fetchedGamesStart + data.length)
                     data.pop()
-                    return
+                    
                 }
                 // console.log(data)            
                 setGames([...games, ...data]);
-                setFetchedGamesStart(prev => fetchedGamesStart + 10)
+                setFetchedGamesStart(prev => fetchedGamesStart + data.length)
                 // console.log(games)
                 // console.log('fetching more data')
             }
         
         ).catch((error) => {
             console.log('Error fetching games data:', error)
-            const catchError = [
+            let catchError
+            if (error.status){
+                catchError = error
+            } else{
+                catchError = 
                 {
                     "status": {
                         "message": "Something went wrong",
                         "status_code": 2137,
                     }
                 }
-            ]
+            }
+            
+            
             setErr(catchError)
         }
         );
@@ -195,6 +220,12 @@ const Profile = () =>{
                 setButton={setButton}
                 loading={loading}
                 masteries={masteries}
+                rateMess={rateMess}
+                setRateMess={setRateMess}
+                seconds={seconds}
+                setSeconds={setSeconds}
+                cooldown={cooldown}
+                setCoolDown={setCoolDown}
                 
 
             />
@@ -210,6 +241,11 @@ const Profile = () =>{
                 fetchMoreGamesData={fetchMoreGamesData}
                 fetchedGamesStart={fetchedGamesStart}
                 rateMess={rateMess}
+                setRateMess={setRateMess}
+                seconds={seconds}
+                setSeconds={setSeconds}
+                cooldown={cooldown}
+                setCoolDown={setCoolDown}
 
             />
             

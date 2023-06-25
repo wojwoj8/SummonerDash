@@ -531,7 +531,7 @@ html, body{
         box-shadow: $gameBoxShadow;
 
         display: grid;
-        grid-template-rows: 5rem 5rem;
+        grid-template-rows: 5rem 4.5rem;
         grid-template-columns: 10rem repeat(3, minmax(12rem, 1fr));
         // grid-template-columns: repeat(4, minmax(12rem, 1fr));
         // grid-template-columns: repeat(4 1fr);
@@ -623,7 +623,7 @@ html, body{
     }
 
     #game-kills{
-        color: blue;
+        color: rgb(49, 19, 184);
     }
     #game-deaths{
         color: $multikillBackground;
@@ -828,7 +828,7 @@ html, body{
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
-                max-width: 100px; /* Set the maximum width of the container */
+                max-width: 100px;
             }
         }
 
@@ -887,7 +887,7 @@ html, body{
     transform: translateX(-50%);
     border-width: 10px;
     border-style: solid;
-    border-color: #f9f9f9 transparent transparent transparent; /* Reverse the border-color */
+    border-color: #f9f9f9 transparent transparent transparent;
   }
   
   @keyframes tooltipFadeIn {

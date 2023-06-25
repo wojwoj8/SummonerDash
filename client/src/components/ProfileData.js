@@ -5,7 +5,8 @@ import ProfileRanks from "./ProfileRanks";
 import ProfileMasteries from "./ProfileMasteries";
 const ProfileData = (props) => {
 
-    const {data, solo, flex, err, setButton, loading, masteries} = props;
+    const {data, solo, flex, err, setButton, loading, masteries, 
+        rateMess, setRateMess, setCoolDown, cooldown, setSeconds, seconds} = props;
 
     return(
         
@@ -21,6 +22,12 @@ const ProfileData = (props) => {
                 err={err}
                 setButton={setButton}
                 loading={loading}
+                rateMess={rateMess}
+                setRateMess={setRateMess}
+                seconds={seconds}
+                setSeconds={setSeconds}
+                cooldown={cooldown}
+                setCoolDown={setCoolDown}
         />
 
         <ProfileMasteries

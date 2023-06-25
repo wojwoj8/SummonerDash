@@ -3,7 +3,8 @@ import Icon from '@mdi/react';
 import { mdiLoading } from '@mdi/js';
 const ProfileRanks = (props) => {
 
-    const {data, solo, flex, err, setButton, loading} = props;
+    const {data, solo, flex, err, setButton, loading, 
+        rateMess, setRateMess, setCoolDown, cooldown, setSeconds, seconds} = props;
 
     
     // for miniseries under profile rank icon display
@@ -40,10 +41,15 @@ const ProfileRanks = (props) => {
                                 
                                 <h2>{data.name}</h2>
                                 <div id="reload-data">
-                                    <button className="button"  onClick={e => setButton(true)}>
+                                    <button className="button" disabled={cooldown}  onClick={e => setButton(true)}>
                                         {loading ? 
                                         (<Icon id="load" path={mdiLoading} size={1} spin/>) : 
-                                        'Update'}
+                                        rateMess === "Rate limit exceeded" ? (
+                                            `Try in ${seconds}s`
+                                        ):(
+                                            'Update'
+                                        )
+                                        }
                                     </button>
                                     
                                 </div>

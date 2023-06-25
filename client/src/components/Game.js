@@ -435,7 +435,7 @@ const Game = (props) => {
                                 <p>(Minions/min)</p>
                             </div>
                         </div>
-                        {playerData.challenges?.abilityUses && 
+                        {playerData.challenges?.abilityUses !== undefined && playerData.challenges?.abilityUses !== null && 
                         <div className="tooltip-container">
                             <p>
                                 Ability uses: {playerData.challenges.abilityUses}
