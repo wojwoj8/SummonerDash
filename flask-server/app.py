@@ -12,7 +12,7 @@ import copy
 app = Flask(__name__)
 CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
-api_key = "RGAPI-7c675506-6ad3-40a7-a9b5-a5441dea4a6a"
+api_key = "RGAPI-6bb71b45-3314-4e4d-a18f-4487a795f4ae"
 pp = pprint.PrettyPrinter(indent=4)
 
 # has to be global as reference for items fetching
@@ -218,11 +218,10 @@ def fetchGamesIds(puuid, arr, region, start):
     )
     # can change count of fetched games
     matchId_url = (
-        matchId_url + puuid + "/ids?start=" + start + "&count=10" "&api_key=" + api_key
+        matchId_url + puuid + "/ids?start=" + start + "&count=20" "&api_key=" + api_key
     )
     resp = requests.get(matchId_url)
     gamesIds = resp.json()
-
     arr.append(gamesIds)
 
     if "status" in gamesIds:
@@ -278,6 +277,7 @@ def fetchGamesData(arr, region):
     sublist_names = ["imgIds", "playerIdName", "runes"]
 
     # print(arr)
+
     for i in range(len(arr[0])):
         selectedGame_url = gameData_url + arr[0][i] + "?api_key=" + api_key
 
@@ -287,7 +287,12 @@ def fetchGamesData(arr, region):
         gameData = resp.json()
 
         if "status" in gameData:
+            # print(arr[0])
             arr.append(gameData)
+            # print(arr)
+            print(gameData)
+
+            print("error in rate")
             return
 
         # 03.10.2022 00:00:00 ~ start of preseason 13
@@ -388,6 +393,7 @@ def fetchGamesData(arr, region):
         # print(test)
 
         # NOW ATTACH IMAGES LINKS TO ALL THOSE IDS
+
         arr.append(gameData)
 
         # arr.append(test)
@@ -503,10 +509,12 @@ def Games(name, region, start):
         return data
     fetchGamesIds(data[0]["puuid"], gamesData, region, start)
 
-    if "status" in gamesData[0]:
+    print(gamesData)
+    if "status" in gamesData[-1]:
         # data[0].update(data[1])
         # print("gamesData")
-        return gamesData
+        # print(gamesData[0])
+        return gamesData[0]
 
     fetchGamesData(gamesData, region)
     # remove games id because it is after fetch in json

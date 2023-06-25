@@ -23,7 +23,10 @@ const ProfileRanks = (props) => {
         <div className="profile-playerData-wrapper">
             {/* {console.log(flex)} */}
             {(typeof data.name === 'undefined')?(
-                <Icon path={mdiLoading} size={2} spin />
+                <div id="loading">
+                    <Icon path={mdiLoading} size={2} spin id="loading" />
+                </div>
+                
                 
                 ):(
                 <div className="profile">

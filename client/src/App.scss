@@ -11,9 +11,9 @@ $profileContentBackCol: white;
 
 
 $gameBoxShadow: 8px 8px 24px 0px rgb(8, 9, 28);
-$victoryBackground: rgba(14, 186, 14, 0.388);
-$lostBackground: rgba(255, 14, 14, 0.519);
-$remakeBackground: grey;
+$victoryBackground: rgba(34, 242, 76, 0.545);
+$lostBackground: rgb(255 82 82 / 71%);
+$remakeBackground: rgba(112, 108, 97);
 
 $multikillBackground: rgb(250, 65, 65);
 
@@ -21,12 +21,16 @@ $fontColor: white;
 $fontColorDarker: darken($fontColor, 12%);
 $fontColorPlayerLinks: rgb(178, 178, 178);
 
-$tempBack: rgb(48, 48, 48);
+$tempBack: rgb(14 15 22);
 $tempBackDarker:rgb(32, 32, 32);
 
 // for autocomplete background color
-input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px $fontColorDarker inset;
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px $tempBackDarker inset;
+    -webkit-text-fill-color: $fontColor;
+
 }
 
 html{
@@ -68,7 +72,7 @@ html, body{
     background-color: $navColor;
     // height: 60px;
     p{
-        color: white;
+        color: $fontColor;
         font-size: 1.5rem;
         margin: 15px 0 15px 5px
     }
@@ -91,6 +95,7 @@ html, body{
 }
 .startPage-title{
     display: flex;
+    color: $fontColor;
     justify-content: center;
     font-size: 2rem;
 }
@@ -104,7 +109,7 @@ html, body{
 #search-form{
     display: flex;
     // align-items: center;
-    background-color: $fontColorDarker;
+    background-color: $tempBackDarker;
     border-radius: 4rem;
     padding: 0.5rem 0.5rem 0.5rem 2rem;
     width: 50rem;
@@ -112,6 +117,7 @@ html, body{
 
     label{
         display: flex;
+        color: $fontColorDarker;
     }
 }
 
@@ -137,6 +143,7 @@ html, body{
 
 .expanded img{
     transform: scaleY(-1);
+    
 }
 .searchButtons{
  
@@ -149,15 +156,16 @@ html, body{
     // justify-content: center;
     // all buttons in region
     button{
+        color: $fontColorPlayerLinks;
         width: 100%;
         height: 2rem;
-        background-color: $fontColorDarker;
+        background-color: $tempBackDarker;
         border:none;
         border-top: 1px solid black;
         cursor: pointer;
 
         &:hover{
-            background-color: $tempBack;
+            background-color: $remakeBackground;
         }
         
     }
@@ -191,6 +199,7 @@ html, body{
         background-color: inherit;
         width: 80%;
         height: 2rem;
+        color: white;
 
         &:focus-visible{
             border: none;
@@ -208,6 +217,7 @@ html, body{
     background: none;
     border: none;
     cursor: pointer;
+    color: $fontColorDarker;
 }
 
 
@@ -233,7 +243,7 @@ html, body{
     grid-area: prof-data;
     padding-bottom: 10px;
     // background-color: $profileBackgroundCol;
-    background: $profileBackgroundCol;
+    // background: $profileBackgroundCol;
     border-radius: 20px;
     // border: 1px solid black;
     display: grid;
@@ -322,6 +332,7 @@ html, body{
     
     h2{
         margin: 0;
+        color: $fontColorDarker;
     }
     img{
         margin-top: 0.5rem;
@@ -475,6 +486,7 @@ html, body{
     button{
         width: 100%;
     }
+    
 }
 .profile-games-wrapper{
     grid-area: games;
@@ -488,6 +500,7 @@ html, body{
 }
 .profile-games-loading{
     text-align: center;
+    
     
 }
 .profile-no-games-found{
@@ -895,20 +908,20 @@ html, body{
 
 //Buttons
 .button{
-    background-color: rgb(25, 38, 48);
+    background-color: black;
     border: none;
-    color: red;
+    color: $multikillBackground;
     height: 3rem;
     width : 8rem;
     border-radius: 20px;
     font-size: 1rem;
     font-weight: 600;
-    border: 2px solid black;
+    border: 1px solid black;
 
     &:hover {
         cursor: pointer;
         /* Other hover styles if needed */
-        background-color: rgb(19, 28, 35);
+        background-color: $fontColorDarker;
       }
 }
 
@@ -918,5 +931,15 @@ html, body{
 
     .err-message{
         font-size: 3rem;
+        color: $fontColorDarker;
     }
+}
+
+#loading{
+
+    svg{ 
+        color: $fontColorDarker;
+    }
+    
+    
 }

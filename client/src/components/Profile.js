@@ -86,7 +86,7 @@ const Profile = () =>{
                 // console.log('first games data')
                 // console.log(data)
                 setGames(data);
-                setFetchedGamesStart(10)
+                setFetchedGamesStart(20)
                 console.log(fetchedGamesStart)
                 console.log('fetched games')
                 setButton(false)
@@ -104,15 +104,21 @@ const Profile = () =>{
             res => res.json()
         ).then(
             data=>{
+                console.log(data)
                 if (data[0]?.status){
                     console.log(data[0])
                     setErr(data[0]);
                     return
-                }            
+                }
+                if(data[data.length -1]?.status){
+                    setErr(data[data.length -1]);
+                    return
+                }
+                console.log(data)            
                 setGames([...games, ...data]);
-                setFetchedGamesStart(prev => fetchedGamesStart + 10)
-                console.log(games)
-                console.log('fetching more data')
+                setFetchedGamesStart(prev => fetchedGamesStart + 20)
+                // console.log(games)
+                // console.log('fetching more data')
             }
         
         ).catch((error) => {

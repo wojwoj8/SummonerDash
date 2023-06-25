@@ -314,7 +314,7 @@ const Game = (props) => {
 
         <div className={`profile-game-data ${divClassName()}`}>
             {Object.keys(playerData).length === 0 ? (
-                <div>Loading...</div>
+                <div></div>
                 ) : (
                 <>
                     <div className="game-data-queue-when">
@@ -404,7 +404,7 @@ const Game = (props) => {
                             </div>
                                 
                             <div className="tooltip-container">
-                                {playerData.challenges.killParticipation ? (
+                                {playerData.challenges?.killParticipation ? (
                                     <div>
                                         <p id="game-killpart">P/Kill  {Math.ceil(playerData.challenges.killParticipation *100)}%</p>
                                         <div className="tooltip">

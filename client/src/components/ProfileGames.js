@@ -32,7 +32,7 @@ const ProfileGames = (props) =>{
         return (
             <div className="profile-games-wrapper">
                     
-                        <div className="profile-games-loading">
+                        <div className="profile-games-loading" id="loading">
                             <Icon id="load" path={mdiLoading} size={2} spin/>
                         </div>
                         
@@ -68,7 +68,11 @@ const ProfileGames = (props) =>{
             <div className="fetchMore">
                 
                 <button className="button" style={{display: display}} onClick={handleLoad}>Fetch more</button>
-                {display === 'none' && <Icon path={mdiLoading} size={2} spin />}
+                {display === 'none' && 
+                <div id="loading">
+                    <Icon path={mdiLoading} size={2} spin />
+                </div>
+                }
             </div>
             ):(
                 <div className="profile-games-wrapper">
@@ -83,7 +87,7 @@ const ProfileGames = (props) =>{
             </div>) : (
                 <div className="profile-games-wrapper">
                     
-                <div className="profile-games-loading">
+                <div className="profile-games-loading" id="loading">
                     <Icon id="load" path={mdiLoading} size={2} spin/>
                 </div>
                 

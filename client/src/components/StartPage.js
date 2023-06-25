@@ -83,7 +83,7 @@ const StartPage = () => {
 
         <div className="startPage">
             <div className="startPage-title">
-                <h1>Welcome at SummonerDash!!!</h1>
+                <h1>SummonerDash</h1>
             </div>
             
             <div className="searchForm-container">

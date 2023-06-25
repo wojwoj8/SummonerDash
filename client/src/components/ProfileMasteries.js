@@ -43,7 +43,11 @@ const ProfileMasteries = (props) =>{
             {(typeof masteries[0] === 'undefined') ? (
                 <div>
                    
-                    {Array.isArray(masteries) ? <p>No data</p> : <Icon path={mdiLoading} size={2} spin /> }
+                    {Array.isArray(masteries) ? <p>No data</p> : 
+                    <div id="loading">
+                        <Icon path={mdiLoading} size={2} spin />
+                    </div> 
+                }
                 </div>
                 
                 
