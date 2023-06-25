@@ -3,7 +3,7 @@
 $mainPadding: 2rem 6rem 0 6rem;
 $pageBackgroundImg: linear-gradient(to right, #000428 0%, #004e92  51%, #000428  100%);
 $navColor: black;
-$profileBackgroundCol: none;
+$profileBackgroundCol: rgba(51, 62, 52, 0.496);
 // background-color: #8BC6EC;
 // background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
 
@@ -305,7 +305,7 @@ html, body{
     grid-area: name;
     display: flex;
     
-    background-color: $tempBackDarker;
+    background-color: $profileBackgroundCol;
     border-radius: 10px;
 }
 
@@ -351,13 +351,13 @@ html, body{
 .profile-solo{
     @extend .profile-queue;
     grid-area: solo;
-    background-color: $tempBackDarker
+    background-color: $profileBackgroundCol;
    
 }
 .profile-flex{
     @extend .profile-queue;
     grid-area: flex;
-    background-color: $tempBackDarker
+    background-color: $profileBackgroundCol;
 
 }
 
@@ -452,7 +452,7 @@ html, body{
 .masterie-img{
     margin-left: 10px;
     border-radius: 10px;
-    background-color: $tempBackDarker;
+    background-color: $profileBackgroundCol;
     display:flex;
     row-gap: 10px;
     img{

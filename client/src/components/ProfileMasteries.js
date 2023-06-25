@@ -4,7 +4,7 @@ import { mdiLoading } from '@mdi/js';
 const ProfileMasteries = (props) =>{
 
     const {masteries} = props
-    console.log(masteries)
+    // console.log(masteries)
     // console.log(typeof(masteries))
     // console.log(masteries.length)
 

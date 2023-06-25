@@ -14,6 +14,7 @@ const Profile = () =>{
     const [masteries, setMasteries] = useState({});
     const [fetchedGamesStart, setFetchedGamesStart] = useState(0);
     const [button, setButton] = useState(false)
+    const [rateMess, setRateMess] = useState("");
     // gamesData
     const [games, setGames] = useState({});
 
@@ -77,16 +78,29 @@ const Profile = () =>{
         fetch(`/gamesData/${query.region}/${query.name}/0`).then(
             res => res.json()
         ).then(
+            
             data=>{
+                console.log(data)
                 if (data[0]?.status){
                     console.log(data[0])
                     setErr(data[0]);
                     return
                 }
+                if (data.status){
+                    setFetchedGamesStart(10)
+                    setRateMess(data.status.message);
+                    return
+                }
+                if(data[data.length -1]?.status){
+                    setRateMess(data[data.length -1].status.message);
+                    setFetchedGamesStart(prev => fetchedGamesStart + 10)
+                    data.pop()
+                    return
+                }
                 // console.log('first games data')
                 // console.log(data)
                 setGames(data);
-                setFetchedGamesStart(20)
+                setFetchedGamesStart(10)
                 console.log(fetchedGamesStart)
                 console.log('fetched games')
                 setButton(false)
@@ -110,19 +124,31 @@ const Profile = () =>{
                     setErr(data[0]);
                     return
                 }
+                // rate error in for example 15 of 20 games
                 if(data[data.length -1]?.status){
-                    setErr(data[data.length -1]);
+                    setRateMess(data[data.length -1].status.message);
+                    setFetchedGamesStart(prev => fetchedGamesStart + 10)
+                    data.pop()
                     return
                 }
-                console.log(data)            
+                // console.log(data)            
                 setGames([...games, ...data]);
-                setFetchedGamesStart(prev => fetchedGamesStart + 20)
+                setFetchedGamesStart(prev => fetchedGamesStart + 10)
                 // console.log(games)
                 // console.log('fetching more data')
             }
         
         ).catch((error) => {
             console.log('Error fetching games data:', error)
+            const catchError = [
+                {
+                    "status": {
+                        "message": "Something went wrong",
+                        "status_code": 2137,
+                    }
+                }
+            ]
+            setErr(catchError)
         }
         );
     }
@@ -183,6 +209,7 @@ const Profile = () =>{
                 setButton={setButton}
                 fetchMoreGamesData={fetchMoreGamesData}
                 fetchedGamesStart={fetchedGamesStart}
+                rateMess={rateMess}
 
             />
             

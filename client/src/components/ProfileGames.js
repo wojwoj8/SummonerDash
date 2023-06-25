@@ -5,7 +5,7 @@ import { mdiLoading } from '@mdi/js';
 
 const ProfileGames = (props) =>{
 
-    const {games, userData, fetchedGamesStart, display, setDisplay, button, setButton} = props;
+    const {games, userData, fetchedGamesStart, display, setDisplay, button, setButton, rateMess} = props;
     // console.log(games)
 
     
@@ -32,9 +32,20 @@ const ProfileGames = (props) =>{
         return (
             <div className="profile-games-wrapper">
                     
+                    {rateMess === "Rate limit exceeded" ? (
+                        <div className="fetchMore-wrapper">
+                            <div className="profile-game">
+                                <div className="profile-no-games-found">
+                                    <p>{rateMess}</p>
+                                </div>
+                            </div>
+                        </div>
+                    ) : (
                         <div className="profile-games-loading" id="loading">
                             <Icon id="load" path={mdiLoading} size={2} spin/>
                         </div>
+                    )}
+                        
                         
                    
                 </div>
@@ -66,7 +77,6 @@ const ProfileGames = (props) =>{
                 
                 {games[fetchedGamesStart - 1] ?(
             <div className="fetchMore">
-                
                 <button className="button" style={{display: display}} onClick={handleLoad}>Fetch more</button>
                 {display === 'none' && 
                 <div id="loading">
@@ -78,7 +88,13 @@ const ProfileGames = (props) =>{
                 <div className="profile-games-wrapper">
                     <div className="profile-game">
                         <div className="profile-no-games-found">
-                            <p>No more games found</p>
+                            {rateMess === "Rate limit exceeded" ? (
+                                
+                                <p>{rateMess}</p>
+                            ) : (
+                                <p>No more games found</p>
+                            )}
+                            {/* <p>No more games found</p> */}
                         </div>
                         
                     </div>
