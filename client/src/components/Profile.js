@@ -92,7 +92,7 @@ const Profile = () =>{
                     return
                 }
                 if (data.status){
-                    setFetchedGamesStart(data.length)
+                    setFetchedGamesStart(0)
                     setRateMess(data.status.message);
                     setButton(false)
                     setLoading(false)
@@ -139,8 +139,11 @@ const Profile = () =>{
                     
                 }
                 if (data.status){
-                    setFetchedGamesStart(data.length)
+                    setFetchedGamesStart(0)
                     setRateMess(data.status.message);
+                    setButton(false)
+                    setLoading(false)
+                    return
                     
                 }
                 // rate error in for example 15 of 20 games
@@ -150,8 +153,14 @@ const Profile = () =>{
                     data.pop()
                     
                 }
-                // console.log(data)            
-                setGames([...games, ...data]);
+                // console.log(data)
+                try{
+                    setGames([...games, ...data]);
+                }catch (error) {
+                    if (error instanceof TypeError) {
+                        setGames(data);       
+                    }
+                }
                 setFetchedGamesStart(prev => fetchedGamesStart + data.length)
                 // console.log(games)
                 // console.log('fetching more data')

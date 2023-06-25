@@ -16,6 +16,12 @@ const ProfileGames = (props) =>{
         setCoolDown(true)
         setSeconds(120)
     }
+    const handleLoad = (e) =>{
+        props.fetchMoreGamesData();
+        setDisplay('none')
+        console.log('loading')
+        
+    }
 
     useEffect(() => {
         if (rateMess === "Rate limit exceeded") {
@@ -37,6 +43,11 @@ const ProfileGames = (props) =>{
                 setRateMess("");
                 // for loading bug if no game after fetch
                 setDisplay("block");
+                if (typeof games === "object" && Object.keys(games).length === 0){
+                    console.log('test 41')
+                    //auto fetch next data after cooldown
+                    handleLoad();
+                }
                 }
 
     }, [cooldown, seconds])
@@ -46,21 +57,24 @@ const ProfileGames = (props) =>{
         setDisplay('block')
     }, [fetchedGamesStart])
 
-    // if (games.length === 0){
-    //     return(
-    //         <div className="profile-games-wrapper">
-    //                 <div className="profile-game">
-    //                     <div className="profile-no-games-found">
-    //                         <p>No games found</p>
-    //                     </div>
+    // if games object is array and array is empty
+    if (Array.isArray(games) && games.length === 0){
+        return(
+            <div className="profile-games-wrapper">
+                    <div className="profile-game">
+                        <div className="profile-no-games-found">
+                            {/* {console.log(54)} */}
+                            <p>No games found</p>
+                        </div>
                         
-    //                 </div>
-    //         </div>
+                    </div>
+            </div>
             
-    //     )
-    //     // console.log('no games')
-    // }
-    if (!games[0]) {
+        )
+        // console.log('no games')
+    }
+
+    if (typeof games === "object" && Object.keys(games).length === 0) {
         return (
             <div className="profile-games-wrapper">
                     
@@ -87,12 +101,7 @@ const ProfileGames = (props) =>{
         );
       }
 
-    const handleLoad = (e) =>{
-        props.fetchMoreGamesData();
-        setDisplay('none')
-        // console.log(display)
-        
-    }
+    
     
     return (
         <div className="profile-games-wrapper">
