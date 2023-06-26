@@ -491,6 +491,7 @@ html, body{
 .masterie-nolastGamesData{
     text-align: center;
     h2{
+        margin-top: 0;
         margin-left: 10px;
         color: $fontColorDarker;
     }
@@ -522,6 +523,41 @@ html, body{
     p{
         margin: 5px 0;
     }
+}
+
+.masterie-roles{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 10px;
+    margin-left: 20px;
+
+    .masterie-role{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        img{
+            height: 2rem;
+            width: 2rem;
+            
+        }
+    }
+
+    .progressBar{
+        display: flex;
+    }
+    
+}
+.progressBar{
+    progress{
+        transform: rotate(-90deg);
+        inline-size: 4.2rem;
+        vertical-align: 0 !important;
+        block-size: 1rem;
+        border-radius: 0;
+        margin-bottom: 2rem;
+    }
+    
 }
 //ProfileGames
 .fetchMore-wrapper{
@@ -919,6 +955,14 @@ html, body{
         font-size: 1rem !important;
     }
     
+  }
+  .tooltip-prof{
+    @extend .tooltip;
+    min-width:1.5rem;
+    p{
+        margin:0;
+        text-align: center;
+    }
   }
   
   .tooltip-container:hover .tooltip {

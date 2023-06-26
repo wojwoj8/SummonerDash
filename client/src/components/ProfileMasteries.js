@@ -1,6 +1,6 @@
 import Icon from '@mdi/react';
 import { mdiLoading } from '@mdi/js';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
     CircularProgressbar,
     CircularProgressbarWithChildren,
@@ -9,14 +9,22 @@ import {
   import "react-circular-progressbar/dist/styles.css";
 import 'react-circular-progressbar/dist/styles.css';
 
+
+import Top from'../images/ranked-positions/Position_Challenger-Top.png'
+import Jun from'../images/ranked-positions/Position_Challenger-Jungle.png'
+import Mid from'../images/ranked-positions/Position_Challenger-Mid.png'
+import Bot from'../images/ranked-positions/Position_Challenger-Bot.png'
+import Sup from'../images/ranked-positions/Position_Challenger-Support.png'
+import ProgressBar from './ProgressBar';
+
 const ProfileMasteries = (props) =>{
 
-    const {masteries,
-        setLastGamesWinratio, lastGamesWinratio} = props
+    const {masteries, lastGamesWinratio, role} = props
     // console.log(masteries)
     // console.log(typeof(masteries))
     // console.log(masteries.length)
 
+    const [totalRole, setTotalRole] = useState('');
     const calcWintare = () =>{
         //total without remake because remake is neither win or lose
         const total = lastGamesWinratio.Victory + lastGamesWinratio.Defeat;
@@ -27,9 +35,25 @@ const ProfileMasteries = (props) =>{
 
         return winrate;
     }
+    
+    const calcTotalGamesRole = (role) =>{
+        let total = 0;
+        for (const key in role){
+            total += role[key];
+          }
+        
+        return total
+    }
+
     useEffect(() =>{
         calcWintare()
     },[lastGamesWinratio])
+
+    useEffect(() =>{
+        setTotalRole(calcTotalGamesRole(role))
+
+    },[role])
+
 
     const calculateLastGame = (dataMs) =>{
 
@@ -60,13 +84,9 @@ const ProfileMasteries = (props) =>{
 
     }
 
-    const lostColor = 'rgb(14, 15, 22)';
-    const victoryColor = 'rgba(34, 242, 76, 0.545)';
+   
     
-    const pieChartStyles = {
-        
-        background: `radial-gradient(closest-side, ${lostColor} 79%, transparent 80% 100%), conic-gradient(${victoryColor} 12%, ${lostColor} 0)`
-      };
+    
     return(
         
         
@@ -110,8 +130,9 @@ const ProfileMasteries = (props) =>{
                 
                     
                     </div>
-                    <div className='masterie-lastGames'>
+                    
                     {lastGamesWinratio.Remake + lastGamesWinratio.Victory + lastGamesWinratio.Defeat !== 0 ? (
+                    <div className='masterie-lastGames'>
                         <div className='masterie-lastGamesData'>
                         {/* <h2>Last {lastGamesWinratio.Remake + lastGamesWinratio.Victory + lastGamesWinratio.Defeat} games</h2> */}
                             <div className='masteries-wl-chart-wrapper'>
@@ -133,10 +154,70 @@ const ProfileMasteries = (props) =>{
                                 
                                     </div>
                             </div>
+
                         </div>
+                        <div className='masterie-roles'>
+
+                            <div className='masterie-role'>
+                                <div className='tooltip-container'>
+                                    <ProgressBar fill={Math.ceil(role.TOP/totalRole *100)}/>
+                                    <div className='tooltip-prof'>
+                                        <p>{role.TOP}</p>
+                                    </div>
+                                </div>
+                                <img src={Top} alt='top'></img>
+                            </div>
+
+                            <div className='masterie-role'>
+                                <div className='tooltip-container'>
+                                        <ProgressBar fill={Math.ceil(role.JUNGLE/totalRole *100)}/>  
+                                    <div className='tooltip-prof'>
+                                        <p>{role.JUNGLE}</p>
+                                    </div>
+                                </div>
+                                <img src={Jun} alt='jungle'></img>
+                                
+                                
+                            </div>
+                                        
+                            <div className='masterie-role'>
+                                <div className='tooltip-container'>
+                                    <ProgressBar fill={Math.ceil(role.MIDDLE/totalRole *100)}/>
+                                    <div className='tooltip-prof'>
+                                        <p>{role.MIDDLE}</p>
+                                    </div>
+                                </div>
+                                <img src={Mid} alt='mid'></img>
+                            </div>
+
+                            <div className='masterie-role'>
+                                <div className='tooltip-container'>
+                                    <ProgressBar fill={Math.ceil(role.BOTTOM/totalRole *100)}/>
+                                    <div className='tooltip-prof'>
+                                        <p>{role.BOTTOM}</p>
+                                    </div>
+                                </div>
+                                <img src={Bot} alt='bottom'></img>
+                            </div>
+
+                            <div className='masterie-role'>
+                                <div className='tooltip-container'>
+                                    <ProgressBar fill={Math.ceil(role.UTILITY/totalRole *100)}/>  
+                                    <div className='tooltip-prof'>
+                                        <p>{role.UTILITY}</p>
+                                    </div>
+                                </div>
+                                <img src={Sup} alt='support'></img>
+                            </div>
+               
+                        </div>
+                    </div>
+                        
                     ) : (
-                        <div className='masterie-nolastGamesData'>
-                            <h2>No games found</h2>
+                        <div className='masterie-lastGames'>
+                            <div className='masterie-nolastGamesData'>
+                                <h2>No games found</h2>
+                            </div>
                         </div>
                         
                     )}
@@ -144,7 +225,7 @@ const ProfileMasteries = (props) =>{
 
                 </div>
                 
-                </div>
+               
             )}
             
         </div>

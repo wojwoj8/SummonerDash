@@ -34,6 +34,14 @@ const Profile = () =>{
         'Victory': 0,
         'Remake': 0,
     });
+    const [role, setRole] = useState({
+        'TOP': 0,
+        'JUNGLE': 0,
+        'MIDDLE': 0,
+        'BOTTOM': 0,
+        'UTILITY': 0,
+
+    })
 
     const query = useParams();
     // console.log(query)
@@ -248,6 +256,8 @@ const Profile = () =>{
                 setCoolDown={setCoolDown}
                 lastGamesWinratio={lastGamesWinratio}
                 fetchedGamesStart={fetchedGamesStart}
+                role={role}
+                setRole={setRole}
                 
 
             />
@@ -270,6 +280,8 @@ const Profile = () =>{
                 setCoolDown={setCoolDown}
                 setLastGamesWinratio={setLastGamesWinratio}
                 lastGamesWinratio={lastGamesWinratio}
+                role={role}
+                setRole={setRole}
                 
 
             />

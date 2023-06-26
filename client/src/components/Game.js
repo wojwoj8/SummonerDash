@@ -6,7 +6,8 @@ const Game = (props) => {
 
     const { data } = useParams();
 
-    const {game, userData, setLastGamesWinratio, lastGamesWinratio, fetchedGamesStart} = props;
+    const {game, userData, setLastGamesWinratio, 
+        lastGamesWinratio, fetchedGamesStart, role, setRole} = props;
     // console.log(userData)
     // console.log(game)
     const {allPlayerImgIds, info, metadata, queueData} = game;
@@ -49,9 +50,14 @@ const Game = (props) => {
     //to count wins, loses, remakes, second if for reseting after update
     useEffect(() => {
         const gameResult = divClassName();
+        const gameRole = playerData.individualPosition;
+        console.log(gameRole)
         console.log(gameResult)
         if (gameResult !== ""){
             addTopBarWinratio(gameResult);
+        }
+        if (gameRole !== "" && gameRole !== "Invalid" && gameRole !== undefined){
+            addTopBarRoles(gameRole)
         }
 
         if (fetchedGamesStart === 0){
@@ -60,6 +66,15 @@ const Game = (props) => {
                 'Defeat': 0,
                 'Victory': 0,
                 'Remake': 0,
+            })
+            console.log('reset role')
+            setRole({
+                'TOP': 0,
+                'JUNGLE': 0,
+                'MIDDLE': 0,
+                'BOTTOM': 0,
+                'UTILITY': 0,
+        
             })
         }
            
@@ -92,6 +107,7 @@ const Game = (props) => {
         
     }
 
+
     const addTopBarWinratio = (item) => {
         props.setLastGamesWinratio((prevItems) => ({
           ...prevItems,
@@ -99,9 +115,14 @@ const Game = (props) => {
         }));
       };
 
-    const countTopBarWinratio = (item) =>{
-        return props.lastGamesWinratio[item] || 0;
-    }
+      const addTopBarRoles = (item) => {
+        props.setRole((prevItems) => ({
+          ...prevItems,
+          [item]: (prevItems[item] || 0) + 1
+        }));
+      };
+
+
 
     const calcDate = () => {
         

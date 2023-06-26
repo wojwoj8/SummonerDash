@@ -7,7 +7,7 @@ const ProfileData = (props) => {
 
     const {data, solo, flex, err, setButton, loading, masteries, 
         rateMess, setRateMess, setCoolDown, cooldown, setSeconds, seconds,
-         setLastGamesWinratio, lastGamesWinratio} = props;
+         setLastGamesWinratio, lastGamesWinratio, role, setRole} = props;
 
     return(
         
@@ -33,8 +33,9 @@ const ProfileData = (props) => {
 
         <ProfileMasteries
             masteries={masteries}
-            setLastGamesWinratio={setLastGamesWinratio}
             lastGamesWinratio={lastGamesWinratio}
+            role={role}
+            setRole={setRole}
             
             />
             </div>

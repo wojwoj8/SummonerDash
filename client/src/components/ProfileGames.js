@@ -7,7 +7,7 @@ const ProfileGames = (props) =>{
 
     const {games, userData, fetchedGamesStart, display, setDisplay, 
         button, setButton, rateMess, setRateMess, setCoolDown, cooldown, 
-        setSeconds, seconds, lastGamesWinratio, setLastGamesWinratio} = props;
+        setSeconds, seconds, lastGamesWinratio, setLastGamesWinratio, role, setRole} = props;
     // console.log(games)
 
 
@@ -119,6 +119,8 @@ const ProfileGames = (props) =>{
                             setLastGamesWinratio={setLastGamesWinratio}
                             lastGamesWinratio={lastGamesWinratio}
                             fetchedGamesStart={fetchedGamesStart}
+                            role={role}
+                            setRole={setRole}
                         />
                     </div>
                 ))}
