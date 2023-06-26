@@ -1,6 +1,13 @@
 import Icon from '@mdi/react';
 import { mdiLoading } from '@mdi/js';
 import { useEffect } from 'react';
+import {
+    CircularProgressbar,
+    CircularProgressbarWithChildren,
+    buildStyles
+  } from "react-circular-progressbar";
+  import "react-circular-progressbar/dist/styles.css";
+import 'react-circular-progressbar/dist/styles.css';
 
 const ProfileMasteries = (props) =>{
 
@@ -52,6 +59,14 @@ const ProfileMasteries = (props) =>{
         return gameDate + ' ago'
 
     }
+
+    const lostColor = 'rgb(14, 15, 22)';
+    const victoryColor = 'rgba(34, 242, 76, 0.545)';
+    
+    const pieChartStyles = {
+        
+        background: `radial-gradient(closest-side, ${lostColor} 79%, transparent 80% 100%), conic-gradient(${victoryColor} 12%, ${lostColor} 0)`
+      };
     return(
         
         
@@ -87,21 +102,47 @@ const ProfileMasteries = (props) =>{
                                 <p>Total Points: {masterie.championPoints.toLocaleString('en-US', { maximumFractionDigits: 0 })}</p>
                                 <p>Last Played: {calculateLastGame(masterie.lastPlayTime)}</p>
                            </div>
-                            
+                           
                         </div>
                 
                     
                 ))}
-                <div className='masterie-lastGames'>
-                    <div className='masterie-lastGamesData'>
-                        <h2>Last {lastGamesWinratio.Remake + lastGamesWinratio.Victory + lastGamesWinratio.Defeat} games</h2>
-                        <p>Wins: {lastGamesWinratio.Victory}</p>
-                        <p>Loses: {lastGamesWinratio.Defeat}</p>
-                        <p>Winrate: {calcWintare()}%</p>
-                    </div>
-                </div>
+                
                     
                     </div>
+                    <div className='masterie-lastGames'>
+                    {lastGamesWinratio.Remake + lastGamesWinratio.Victory + lastGamesWinratio.Defeat !== 0 ? (
+                        <div className='masterie-lastGamesData'>
+                        {/* <h2>Last {lastGamesWinratio.Remake + lastGamesWinratio.Victory + lastGamesWinratio.Defeat} games</h2> */}
+                            <div className='masteries-wl-chart-wrapper'>
+                                <div className='masteries-wl'>
+                                    <p>{lastGamesWinratio.Victory + lastGamesWinratio.Defeat + lastGamesWinratio.Remake}G {lastGamesWinratio.Victory}W {lastGamesWinratio.Defeat}L
+                                    </p>
+                                    
+                                    
+                                </div>
+                                
+                                <div className='masterie-wrProgressBar'>
+                                    <CircularProgressbar value={calcWintare()} text={`${calcWintare()}%`} 
+                                        styles={buildStyles({
+                                            textColor: "white",
+                                            pathColor: "green",
+                                            trailColor: "red"
+                                        })}
+                                    />
+                                
+                                    </div>
+                            </div>
+                        </div>
+                    ) : (
+                        <div className='masterie-nolastGamesData'>
+                            <h2>No games found</h2>
+                        </div>
+                        
+                    )}
+                    
+
+                </div>
                 
                 </div>
             )}

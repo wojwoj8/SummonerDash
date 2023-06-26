@@ -436,6 +436,7 @@ const Game = (props) => {
                                 <div className="tooltip">
                                     <h2>{runes.perks.styles[0].selections[0].perk.name}</h2>
                                     {itemDescCut(runes.perks.styles[0].selections[0].perk.longDesc)}
+                                    <br></br>
                                     {runesDescription()}
                                 </div>
                             </div>
