@@ -307,8 +307,39 @@ const Game = (props) => {
         return boughtItemsElement;
       };
 
-      const runesDescription= () =>{
+      // only for main rune
+      const runesDescription = () =>{
+        const path = runes.perks.styles[0].selections[0].perk;
+        const var1 = runes.perks.styles[0].selections[0].var1;
+        const var2 = runes.perks.styles[0].selections[0].var2;
+        const var3 = runes.perks.styles[0].selections[0].var3;
+        const vars = [var1, var2, var3];
 
+        const runesDesc = path.endOfGameStatDescs.map((item, index) =>{
+            // content is between @ @
+            const replace = item.replace(/@([^@]+)@/g, (match, content) =>{
+                if (content === 'eogvar1'){
+                    return var1
+                } else if(content === 'eogvar2'){
+                    return var2
+                } else if (content === 'eogvar3'){
+                    return var3;
+                } else {
+                    return match;
+                }
+            });
+            return(
+                <div key={index}>
+                    {replace}
+                </div>
+            )
+        })
+
+            return runesDesc
+           
+            
+            
+       
       }
     return(
 
@@ -371,7 +402,7 @@ const Game = (props) => {
                                 <div className="tooltip">
                                     <h2>{runes.perks.styles[0].selections[0].perk.name}</h2>
                                     {itemDescCut(runes.perks.styles[0].selections[0].perk.longDesc)}
-                                   
+                                    {runesDescription()}
                                 </div>
                             </div>
                             
