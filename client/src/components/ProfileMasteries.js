@@ -1,12 +1,28 @@
 import Icon from '@mdi/react';
 import { mdiLoading } from '@mdi/js';
+import { useEffect } from 'react';
 
 const ProfileMasteries = (props) =>{
 
-    const {masteries} = props
+    const {masteries,
+        setLastGamesWinratio, lastGamesWinratio} = props
     // console.log(masteries)
     // console.log(typeof(masteries))
     // console.log(masteries.length)
+
+    const calcWintare = () =>{
+        //total without remake because remake is neither win or lose
+        const total = lastGamesWinratio.Victory + lastGamesWinratio.Defeat;
+        let winrate = Math.ceil((lastGamesWinratio.Victory / total)*100);
+        if (isNaN(winrate)){
+            winrate = 0;
+        }
+
+        return winrate;
+    }
+    useEffect(() =>{
+        calcWintare()
+    },[lastGamesWinratio])
 
     const calculateLastGame = (dataMs) =>{
 
@@ -76,6 +92,15 @@ const ProfileMasteries = (props) =>{
                 
                     
                 ))}
+                <div className='masterie-lastGames'>
+                    <div className='masterie-lastGamesData'>
+                        <h2>Last {lastGamesWinratio.Remake + lastGamesWinratio.Victory + lastGamesWinratio.Defeat} games</h2>
+                        <p>Wins: {lastGamesWinratio.Victory}</p>
+                        <p>Loses: {lastGamesWinratio.Defeat}</p>
+                        <p>Winrate: {calcWintare()}%</p>
+                    </div>
+                </div>
+                    
                     </div>
                 
                 </div>

@@ -28,6 +28,13 @@ const Profile = () =>{
     //loading for reload games button
     const [loading, setLoading] = useState(false);
 
+    // state of last rendered games
+    const [lastGamesWinratio, setLastGamesWinratio] = useState({
+        'Defeat': 0,
+        'Victory': 0,
+        'Remake': 0,
+    });
+
     const query = useParams();
     // console.log(query)
 
@@ -87,16 +94,20 @@ const Profile = () =>{
                 console.log(data.length)
                 console.log(data)
                 if (data[0]?.status){
-                    console.log(data[0])
+
                     setErr(data[0]);
                     return
+                    
+                    
                 }
                 if (data.status){
                     setFetchedGamesStart(0)
+                    console.log('112')
                     setRateMess(data.status.message);
                     setButton(false)
                     setLoading(false)
-                    return
+                    // this makes error and doesn't set games data 
+                    data.pop()
                     
                 }
                 if(data[data.length -1]?.status){
@@ -235,6 +246,8 @@ const Profile = () =>{
                 setSeconds={setSeconds}
                 cooldown={cooldown}
                 setCoolDown={setCoolDown}
+                lastGamesWinratio={lastGamesWinratio}
+                fetchedGamesStart={fetchedGamesStart}
                 
 
             />
@@ -255,6 +268,9 @@ const Profile = () =>{
                 setSeconds={setSeconds}
                 cooldown={cooldown}
                 setCoolDown={setCoolDown}
+                setLastGamesWinratio={setLastGamesWinratio}
+                lastGamesWinratio={lastGamesWinratio}
+                
 
             />
             

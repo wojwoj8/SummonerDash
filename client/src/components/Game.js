@@ -6,18 +6,20 @@ const Game = (props) => {
 
     const { data } = useParams();
 
-    const {game, userData} = props;
+    const {game, userData, setLastGamesWinratio, lastGamesWinratio, fetchedGamesStart} = props;
     // console.log(userData)
     // console.log(game)
     const {allPlayerImgIds, info, metadata, queueData} = game;
+    
+
     
     const [playerData, setPlayerData] = useState({});
     const [playerImgs, setPlayerImgs] = useState({});
     const [calculations, setCalculations] = useState({});
 
+    
+
     const {imgIds, playerIdName, runes} = playerImgs;
-
-
 
 
     //for fetching
@@ -41,6 +43,28 @@ const Game = (props) => {
     useEffect(()=>{
         calcCsPerMin(calculations.minutes);
     },[calculations.minutes])
+
+
+
+    //to count wins, loses, remakes, second if for reseting after update
+    useEffect(() => {
+        const gameResult = divClassName();
+        console.log(gameResult)
+        if (gameResult !== ""){
+            addTopBarWinratio(gameResult);
+        }
+
+        if (fetchedGamesStart === 0){
+            console.log('reset last wins')
+            setLastGamesWinratio({
+                'Defeat': 0,
+                'Victory': 0,
+                'Remake': 0,
+            })
+        }
+           
+        
+      }, [playerData, fetchedGamesStart === 0]);
 
     const getGameOfCheckedPlayer = () =>
     {
@@ -68,6 +92,16 @@ const Game = (props) => {
         
     }
 
+    const addTopBarWinratio = (item) => {
+        props.setLastGamesWinratio((prevItems) => ({
+          ...prevItems,
+          [item]: (prevItems[item] || 0) + 1
+        }));
+      };
+
+    const countTopBarWinratio = (item) =>{
+        return props.lastGamesWinratio[item] || 0;
+    }
 
     const calcDate = () => {
         
@@ -170,7 +204,8 @@ const Game = (props) => {
             gameResult = 'Remake';
         }
         // console.log(gameResult)
-         return gameResult;
+       
+        return gameResult;
     }
 
     const calcCsPerMin = (time) =>{
@@ -313,7 +348,6 @@ const Game = (props) => {
         const var1 = runes.perks.styles[0].selections[0].var1;
         const var2 = runes.perks.styles[0].selections[0].var2;
         const var3 = runes.perks.styles[0].selections[0].var3;
-        const vars = [var1, var2, var3];
 
         const runesDesc = path.endOfGameStatDescs.map((item, index) =>{
             // content is between @ @

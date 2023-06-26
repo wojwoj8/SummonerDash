@@ -425,7 +425,7 @@ html, body{
 .profile-masteries{
     // grid-template-rows: repeat(3, 7rem);
     display: grid;
-    align-content: space-between;
+    // align-content: space-between;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
 }
@@ -442,7 +442,7 @@ html, body{
 .masterie-img-wrapper{
     display: grid;
     grid-template-columns: 1fr;
-    align-items: start;
+    
     // grid-template-rows:5fr 5fr 5fr;
     grid-template-rows: auto;
     row-gap: 10px;
@@ -453,7 +453,9 @@ html, body{
     margin-left: 10px;
     border-radius: 10px;
     background-color: $profileBackgroundCol;
+    height: fit-content;
     display:flex;
+    
     row-gap: 10px;
     img{
         border-radius: 10px;
@@ -469,6 +471,18 @@ html, body{
     p{
         margin: 0;
     }
+}
+
+//Last games
+
+.masterie-lastGames{
+    @extend .masterie-img;
+    //dont change
+    height:auto !important;
+
+}
+.masterie-lastGamesData{
+
 }
 
 //ProfileGames

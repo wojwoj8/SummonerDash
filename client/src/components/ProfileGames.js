@@ -7,11 +7,13 @@ const ProfileGames = (props) =>{
 
     const {games, userData, fetchedGamesStart, display, setDisplay, 
         button, setButton, rateMess, setRateMess, setCoolDown, cooldown, 
-        setSeconds, seconds} = props;
+        setSeconds, seconds, lastGamesWinratio, setLastGamesWinratio} = props;
     // console.log(games)
 
-    
 
+
+        
+    
     const startCooldown = () =>{
         setCoolDown(true)
         setSeconds(120)
@@ -38,16 +40,18 @@ const ProfileGames = (props) =>{
                     setSeconds(seconds => seconds - 1);
                   }, 1000)
                     return () => clearInterval(intervalId);   
-            }else if (cooldown && seconds === 0) {
-                setCoolDown(false);
-                setRateMess("");
-                // for loading bug if no game after fetch
-                setDisplay("block");
+            }   
+            else if (cooldown && seconds === 0) {
+                    setCoolDown(false);
+                    setRateMess("");
+                    // for loading bug if no game after fetch
+                    setDisplay("block");
+
                 if (typeof games === "object" && Object.keys(games).length === 0){
-                    console.log('test 41')
-                    //auto fetch next data after cooldown
-                    handleLoad();
-                }
+                        console.log('test 41')
+                        //auto fetch next data after cooldown
+                        handleLoad();
+                    }
                 }
 
     }, [cooldown, seconds])
@@ -112,6 +116,9 @@ const ProfileGames = (props) =>{
                         <Game
                             userData={userData}
                             game={game}
+                            setLastGamesWinratio={setLastGamesWinratio}
+                            lastGamesWinratio={lastGamesWinratio}
+                            fetchedGamesStart={fetchedGamesStart}
                         />
                     </div>
                 ))}

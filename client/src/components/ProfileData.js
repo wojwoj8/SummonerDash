@@ -6,7 +6,8 @@ import ProfileMasteries from "./ProfileMasteries";
 const ProfileData = (props) => {
 
     const {data, solo, flex, err, setButton, loading, masteries, 
-        rateMess, setRateMess, setCoolDown, cooldown, setSeconds, seconds} = props;
+        rateMess, setRateMess, setCoolDown, cooldown, setSeconds, seconds,
+         setLastGamesWinratio, lastGamesWinratio} = props;
 
     return(
         
@@ -32,6 +33,9 @@ const ProfileData = (props) => {
 
         <ProfileMasteries
             masteries={masteries}
+            setLastGamesWinratio={setLastGamesWinratio}
+            lastGamesWinratio={lastGamesWinratio}
+            
             />
             </div>
      
