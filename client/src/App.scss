@@ -1,5 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Tilt+Warp&display=swap');
 
+
+@font-face {
+    font-family: 'League';
+    font-style: normal;
+    font-weight: normal;
+    src: local('./fonts/League.otf'), url('./fonts/League.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Dash';
+    font-style: normal;
+    font-weight: normal;
+    src: local('./fonts/facon.bold-italic.otf'), url('./fonts/facon.bold-italic.woff') format('woff');
+}
 $mainPadding: 2rem 6rem 0 6rem;
 $pageBackgroundImg: linear-gradient(to right, #000428 0%, #004e92  51%, #000428  100%);
 $navColor: black;
@@ -65,18 +79,45 @@ html, body{
     "footer"
     ;
 }
+.logo{
+    display: flex;
+    
+
+    #summoner{
+        padding-right: 0.3rem;
+        font-style: italic;
+        font-family: "League" !important;
+        
+        
+        // -webkit-background-clip: text;
+        // -webkit-text-fill-color: transparent;
+    }
+    #dash{
+        font-family: "Dash" !important;
+        background: #fceabb;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to bottom, #ffbb00, #fceabb);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to bottom, #f6d501, #a69053); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+
+
+    }
+}
 .navbar{
     display: flex;
     grid-area: nav;
+    @extend .logo;
     
     background-color: $navColor;
     // height: 60px;
     p{
         color: $fontColor;
         font-size: 1.5rem;
-        margin: 15px 0 15px 5px
+        margin: 15px 0 15px 0;
     }
-    a{
+    a, h1{
+        display: flex;
         text-decoration: none;
         &:hover{
             p{

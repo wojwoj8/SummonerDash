@@ -83,7 +83,12 @@ const StartPage = () => {
 
         <div className="startPage">
             <div className="startPage-title">
-                <h1>SummonerDash</h1>
+               
+                <div className="logo">
+
+                    <h1 id='summoner'>Summoner</h1><h1 id='dash'> Dash</h1>
+                
+                </div>
             </div>
             
             <div className="searchForm-container">
