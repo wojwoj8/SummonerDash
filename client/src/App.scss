@@ -112,13 +112,15 @@ html, body{
     background-color: $navColor;
     // height: 60px;
     p{
+        background: none;
         color: $fontColor;
         font-size: 1.5rem;
-        margin: 15px 0 15px 0;
+        margin: 15px 0 15px 10px;
     }
     a, h1{
         display: flex;
         text-decoration: none;
+        background: none;
         &:hover{
             p{
                 color: $fontColorDarker;
@@ -1065,11 +1067,16 @@ html, body{
 
 .error{
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 
     .err-message{
         font-size: 3rem;
         color: $fontColorDarker;
+    }
+    .error-gif{
+        display: flex;
+        justify-content: center;
     }
 }
 

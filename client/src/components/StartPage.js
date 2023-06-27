@@ -132,7 +132,7 @@ const StartPage = () => {
                             <input ref={inputRef} name="search" id="search-input" placeholder='Name' required value={query} onChange={e => setQuery(e.target.value)}></input>
                         
                         </div>
-                        <button type="submit" id="search-butt" onClick={e => handleSearch(e)}><Icon path={mdiMagnify} size={1} /></button>
+                        <button type='submit' id="search-butt" onClick={query ? (e) => handleSearch(e) : null}><Icon path={mdiMagnify} size={1} /></button>
                     </div>
                     
                 </form>
