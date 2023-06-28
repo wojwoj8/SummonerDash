@@ -476,6 +476,15 @@ html, body{
     row-gap: 10px;
     grid-template-columns: 1fr;
     grid-template-rows: auto auto;
+
+    .profile-masteries-no-data{
+        text-align: center;
+        background-color: $profileBackgroundCol;
+        border-radius: 10px;
+        margin-left: 10px;
+        font-size: 1.25rem;
+        
+    }
 }
 
 .profile-masteries-title{
@@ -639,7 +648,7 @@ html, body{
     text-align: center;
     box-shadow: $gameBoxShadow;
     border-radius: 20px;
-    background-color: $remakeBackground;
+    background-color: $profileBackgroundCol;
     p{
         padding:15px 0;
         font-size: 1.5rem;

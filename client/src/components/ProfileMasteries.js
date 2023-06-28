@@ -3,7 +3,6 @@ import { mdiLoading } from '@mdi/js';
 import { useEffect, useState } from 'react';
 import {
     CircularProgressbar,
-    CircularProgressbarWithChildren,
     buildStyles
   } from "react-circular-progressbar";
   import "react-circular-progressbar/dist/styles.css";
@@ -19,10 +18,7 @@ import ProgressBar from './ProgressBar';
 
 const ProfileMasteries = (props) =>{
 
-    const {masteries, lastGamesWinratio, role} = props
-    // console.log(masteries)
-    // console.log(typeof(masteries))
-    // console.log(masteries.length)
+    const {masteries, lastGamesWinratio, role, display, button} = props
 
     const [totalRole, setTotalRole] = useState('');
     const calcWintare = () =>{
@@ -84,31 +80,28 @@ const ProfileMasteries = (props) =>{
 
     }
 
-   
-    
-    
     return(
         
         
         <div className="profile-masteries-wrapper">
             {(typeof masteries[0] === 'undefined') ? (
                 <div>
-                   
-                    {Array.isArray(masteries) ? <p>No data</p> : 
+                    {Array.isArray(masteries) ? 
+                    <div className='profile-masteries'>
+                        <div className='profile-masteries-no-data'>
+                            <p>No data after April 28, 2015</p> 
+                        </div>
+                        
+                    </div>  
+                    :
                     <div id="loading">
                         <Icon path={mdiLoading} size={2} spin />
                     </div> 
                 }
                 </div>
-                
-                
-                // somehow make if array is empty display none
-                // <p>loading....</p>
             ): (
                 
                 <div className="profile-masteries">
-                    {/* {console.log(masteries.length)} */}
-                    
                     <div className="masterie-img-wrapper">
                     
                     {masteries.map((masterie, i) => (
@@ -134,13 +127,11 @@ const ProfileMasteries = (props) =>{
                     {lastGamesWinratio.Remake + lastGamesWinratio.Victory + lastGamesWinratio.Defeat !== 0 ? (
                     <div className='masterie-lastGames'>
                         <div className='masterie-lastGamesData'>
-                        {/* <h2>Last {lastGamesWinratio.Remake + lastGamesWinratio.Victory + lastGamesWinratio.Defeat} games</h2> */}
                             <div className='masteries-wl-chart-wrapper'>
                                 <div className='masteries-wl'>
                                     <p>{lastGamesWinratio.Victory + lastGamesWinratio.Defeat + lastGamesWinratio.Remake}G {lastGamesWinratio.Victory}W {lastGamesWinratio.Defeat}L
                                     </p>
-                                    
-                                    
+      
                                 </div>
                                 
                                 <div className='masterie-wrProgressBar'>
@@ -151,10 +142,8 @@ const ProfileMasteries = (props) =>{
                                             trailColor: "red"
                                         })}
                                     />
-                                
-                                    </div>
+                                </div>
                             </div>
-
                         </div>
                         <div className='masterie-roles'>
 
@@ -176,8 +165,7 @@ const ProfileMasteries = (props) =>{
                                     </div>
                                 </div>
                                 <img src={Jun} alt='jungle'></img>
-                                
-                                
+    
                             </div>
                                         
                             <div className='masterie-role'>
@@ -215,9 +203,17 @@ const ProfileMasteries = (props) =>{
                         
                     ) : (
                         <div className='masterie-lastGames'>
-                            <div className='masterie-nolastGamesData'>
-                                <h2>No games found</h2>
-                            </div>
+                            {display === 'none' || button === true ? (
+                                
+                                <div className='masterie-nolastGamesData'>
+                                    <h2>Loading...</h2>
+                                </div>
+                            ) : (
+                                <div className='masterie-nolastGamesData'>
+                                    <h2>No games data</h2>
+                                </div>
+                            )}
+                            
                         </div>
                         
                     )}

@@ -19,7 +19,7 @@ const ErrorPage = (props) =>{
                 
             )}
             <div className="error-gif">
-                <img src="https://media.tenor.com/W_GgSsF7x9sAAAAi/amumu-sad.gif"></img>       
+                <img src="https://media.tenor.com/W_GgSsF7x9sAAAAi/amumu-sad.gif" alt='errorGIF'></img>       
             </div>
             
         </div>

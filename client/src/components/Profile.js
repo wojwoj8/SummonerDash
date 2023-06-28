@@ -12,8 +12,14 @@ const Profile = () =>{
     const [solo, setSolo] = useState({});
     const [flex, setFlex] = useState({});
     const [masteries, setMasteries] = useState({});
+
+    // count of fetched and displayed games
     const [fetchedGamesStart, setFetchedGamesStart] = useState(0);
+
+    //for disabling load more button while updating data
     const [button, setButton] = useState(false)
+
+    //handling rate error without rendering error page
     const [rateMess, setRateMess] = useState("");
 
     // for update and load more data (profile games and profile data)
@@ -22,7 +28,7 @@ const Profile = () =>{
     // gamesData
     const [games, setGames] = useState({});
 
-    // loading for fetch games button
+    // loading for fetch games button and recent games data
     const [display, setDisplay] = useState('block');
 
     //loading for reload games button
@@ -43,32 +49,27 @@ const Profile = () =>{
 
     })
 
+    // searched username
     const query = useParams();
-    // console.log(query)
 
     useEffect(() =>{
         fetchUserData();
-        
     }, [])
 
     
  
 
     const fetchUserData = async () =>{
-        // console.log(query)
         fetch(`/userData/${query.region}/${query.name}`).then(
             res => res.json()
           ).then(
             data =>{
-                // console.log(data)
                 if (data[0]?.status){
-                    // console.log(data[0])
                     setErr(data[0]);
                     return
                 }
                 document.title = `${query.name} - SummonerDash`;
                 setData(data[0])
-                // console.log(data[1][0]["queueType"])
                 if (data[1][0]){
 
                 
@@ -82,8 +83,6 @@ const Profile = () =>{
                     }
                 }
                 setMasteries(data[2])
-                //  console.log(data[0])
-                console.log('users fetched')
                 fetchGamesData();
                 
             }
@@ -99,10 +98,7 @@ const Profile = () =>{
         ).then(
             
             data=>{
-                console.log(data.length)
-                console.log(data)
                 if (data[0]?.status){
-
                     setErr(data[0]);
                     return
                     
@@ -110,11 +106,10 @@ const Profile = () =>{
                 }
                 if (data.status){
                     setFetchedGamesStart(0)
-                    console.log('112')
                     setRateMess(data.status.message);
                     setButton(false)
                     setLoading(false)
-                    // this makes error and doesn't set games data 
+                    // this makes error on purpose and doesn't set games data 
                     data.pop()
                     
                 }
@@ -124,12 +119,8 @@ const Profile = () =>{
                     data.pop()
                     
                 }
-                // console.log('first games data')
-                // console.log(data)
                 setGames(data);
                 setFetchedGamesStart(data.length)
-                console.log(fetchedGamesStart)
-                console.log('fetched games')
                 setButton(false)
                 setLoading(false)
                 
@@ -145,16 +136,9 @@ const Profile = () =>{
             res => res.json()
         ).then(
             data=>{
-                console.log(data.length)
-                console.log(data)
                 if (data[0]?.status){
-                    console.log(data[0])
                     setRateMess(data[0].status.message)
-                    
-
-                    // data.pop()
                     setFetchedGamesStart(prev => fetchedGamesStart + data.length)
-                    // setErr(data[0]);
                     
                 }
                 if (data.status){
@@ -172,7 +156,6 @@ const Profile = () =>{
                     data.pop()
                     
                 }
-                // console.log(data)
                 try{
                     setGames([...games, ...data]);
                 }catch (error) {
@@ -181,8 +164,6 @@ const Profile = () =>{
                     }
                 }
                 setFetchedGamesStart(prev => fetchedGamesStart + data.length)
-                // console.log(games)
-                // console.log('fetching more data')
             }
         
         ).catch((error) => {
@@ -199,7 +180,6 @@ const Profile = () =>{
                     }
                 }
             }
-            
             
             setErr(catchError)
         }
@@ -219,14 +199,12 @@ const Profile = () =>{
             setLoading(true)
             setDisplay('none')
             reloadData();
-            
-            
+
         }
     }, [button])
     
     if (err.status){
         document.title = "SummonerDash";
-        console.log(err.status.message)
         return(
             <div className="error">
                 <ErrorPage
@@ -246,6 +224,7 @@ const Profile = () =>{
                 flex={flex}
                 err={err}
                 setButton={setButton}
+                button={button}
                 loading={loading}
                 masteries={masteries}
                 rateMess={rateMess}
@@ -258,6 +237,7 @@ const Profile = () =>{
                 fetchedGamesStart={fetchedGamesStart}
                 role={role}
                 setRole={setRole}
+                display={display}
                 
 
             />

@@ -1,12 +1,10 @@
 import {React, useState, useRef, useEffect} from "react";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Icon from '@mdi/react';
-import { mdiMagnify, mdiRotate360 } from '@mdi/js';
-import { mdiTriangleSmallDown } from '@mdi/js';
+import { mdiMagnify} from '@mdi/js';
 import Arrow from "../images/expandArrow.svg"
 
 const StartPage = () => {
-    // const search = handleSearch();
     const [region, setRegion] = useState({id: 'eun1', name: 'Europe Nordic & East'});
     
     const [query, setQuery] = useState("")

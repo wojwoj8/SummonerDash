@@ -1,9 +1,6 @@
-from flask import Flask, render_template, send_from_directory, request
+from flask import Flask
 from flask_cors import CORS, cross_origin
-import os
-import sqlite3
 import requests
-import json
 import math
 import pprint
 import re  # regex
@@ -15,7 +12,6 @@ app.config["CORS_HEADERS"] = "Content-Type"
 api_key = "RGAPI-d434c357-cfe2-4872-b69d-af3c5bfeba6f"
 pp = pprint.PrettyPrinter(indent=4)
 
-# has to be global as reference for items fetching
 
 # for before_request bercause there is no before_first_request
 initialized = False
@@ -121,15 +117,11 @@ def changeAllPathsForItems():
                 lowPath = cutPath.lower()
                 finalPath = path + lowPath
                 fail = finalPath.rsplit("/", 1)[0]
-                # print(fail)
                 item["squarePortraitPath"] = (
                     finalPath if "squarePortraitPath" in item else fail + "-1.png"
                 )
                 item["iconPath"] = finalPath
 
-        # pp.pprint(runesStyles.values())
-        # for item in runesStyles["styles"]:
-        #     print(item)
         initialized = True
 
 
@@ -174,7 +166,6 @@ def fetch2(arr, region):
 
     # check if error
     if "status" in player_info2:
-        # print("test")
         return
 
     for i in range(len(player_info2)):
@@ -191,7 +182,6 @@ def fetch2(arr, region):
         )
 
         winrate = {"winrate": winrate}
-        # print(f"\narr[1][{i}]: {arr[1][i]}\n")
         arr[1][i].update(rankIcon)
         arr[1][i].update(winrate)
 
@@ -210,7 +200,7 @@ def fetchIcon(arr):
     arr[0].update(iconImg)
 
 
-# fetch last 20 played games id
+# fetch last 10 played games id
 def fetchGamesIds(puuid, arr, region, start):
     region = regionToContinent(region)
     matchId_url = (
@@ -250,7 +240,6 @@ def queueType(id):
 
 def fetchGamesData(arr, region):
     region = regionToContinent(region)
-    # print(region)
     gameData_url = "https://" + region + ".api.riotgames.com/lol/match/v5/matches/"
 
     dataToCopy = [
@@ -276,21 +265,15 @@ def fetchGamesData(arr, region):
     ]
     sublist_names = ["imgIds", "playerIdName", "runes"]
 
-    # print(arr)
-
     for i in range(len(arr[0])):
         selectedGame_url = gameData_url + arr[0][i] + "?api_key=" + api_key
 
-        # print(selectedGame_url)
         resp = requests.get(selectedGame_url)
 
         gameData = resp.json()
 
         if "status" in gameData:
-            # print(arr[0])
             arr.append(gameData)
-            # print(arr)
-            print(gameData)
 
             print("error in rate")
             return
@@ -298,15 +281,11 @@ def fetchGamesData(arr, region):
         # 03.10.2022 00:00:00 ~ start of preseason 13
         # limitation to this date
         if gameData["info"]["gameCreation"] < 1664748000000:
-            # print(gameData["info"]["gameCreation"])
             break
 
-        # queueType(gameData["info"]["queueId"])
-        # queueType(gameData.info.queueId):
         # fetch all images here
         # return as participant_images or something like that
         players = gameData["info"]["participants"]
-        # print(len(players))
         # dict with all images as id (before fetch)
         test = []
         # players data, want to get all img ids and change to images
@@ -329,7 +308,6 @@ def fetchGamesData(arr, region):
                         elif re.search(r"1Id", key) or re.search(r"2Id", key):
                             for item in summonerSpellsData:
                                 if item.get("id") == player[key]:
-                                    # print(item)
                                     sublistData[key] = item
                                     break
                                 else:
@@ -338,7 +316,6 @@ def fetchGamesData(arr, region):
                         elif "championId" in key:
                             for item in championsSummary:
                                 if item.get("id") == player[key]:
-                                    # print(item)
                                     sublistData[key] = item
                                     break
                                 else:
@@ -348,12 +325,10 @@ def fetchGamesData(arr, region):
                             # i dont want to edit game data
                             sublistData[key] = copy.deepcopy(player[key])
                             statPerks = sublistData[key]["statPerks"]
-                            # mainSecRunes = sublistData[key]["styles"]
                             mainRunes = sublistData[key]["styles"][0]["selections"]
                             secondaryRunes = sublistData[key]["styles"][1]["selections"]
 
                             # once for each player
-                            # print(mainRunes)
                             # main runes - 4
                             for key, value in statPerks.items():
                                 for item in runesData:
@@ -369,7 +344,6 @@ def fetchGamesData(arr, region):
                                 for item in runesData:
                                     if item.get("id") == secondaryRunes[i]["perk"]:
                                         secondaryRunes[i]["perk"] = item
-                            # sublistData[key] = player[key]
 
                             for i in range(len(sublistData["perks"]["styles"])):
                                 for item in runesStyles:
@@ -382,7 +356,6 @@ def fetchGamesData(arr, region):
                         else:
                             sublistData[key] = player[key]
 
-                        # print(sublistData)
                 playerData[sublist_names[sublist_idx]] = sublistData
 
             test.append(playerData)
@@ -390,16 +363,10 @@ def fetchGamesData(arr, region):
         # add queue type to gameData
         gameData.update(queueType(gameData["info"]["queueId"]))
         gameData.update({"allPlayerImgIds": test})
-        # print(test)
 
         # NOW ATTACH IMAGES LINKS TO ALL THOSE IDS
 
         arr.append(gameData)
-
-        # arr.append(test)
-
-
-# def fetchItemData(itemId):
 
 
 def checkRegionExists(region):
@@ -454,14 +421,11 @@ def profile(name, region):
             }
         ]
         return err
-    # print(region)
     data = []
     fetch1(name, region, data)
-    # print(data)
     try:
         data[0]["id"]
     except KeyError:
-        # print(data)
         return data
 
     fetch2(data, region)
@@ -469,7 +433,6 @@ def profile(name, region):
     # if error
     if "status" in data[1]:
         data[0].update(data[1])
-        # print("test")
         return data
 
     fetchIcon(data)
@@ -486,15 +449,7 @@ def profile(name, region):
             return data
         else:
             data[0].update(data[2])
-        # print("test")
         return data
-
-    # print(gamesData[1])
-
-    # pp.pprint(data)
-    # pp.pprint(gamesData)
-    # print("")
-
     return data
 
 
@@ -509,17 +464,12 @@ def Games(name, region, start):
         return data
     fetchGamesIds(data[0]["puuid"], gamesData, region, start)
 
-    print(gamesData)
     if "status" in gamesData[-1]:
-        # data[0].update(data[1])
-        # print("gamesData")
-        # print(gamesData[0])
         return gamesData[0]
 
     fetchGamesData(gamesData, region)
     # remove games id because it is after fetch in json
     gamesData.pop(0)
-    # pp.pprint(gamesData)
     return gamesData
 
 
@@ -527,7 +477,6 @@ def Games(name, region, start):
 def Game(id):
     icon_url = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/champion-icons/"
     icon = icon_url + id + ".png"
-    # print(id)
     icon = {"playerIcon": icon}
     return icon
 

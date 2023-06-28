@@ -4,7 +4,6 @@ import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import App from "./App";
 import Profile from "./components/Profile";
-import StartPage from "./components/StartPage";
 import { act } from "react-dom/test-utils";
 
 

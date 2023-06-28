@@ -1,10 +1,9 @@
-import { useState } from "react";
 import Icon from '@mdi/react';
 import { mdiLoading } from '@mdi/js';
 const ProfileRanks = (props) => {
 
-    const {data, solo, flex, err, setButton, loading, 
-        rateMess, setRateMess, setCoolDown, cooldown, setSeconds, seconds} = props;
+    const {data, solo, flex, setButton, loading, 
+        rateMess, cooldown, seconds} = props;
 
     
     // for miniseries under profile rank icon display
@@ -22,7 +21,6 @@ const ProfileRanks = (props) => {
     return(
 
         <div className="profile-playerData-wrapper">
-            {/* {console.log(flex)} */}
             {(typeof data.name === 'undefined')?(
                 <div id="loading">
                     <Icon path={mdiLoading} size={2} spin id="loading" />
@@ -79,7 +77,6 @@ const ProfileRanks = (props) => {
                                             </div>
                                             {solo.miniSeries ? (
                                                 <div className="profile-miniseries">
-                                                    {/* <p>{solo.miniSeries.progress[0]}</p> */}
                                                    {miniSeriesMap(solo.miniSeries.progress)}
 
                                                 </div>
@@ -125,7 +122,6 @@ const ProfileRanks = (props) => {
                                             </div>
                                             {flex.miniSeries ? (
                                                 <div className="profile-miniseries">
-                                                    {/* <p>{solo.miniSeries.progress[0]}</p> */}
                                                    {miniSeriesMap(flex.miniSeries.progress)}
 
                                                 </div>
@@ -147,9 +143,7 @@ const ProfileRanks = (props) => {
                                 
                                 
                                 )}
-
-                   
-                            
+    
                 </div>
                 )
             }

@@ -1,41 +1,26 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
 
 const Game = (props) => {
 
-    const { data } = useParams();
+    const {game, userData, setLastGamesWinratio, fetchedGamesStart, setRole} = props;
+    const {allPlayerImgIds, queueData} = game;
 
-    const {game, userData, setLastGamesWinratio, 
-        lastGamesWinratio, fetchedGamesStart, role, setRole} = props;
-    // console.log(userData)
-    // console.log(game)
-    const {allPlayerImgIds, info, metadata, queueData} = game;
-    
-
-    
     const [playerData, setPlayerData] = useState({});
     const [playerImgs, setPlayerImgs] = useState({});
     const [calculations, setCalculations] = useState({});
 
-    
-
-    const {imgIds, playerIdName, runes} = playerImgs;
+    const {imgIds, runes} = playerImgs;
 
 
     //for fetching
     useEffect(() =>{
-        getGameOfCheckedPlayer();
-        // fetchQueueType();   
+        getGameOfCheckedPlayer(); 
     }, [])
 
-    // useEffect(() => {
-    //     console.log(playerData);
-    //   }, [playerData]);
 
     //done after playerData fetched
     useEffect(() =>{
-        //somehow when I add more to playerData it loads much longer
         calcDate();
         gameDuration();
  
@@ -51,8 +36,7 @@ const Game = (props) => {
     useEffect(() => {
         const gameResult = divClassName();
         const gameRole = playerData.individualPosition;
-        console.log(gameRole)
-        console.log(gameResult)
+
         if (gameResult !== ""){
             addTopBarWinratio(gameResult);
         }
@@ -61,13 +45,13 @@ const Game = (props) => {
         }
 
         if (fetchedGamesStart === 0){
-            console.log('reset last wins')
+
             setLastGamesWinratio({
                 'Defeat': 0,
                 'Victory': 0,
                 'Remake': 0,
             })
-            console.log('reset role')
+
             setRole({
                 'TOP': 0,
                 'JUNGLE': 0,
@@ -84,24 +68,10 @@ const Game = (props) => {
     const getGameOfCheckedPlayer = () =>
     {
         for(let i = 0; i < game.info.participants.length; i++){
-            // console.log(game.info.participants[i].championName)
             if (game.info.participants[i].summonerId === userData.id){
-                // console.log(game.allPlayerImgIds[i])
-                
-                // setPlayerData({
-                //     ...playerData,
-                //     player: game.info.participants[i],
-                //     playerImgIds: allPlayerImgIds[i]
-                //   })
-                // console.log(playerData.player)   
-                setPlayerData(game.info.participants[i])
-                setPlayerImgs(allPlayerImgIds[i])
-                return
-                // calcDate();
-                // gameDuration();
-                // return
-                // fetchIcon(game.info.participants[i].championId);
-                
+                setPlayerData(game.info.participants[i]);
+                setPlayerImgs(allPlayerImgIds[i]);
+                return;
             }
         }
         
@@ -129,7 +99,6 @@ const Game = (props) => {
         const currDate = Date.now();
         const gameCreation = game.info.gameCreation;
         const timeDifferenceInMs = currDate - gameCreation;
-
         const minutes = Math.floor((timeDifferenceInMs / (1000 * 60)) % 60);
         const hours = Math.floor((timeDifferenceInMs / (1000 * 60 * 60)) % 24);
         const days = Math.floor(timeDifferenceInMs / (1000 * 60 * 60 * 24));
@@ -154,14 +123,11 @@ const Game = (props) => {
             ...prev, whenPlayed
         }))
         calcCsPerMin();
-        // console.log(message);
     }
 
     const gameDuration = () =>{
 
-        // console.log(player.timePlayed)
         const timeDifferenceInSeconds = playerData.timePlayed;
-
         let seconds = timeDifferenceInSeconds % 60;
         let minutes = Math.floor((timeDifferenceInSeconds / 60) % 60);
         const hours = Math.floor((timeDifferenceInSeconds / (60 * 60)) % 24);
@@ -195,7 +161,6 @@ const Game = (props) => {
         }
         const kda = ((playerData.assists + playerData.kills)/playerData.deaths).toFixed(2);
         if (kda >= 3){
-            // color = gold;
             return (
                 <p id="game-good">{kda}:1 KDA</p>
             )
@@ -221,17 +186,14 @@ const Game = (props) => {
 
         } 
         if (playerData.timePlayed < 240){
-            // console.log(playerData.timePlayed)
             gameResult = 'Remake';
         }
-        // console.log(gameResult)
        
         return gameResult;
     }
 
     const calcCsPerMin = (time) =>{
         const allCs = playerData.totalMinionsKilled + playerData.neutralMinionsKilled;
-        // let time = calculations.minutes;
 
         // i think it is still imposible
         if (time < 1){
@@ -239,7 +201,6 @@ const Game = (props) => {
         }
 
         const csPerMin = (allCs/time).toFixed(1);
-        // console.log(csPerMin)
         setCalculations(prev => ({
             ...prev, csPerMin
         }))

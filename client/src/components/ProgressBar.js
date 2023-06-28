@@ -1,5 +1,5 @@
 const ProgressBar = ({fill}) =>{
-
+    // for recent games roles
     return (
         <div className="progressBar">
             {isNaN(fill) ?(

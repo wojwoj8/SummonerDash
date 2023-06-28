@@ -1,14 +1,13 @@
 import Game from "./Game";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Icon from '@mdi/react';
 import { mdiLoading } from '@mdi/js';
 
 const ProfileGames = (props) =>{
 
     const {games, userData, fetchedGamesStart, display, setDisplay, 
-        button, setButton, rateMess, setRateMess, setCoolDown, cooldown, 
+        button, rateMess, setRateMess, setCoolDown, cooldown, 
         setSeconds, seconds, lastGamesWinratio, setLastGamesWinratio, role, setRole} = props;
-    // console.log(games)
 
 
 
@@ -21,7 +20,6 @@ const ProfileGames = (props) =>{
     const handleLoad = (e) =>{
         props.fetchMoreGamesData();
         setDisplay('none')
-        console.log('loading')
         
     }
 
@@ -48,7 +46,6 @@ const ProfileGames = (props) =>{
                     setDisplay("block");
 
                 if (typeof games === "object" && Object.keys(games).length === 0){
-                        console.log('test 41')
                         //auto fetch next data after cooldown
                         handleLoad();
                     }
@@ -67,7 +64,6 @@ const ProfileGames = (props) =>{
             <div className="profile-games-wrapper">
                     <div className="profile-game">
                         <div className="profile-no-games-found">
-                            {/* {console.log(54)} */}
                             <p>No games found</p>
                         </div>
                         
@@ -75,7 +71,6 @@ const ProfileGames = (props) =>{
             </div>
             
         )
-        // console.log('no games')
     }
 
     if (typeof games === "object" && Object.keys(games).length === 0) {
@@ -94,7 +89,6 @@ const ProfileGames = (props) =>{
                         </div>
                     ) : (
                         <div className="profile-games-loading" id="loading">
-                            {console.log("45 loading --- while no games")}
                             <Icon id="load" path={mdiLoading} size={2} spin/>
                         </div>
                     )}
@@ -112,7 +106,6 @@ const ProfileGames = (props) =>{
                 
                 {games.map((game) =>(
                     <div className={`profile-game`} key={game.info.gameId}>
-                        {/* {console.log(game.info.gameId)} */}
                         <Game
                             userData={userData}
                             game={game}
@@ -135,7 +128,6 @@ const ProfileGames = (props) =>{
                 <button className="button" style={{display: display}} onClick={handleLoad}>Load more</button>
                 {display === 'none' && 
                 <div id="loading">
-                    {console.log("85 loading")}
                     <Icon path={mdiLoading} size={2} spin />
                 </div>
                 }
@@ -153,7 +145,6 @@ const ProfileGames = (props) =>{
                             ) : (
                                 <p>No more games found</p>
                             )}
-                            {/* <p>No more games found</p> */}
                         </div>
                         
                     </div>
@@ -163,7 +154,6 @@ const ProfileGames = (props) =>{
                 <div className="profile-games-wrapper">
                     
                 <div className="profile-games-loading" id="loading">
-                    {console.log("109 loading")}
                     <Icon id="load" path={mdiLoading} size={2} spin/>
                 </div>
                 
