@@ -1,3 +1,4 @@
+
 # SummonerDash
 
 This is a fullstack web application that allows users to search for League of Legends (LoL) players and view their statistics, including level, profile icon, rank, LP, win ratio, top 3 champions with highest mastery points, recent games' win ratio and roles, and game-specific information such as bought items, level, played champion, KDA, kill participation, CS, count of each ability and summoner spell usage, game mode, game duration, and the date the game was played. The application is built using React, Flask, and Riot API.
@@ -38,7 +39,7 @@ This application utilizes the following Riot API endpoints:
 
 Before running the application, ensure you have the following prerequisites installed:
 
-- WChromium browsers / other may not work 
+- Chromium browsers / other may not work 
 - Node.js: Install from [https://nodejs.org](https://nodejs.org)
 - Python: Install from [https://www.python.org](https://www.python.org)
 
@@ -46,38 +47,48 @@ Before running the application, ensure you have the following prerequisites inst
 
 1. Clone the repository:
 
-git clone https://github.com/wojwoj8/SummonerDash.git
+> `git clone https://github.com/wojwoj8/SummonerDash.git`
 
 2. Change to the project directory:
 
-cd SummonerDash
+> `cd SummonerDash`
 
 3. Install the dependencies for the frontend:
 
-cd client
-npm install
+> `cd client`
+> 
+> `npm install`
 
 4. Install the dependencies for the backend:
 
-cd ../flask-server
-pip install -r requirements.txt
+> `cd ../flask-server`
+> 
+> `pip install -r requirements.txt`
 
 5. Obtain a Riot API key by signing up at [https://developer.riotgames.com](https://developer.riotgames.com).
 
 6. In api_key.py paste your Riot API key, it should look like:
-   API_KEY = "YOUR API KEY"
+  
+
+>  API_KEY = "YOUR API KEY"
 
 ## Usage
 
 1. Start the backend server:
 
-cd backend
-python3 app.py
+    
+
+> cd backend
+
+> python3 app.py
 
 2. In a separate terminal, start the frontend development server:
 
-cd frontend
-npm start
+    
+
+> cd frontend
+
+> npm start
 
 3. Open your web browser and navigate to [http://localhost:3000](http://localhost:3000) to access the application.
 
