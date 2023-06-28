@@ -38,6 +38,7 @@ This application utilizes the following Riot API endpoints:
 
 Before running the application, ensure you have the following prerequisites installed:
 
+- WChromium browsers / other may not work 
 - Node.js: Install from [https://nodejs.org](https://nodejs.org)
 - Python: Install from [https://www.python.org](https://www.python.org)
 
