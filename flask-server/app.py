@@ -6,10 +6,15 @@ import pprint
 import re  # regex
 import copy
 
+# load api_key from file
+from api_key import API_KEY
+
+
 app = Flask(__name__)
 CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
-api_key = "RGAPI-d434c357-cfe2-4872-b69d-af3c5bfeba6f"
+
+api_key = API_KEY
 pp = pprint.PrettyPrinter(indent=4)
 
 
