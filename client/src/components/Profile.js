@@ -57,13 +57,29 @@ const Profile = () =>{
     }, [])
 
     
+    const handleError = (error) =>{
+        
+        const [statusCode, statusText] = error.message.split(' - ');
+
+        const errorObject = {
+          status: {
+            message: statusText.trim(),
+            status_code: parseInt(statusCode.trim()),
+          },
+        };
+        setErr(errorObject)
+    }
  
 
     const fetchUserData = async () =>{
-        fetch(`/userData/${query.region}/${query.name}`).then(
-            res => res.json()
-          ).then(
-            data =>{
+        fetch(`/userData/${query.region}/${query.name}`).then((res) => {
+            if (!res.ok) {
+                throw new Error(`${res.status} - ${res.statusText}`); // Throw an error with the status code
+            }
+            return res.json();
+          })
+          .then((data) => {
+                
                 if (data[0]?.status){
                     setErr(data[0]);
                     return
@@ -88,14 +104,18 @@ const Profile = () =>{
             }
           ).catch((error) => {
             console.log('Error fetching user data:', error)
+            handleError(error)
         }
         );
     }
 
     const fetchGamesData = async () =>{
-        fetch(`/gamesData/${query.region}/${query.name}/0`).then(
-            res => res.json()
-        ).then(
+        fetch(`/gamesData/${query.region}/${query.name}/0`).then((res) => {
+            if (!res.ok) {
+                throw new Error(`${res.status} - ${res.statusText}`); // Throw an error with the status code
+            }
+            return res.json();
+          }).then(
             
             data=>{
                 if (data[0]?.status){
@@ -110,31 +130,38 @@ const Profile = () =>{
                     setButton(false)
                     setLoading(false)
                     // this makes error on purpose and doesn't set games data 
-                    data.pop()
+                    // data.pop()
                     
                 }
-                if(data[data.length -1]?.status){
+                else if(data[data.length -1]?.status){
                     setRateMess(data[data.length -1].status.message);
                     setFetchedGamesStart(prev => fetchedGamesStart + data.length)
                     data.pop()
                     
                 }
-                setGames(data);
-                setFetchedGamesStart(data.length)
-                setButton(false)
-                setLoading(false)
+                else{
+                    setGames(data);
+                    setFetchedGamesStart(data.length)
+                    setButton(false)
+                    setLoading(false)
+                }
+                
                 
             }
         ).catch((error) => {
             console.log('Error fetching games data:', error)
+            handleError(error)
         }
         );
     }
 
     const fetchMoreGamesData = async () =>{
-        fetch(`/gamesData/${query.region}/${query.name}/${fetchedGamesStart}`).then(
-            res => res.json()
-        ).then(
+        fetch(`/gamesData/${query.region}/${query.name}/${fetchedGamesStart}`).then((res) => {
+            if (!res.ok) {
+                throw new Error(`${res.status} - ${res.statusText}`); // Throw an error with the status code
+            }
+            return res.json();
+          }).then(
             data=>{
                 if (data[0]?.status){
                     setRateMess(data[0].status.message)
@@ -168,20 +195,7 @@ const Profile = () =>{
         
         ).catch((error) => {
             console.log('Error fetching games data:', error)
-            let catchError
-            if (error.status){
-                catchError = error
-            } else{
-                catchError = 
-                {
-                    "status": {
-                        "message": "Something went wrong",
-                        "status_code": 2137,
-                    }
-                }
-            }
-            
-            setErr(catchError)
+            handleError(error)
         }
         );
     }
