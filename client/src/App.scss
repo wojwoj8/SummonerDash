@@ -134,6 +134,8 @@ html, body{
 .startPage{
    display: flex;
    flex-direction: column;
+   overflow-y: auto;
+   min-height: fit-content;
 
 }
 .startPage-title{
@@ -192,6 +194,7 @@ html, body{
  
 }
 .selectRegionWrapper{
+    
     width: 15rem;
     margin-right: 1rem;
     display: flex;
@@ -253,6 +256,9 @@ html, body{
 .regions-list{
     display: flex;
     flex-direction: column;
+    height: fit-content !important;
+    
+
     @extend .searchButtons;
 }
 

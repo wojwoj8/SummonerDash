@@ -89,6 +89,7 @@ const StartPage = () => {
                 </div>
             </div>
             
+            
             <div className="searchForm-container">
                 <form id="search-form" method='GET'>
                     <div className="selectRegionWrapper">
