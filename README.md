@@ -26,7 +26,7 @@ The following data sources were used in this application:
 
 ## Riot API Endpoints
 
-This application utilizes the following Riot API endpoints:
+This application utilizes the following [Riot API endpoints](https://developer.riotgames.com/apis):
 
 - `/lol/summoner/v4/summoners/by-name/`: Retrieves basic summoner data such as ID, icon ID, Puuid, and summoner level.
 - `/lol/league/v4/entries/by-summoner/`: Fetches rank data from solo queue and flex queue, including wins, losses, tier, and more.
