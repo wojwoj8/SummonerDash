@@ -94,7 +94,7 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Acknowledgements
 
-- [Riot Games](https://www.riotgames.com) for providing the Riot API
+- [Riot Games](https://developer.riotgames.com) for providing the Riot API
 - [Communitydragon](https://raw.communitydragon.org) for providing json files and images
 - [React](https://reactjs.org) for the frontend development
 - [Flask](https://flask.palletsprojects.com) for the backend development
