@@ -79,7 +79,7 @@ const Profile = () =>{
             return res.json();
           })
           .then((data) => {
-                
+            
                 if (data[0]?.status){
                     setErr(data[0]);
                     return
@@ -112,13 +112,16 @@ const Profile = () =>{
     const fetchGamesData = async () =>{
         fetch(`/gamesData/${query.region}/${query.name}/0`).then((res) => {
             if (!res.ok) {
+                console.log('test')
                 throw new Error(`${res.status} - ${res.statusText}`); // Throw an error with the status code
             }
             return res.json();
           }).then(
             
             data=>{
+                
                 if (data[0]?.status){
+                    
                     setErr(data[0]);
                     return
                     
@@ -218,6 +221,7 @@ const Profile = () =>{
     }, [button])
     
     if (err.status){
+        console.log(err)
         document.title = "SummonerDash";
         return(
             <div className="error">

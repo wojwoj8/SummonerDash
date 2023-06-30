@@ -150,6 +150,7 @@ def fetch1(name, region, arr):
     api_url = api_url + name + "?api_key=" + api_key
     resp = requests.get(api_url)
     player_info = resp.json()
+
     arr.append(player_info)
 
 
@@ -208,6 +209,7 @@ def fetchIcon(arr):
 # fetch last 10 played games id
 def fetchGamesIds(puuid, arr, region, start):
     region = regionToContinent(region)
+
     matchId_url = (
         "https://" + region + ".api.riotgames.com/lol/match/v5/matches/by-puuid/"
     )
@@ -430,6 +432,7 @@ def profile(name, region):
     fetch1(name, region, data)
     try:
         data[0]["id"]
+
     except KeyError:
         return data
 
@@ -438,12 +441,14 @@ def profile(name, region):
     # if error
     if "status" in data[1]:
         data[0].update(data[1])
+
         return data
 
     fetchIcon(data)
     fetchTop3Masteries(region, data)
 
     if "status" in data[2]:
+        # print(data)
         # riot endpoint bug if no entries, only on wojwoj8 euw for some reason
         if (
             data[2]["status"]["message"]
@@ -453,6 +458,7 @@ def profile(name, region):
 
             return data
         else:
+            # print(data)
             data[0].update(data[2])
         return data
     return data
@@ -463,10 +469,13 @@ def Games(name, region, start):
     data = []
     gamesData = []
     fetch1(name, region, data)
+
     try:
         data[0]["id"]
+
     except KeyError:
         return data
+
     fetchGamesIds(data[0]["puuid"], gamesData, region, start)
 
     if "status" in gamesData[-1]:
@@ -490,11 +499,13 @@ def fetchTop3Masteries(region, arr):
     base_url = (
         "https://"
         + region
-        + ".api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-puuid/"
+        + ".api.riotgames.com/lol/champion-mastery/v4/champion-masteries/by-summoner/"
     )
-    puuid = arr[0]["puuid"]
+    puuid = arr[0]["id"]
+    arr[0]
     masteries = base_url + puuid + "/top?count=3" + "&api_key=" + api_key
     resp = requests.get(masteries).json()
+    # print(masteries)
 
     if "status" in resp:
         arr.append(resp)
