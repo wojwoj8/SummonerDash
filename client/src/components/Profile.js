@@ -73,6 +73,7 @@ const Profile = () =>{
 
     const fetchUserData = async () =>{
         fetch(`/userData/${query.region}/${query.name}`).then((res) => {
+            console.log(res)
             if (!res.ok) {
                 throw new Error(`${res.status} - ${res.statusText}`); // Throw an error with the status code
             }

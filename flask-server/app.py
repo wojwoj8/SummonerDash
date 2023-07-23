@@ -50,6 +50,14 @@ def changeAllPathsForItems():
             queues = requests.get(
                 "https://static.developer.riotgames.com/docs/lol/queues.json"
             ).json()
+            queues.append(
+                {
+                    "queueId": 1700,
+                    "map": "Arena",
+                    "description": "Arena",
+                    "notes": "xd",
+                }
+            )
 
             runesData = requests.get(
                 "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perks.json"
@@ -158,6 +166,7 @@ def fetch1(name, region, arr):
 # leagueId, queueType, tier, rank, summonerId, summonerName, leaguePoints, wins,
 # losses, veteran, inactive, freshBlood, hotStreak, rank icon
 def fetch2(arr, region):
+    # print(arr)
     rankIconBase = "https://raw.communitydragon.org/latest/plugins/rcp-fe-lol-shared-components/global/default/"
     api_url2 = (
         "https://" + region + ".api.riotgames.com/lol/league/v4/entries/by-summoner/"
@@ -167,9 +176,10 @@ def fetch2(arr, region):
 
     resp2 = requests.get(api_url2)
     player_info2 = resp2.json()
-
+    player_info2 = [data for data in player_info2 if hasattr(data, "tier")]
     arr.append(player_info2)
 
+    # print(player_info2)
     # check if error
     if "status" in player_info2:
         return
@@ -178,7 +188,7 @@ def fetch2(arr, region):
         rank = player_info2[i]["tier"].lower()
         rankIcon = rankIconBase + rank + ".png"
         rankIcon = {"rankIcon": rankIcon}
-
+        # print(rank)
         winrate = math.ceil(
             (
                 player_info2[i]["wins"]
@@ -186,8 +196,8 @@ def fetch2(arr, region):
             )
             * 100
         )
-
         winrate = {"winrate": winrate}
+
         arr[1][i].update(rankIcon)
         arr[1][i].update(winrate)
 
@@ -198,6 +208,7 @@ def fetchIcon(arr):
         "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/summoner-icons.json"
     )
     resp3 = resp3.json()
+
     for i in range(len(resp3)):
         if resp3[i]["id"] == arr[0]["profileIconId"]:
             icon = resp3[i]
@@ -335,6 +346,7 @@ def fetchGamesData(arr, region):
                             mainRunes = sublistData[key]["styles"][0]["selections"]
                             secondaryRunes = sublistData[key]["styles"][1]["selections"]
 
+                            # print(mainRunes)
                             # once for each player
                             # main runes - 4
                             for key, value in statPerks.items():
@@ -368,6 +380,7 @@ def fetchGamesData(arr, region):
             test.append(playerData)
 
         # add queue type to gameData
+        # print(gameData["info"]["queueId"])
         gameData.update(queueType(gameData["info"]["queueId"]))
         gameData.update({"allPlayerImgIds": test})
 
@@ -445,6 +458,7 @@ def profile(name, region):
         return data
 
     fetchIcon(data)
+
     fetchTop3Masteries(region, data)
 
     if "status" in data[2]:
@@ -461,6 +475,7 @@ def profile(name, region):
             # print(data)
             data[0].update(data[2])
         return data
+
     return data
 
 

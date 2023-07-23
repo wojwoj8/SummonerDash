@@ -269,6 +269,10 @@ const Game = (props) => {
 
     // description from my api has <> chars and it cuts it
     const itemDescCut = (string) => {
+        if (string === undefined){
+            return
+        }
+         
         // Remove HTML tags except for <br>
         const strippedString = string.replace(/<(?!br\s*\/?)[^>]+>/gi, '');
     
@@ -330,7 +334,11 @@ const Game = (props) => {
         const var1 = runes.perks.styles[0].selections[0].var1;
         const var2 = runes.perks.styles[0].selections[0].var2;
         const var3 = runes.perks.styles[0].selections[0].var3;
-
+        
+        // console.log(path, var1, var2, var3)
+        if (path === 0){
+            return
+        }
         const runesDesc = path.endOfGameStatDescs.map((item, index) =>{
             // content is between @ @
             const replace = item.replace(/@([^@]+)@/g, (match, content) =>{
@@ -413,7 +421,7 @@ const Game = (props) => {
                         <div className="runes-wrapper">
 
                             <div className="tooltip-container">
-                                <img src={runes.perks.styles[0].selections[0].perk.iconPath} alt="runesPrimary"></img>
+                                <img src={runes.perks.styles[0].selections[0].perk.iconPath || 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/items/icons2d/gp_ui_placeholder.png'} alt="runesPrimary"></img>
                                 
                                 <div className="tooltip">
                                     <h2>{runes.perks.styles[0].selections[0].perk.name}</h2>
@@ -424,7 +432,7 @@ const Game = (props) => {
                             </div>
                             
                             <div className="tooltip-container">
-                                <img src={runes.perks.styles[1].style.iconPath} alt="runesSecondary"></img>
+                                <img src={runes.perks.styles[1].style.iconPath || 'https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/assets/items/icons2d/gp_ui_placeholder.png'} alt="runesSecondary"></img>
                            
                             </div>
 
