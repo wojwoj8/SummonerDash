@@ -175,8 +175,11 @@ def fetch2(arr, region):
     api_url2 = api_url2 + arr[0]["id"] + "?api_key=" + api_key
 
     resp2 = requests.get(api_url2)
+
     player_info2 = resp2.json()
-    player_info2 = [data for data in player_info2 if hasattr(data, "tier")]
+
+    player_info2 = [data for data in player_info2 if "tier" in data]
+    # print(player_info2)
     arr.append(player_info2)
 
     # print(player_info2)
@@ -185,7 +188,9 @@ def fetch2(arr, region):
         return
 
     for i in range(len(player_info2)):
+        # print(player_info2[i])
         rank = player_info2[i]["tier"].lower()
+
         rankIcon = rankIconBase + rank + ".png"
         rankIcon = {"rankIcon": rankIcon}
         # print(rank)
