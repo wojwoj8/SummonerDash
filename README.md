@@ -36,7 +36,7 @@ This application utilizes the following [Riot API endpoints](https://developer.r
 - `/lol/league/v4/entries/by-summoner/`: Fetches rank data from solo queue and flex queue, including wins, losses, tier, and more.
 - `/lol/match/v5/matches/by-puuid/`: Retrieves the IDs of the last games played by the summoner.
 - `/lol/match/v5/matches`: Fetches data from specific games.
-- `/lol/champion-mastery/v4/champion-masteries/by-puuid/`: Retrieves the top 3 mastery data of a given player.
+- `/lol/champion-mastery/v4/champion-masteries/by-summoner/`: Retrieves the top 3 mastery data of a given player.
 
 ## Prerequisites
 
