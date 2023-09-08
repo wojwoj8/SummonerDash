@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/SummonerDash/static/css/main.8b8b1320.css",
+    "main.css": "/SummonerDash/static/css/main.a35cdd07.css",
     "main.js": "/SummonerDash/static/js/main.d64dc24e.js",
     "static/media/League.woff": "/SummonerDash/static/media/League.c8ff8923f2af1e5c406a.woff",
     "static/media/facon.bold-italic.woff": "/SummonerDash/static/media/facon.bold-italic.2ba7c6441d80567c192e.woff",
     "static/media/Position_Challenger-Jungle.png": "/SummonerDash/static/media/Position_Challenger-Jungle.3216086db0fa22b078be.png",
     "static/media/expandArrow.svg": "/SummonerDash/static/media/expandArrow.37238f82d284afa31fd5229de73063c1.svg",
     "index.html": "/SummonerDash/index.html",
-    "main.8b8b1320.css.map": "/SummonerDash/static/css/main.8b8b1320.css.map",
+    "main.a35cdd07.css.map": "/SummonerDash/static/css/main.a35cdd07.css.map",
     "main.d64dc24e.js.map": "/SummonerDash/static/js/main.d64dc24e.js.map"
   },
   "entrypoints": [
-    "static/css/main.8b8b1320.css",
+    "static/css/main.a35cdd07.css",
     "static/js/main.d64dc24e.js"
   ]
 }
