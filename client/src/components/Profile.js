@@ -72,7 +72,7 @@ const Profile = () =>{
  
 
     const fetchUserData = async () =>{
-        fetch(`/userData/${query.region}/${query.name}`).then((res) => {
+        fetch(`https://summonerdash.onrender.com/userData/${query.region}/${query.name}`).then((res) => {
             console.log(res)
             if (!res.ok) {
                 throw new Error(`${res.status} - ${res.statusText}`); // Throw an error with the status code
@@ -111,7 +111,7 @@ const Profile = () =>{
     }
 
     const fetchGamesData = async () =>{
-        fetch(`/gamesData/${query.region}/${query.name}/0`).then((res) => {
+        fetch(`https://summonerdash.onrender.com/gamesData/${query.region}/${query.name}/0`).then((res) => {
             if (!res.ok) {
                 console.log('test')
                 throw new Error(`${res.status} - ${res.statusText}`); // Throw an error with the status code
@@ -160,7 +160,7 @@ const Profile = () =>{
     }
 
     const fetchMoreGamesData = async () =>{
-        fetch(`/gamesData/${query.region}/${query.name}/${fetchedGamesStart}`).then((res) => {
+        fetch(`https://summonerdash.onrender.com/gamesData/${query.region}/${query.name}/${fetchedGamesStart}`).then((res) => {
             if (!res.ok) {
                 throw new Error(`${res.status} - ${res.statusText}`); // Throw an error with the status code
             }

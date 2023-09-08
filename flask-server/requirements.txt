@@ -2,3 +2,4 @@ Flask==2.3.2
 Flask_Cors==3.0.10
 Requests==2.31.0
 python_dotenv==1.0.0
+gunicorn==21.2.0
