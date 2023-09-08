@@ -73,7 +73,7 @@ const Profile = () =>{
 
     const fetchUserData = async () =>{
         fetch(`https://summonerdash.onrender.com/userData/${query.region}/${query.name}`).then((res) => {
-            console.log(res)
+            // console.log(res)
             if (!res.ok) {
                 throw new Error(`${res.status} - ${res.statusText}`); // Throw an error with the status code
             }
