@@ -8,13 +8,17 @@ import copy
 
 # load api_key from file
 from api_key import API_KEY
+from dotenv import load_dotenv
+
+load_dotenv()
+import os
 
 
 app = Flask(__name__)
 CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
 
-api_key = API_KEY
+api_key = os.getenv("API_KEY")
 pp = pprint.PrettyPrinter(indent=4)
 
 
@@ -546,4 +550,4 @@ def fetchTop3Masteries(region, arr):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=False)

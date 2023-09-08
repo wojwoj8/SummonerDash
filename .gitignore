@@ -1,5 +1,6 @@
 /node_modules
 /.vscode
 /flask-server/api_key.py
+.env
 
 
