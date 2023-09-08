@@ -11,7 +11,7 @@ function App() {
 
   return (
 
-    <BrowserRouter>
+    <HashRouter>
         <Navbar></Navbar>
         <Routes>
           <Route path="/" element={<StartPage
@@ -26,7 +26,7 @@ function App() {
           <Route path="*" element={<ErrorPage/>} />
         </Routes>
         <Footer/>
-    </BrowserRouter>
+    </HashRouter>
       
   )
 }
