@@ -2,6 +2,10 @@
 
 This is a fullstack web application that allows users to search for League of Legends (LoL) players and view their statistics, including level, profile icon, rank, LP, win ratio, top 3 champions with highest mastery points, recent games' win ratio and roles, and game-specific information such as bought items, level, played champion, KDA, kill participation, CS, count of each ability and summoner spell usage, game mode, game duration, and the date the game was played. The application is built using React, Flask, and Riot API.
 
+# Example of Use
+
+![SummonerDash](https://github.com/wojwoj8/SummonerDash/assets/109290484/6f749d2d-b47e-4747-8c05-c61ae67ed25c)
+
 ## Features
 
 - Search for LoL players by their username and region
@@ -32,7 +36,7 @@ This application utilizes the following [Riot API endpoints](https://developer.r
 - `/lol/league/v4/entries/by-summoner/`: Fetches rank data from solo queue and flex queue, including wins, losses, tier, and more.
 - `/lol/match/v5/matches/by-puuid/`: Retrieves the IDs of the last games played by the summoner.
 - `/lol/match/v5/matches`: Fetches data from specific games.
-- `/lol/champion-mastery/v4/champion-masteries/by-puuid/`: Retrieves the top 3 mastery data of a given player.
+- `/lol/champion-mastery/v4/champion-masteries/by-summoner/`: Retrieves the top 3 mastery data of a given player.
 
 ## Prerequisites
 
